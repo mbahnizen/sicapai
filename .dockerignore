@@ -8,3 +8,4 @@ service-account.json
 *.key
 .git/
 .gitignore
+DEPLOY_CHECKLIST.md
