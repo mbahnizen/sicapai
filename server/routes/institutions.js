@@ -212,7 +212,7 @@ router.put('/:id', async (req, res) => {
     const instDoc = await instRef.get();
 
     if (!instDoc.exists) {
-      return res.status(404).json({ message: 'Instansi tidak ditemukan' });
+      return res.status(403).json({ message: 'Akses ditolak' });
     }
     if (instDoc.data().createdBy !== req.user.uid) {
       return res.status(403).json({ message: 'Akses ditolak: Hanya pembuat yang dapat mengedit instansi' });
@@ -236,7 +236,7 @@ router.delete('/:id/leave', async (req, res) => {
   try {
     const instDoc = await db.collection('institutions').doc(req.params.id).get();
     if (!instDoc.exists) {
-      return res.status(404).json({ message: 'Instansi tidak ditemukan' });
+      return res.status(403).json({ message: 'Akses ditolak' });
     }
     if (instDoc.data().createdBy === req.user.uid) {
       return res.status(403).json({ message: 'Admin tidak bisa keluar dari instansi. Hapus instansi jika tidak diperlukan.' });
@@ -267,7 +267,7 @@ router.delete('/:id', async (req, res) => {
     const instDoc = await instRef.get();
 
     if (!instDoc.exists) {
-      return res.status(404).json({ message: 'Instansi tidak ditemukan' });
+      return res.status(403).json({ message: 'Akses ditolak' });
     }
 
     // Only the creator can delete the institution

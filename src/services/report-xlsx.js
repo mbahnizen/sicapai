@@ -7,6 +7,7 @@
  */
 
 import * as XLSX from 'xlsx';
+import { sanitizeXlsxCell } from '../utils/sanitize.js';
 
 const HEADERS = [
   'Nama_Anak',
@@ -44,9 +45,9 @@ function toRow(report, institutionName) {
     m.religion || '',
     m.gender === 'P' ? 'Perempuan' : m.gender === 'L' ? 'Laki-laki' : '',
     report.academicYear || '',
-    ai['agama-budi-pekerti']  || tmpl['agama-budi-pekerti']  || '',
-    ai['jati-diri']           || tmpl['jati-diri']           || '',
-    ai['literasi-steam']      || tmpl['literasi-steam']      || '',
+    sanitizeXlsxCell(ai['agama-budi-pekerti']  || tmpl['agama-budi-pekerti']  || ''),
+    sanitizeXlsxCell(ai['jati-diri']           || tmpl['jati-diri']           || ''),
+    sanitizeXlsxCell(ai['literasi-steam']      || tmpl['literasi-steam']      || ''),
     institutionName,
     parseDate(report.finalizedAt),
   ];

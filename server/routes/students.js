@@ -45,7 +45,7 @@ router.put('/:id', async (req, res) => {
     const docSnap = await docRef.get();
 
     if (!docSnap.exists) {
-      return res.status(404).json({ message: 'Data siswa tidak ditemukan' });
+      return res.status(403).json({ message: 'Akses ditolak' });
     }
 
     const isMember = await checkMembership(req.user.uid, docSnap.data().institutionId);
@@ -70,7 +70,7 @@ router.delete('/:id', async (req, res) => {
     const docSnap = await docRef.get();
 
     if (!docSnap.exists) {
-      return res.status(404).json({ message: 'Data siswa tidak ditemukan' });
+      return res.status(403).json({ message: 'Akses ditolak' });
     }
 
     const isMember = await checkMembership(req.user.uid, docSnap.data().institutionId);

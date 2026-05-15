@@ -76,7 +76,7 @@ router.get('/:studentId', async (req, res) => {
   try {
     const studentRef = await db.collection('students').doc(req.params.studentId).get();
     if (!studentRef.exists) {
-      return res.status(404).json({ message: 'Siswa tidak ditemukan' });
+      return res.status(403).json({ message: 'Akses ditolak' });
     }
 
     const isMember = await checkMembership(req.user.uid, studentRef.data().institutionId);
