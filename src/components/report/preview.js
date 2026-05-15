@@ -5,6 +5,7 @@
 
 import { showToast } from '../shared/toast.js';
 import { printReport } from '../../services/report-export.js';
+import { escapeHTML } from '../../utils/sanitize.js';
 
 let _overflowCleanup = null;
 
@@ -83,7 +84,7 @@ export function renderPreview(container, templateResult, aiResult, studentName =
             `).join('')}
           </div>
         ` : ''}
-        <div class="preview-narrative ${sectionHasAI ? 'ai-enhanced' : ''}">${displayText}</div>
+        <div class="preview-narrative ${sectionHasAI ? 'ai-enhanced' : ''}">${escapeHTML(displayText)}</div>
         <div class="preview-section-actions" style="margin-top:var(--space-3);display:flex;gap:var(--space-2);flex-wrap:wrap">
           ${onGenerateAI ? `
             <button class="btn btn-ai btn-sm preview-ai-btn" data-section="${elemId}">
@@ -629,7 +630,7 @@ function openDraftPreviewModal(templateResult, aiResult, studentName, { onFinali
           </button>
         </div>
         <div class="dp-section-body">
-          ${paragraphs.map(p => `<p>${p}</p>`).join('')}
+          ${paragraphs.map(p => `<p>${escapeHTML(p)}</p>`).join('')}
         </div>
       </div>
     `;
@@ -646,7 +647,7 @@ function openDraftPreviewModal(templateResult, aiResult, studentName, { onFinali
       <div class="dp-header">
         <div class="dp-title-group">
           <h2 class="dp-title">${_svgFile} Preview Narasi Rapor</h2>
-          ${studentName ? `<p class="dp-subtitle">${studentName}</p>` : ''}
+          ${studentName ? `<p class="dp-subtitle">${escapeHTML(studentName)}</p>` : ''}
         </div>
         <div class="dp-header-actions">
           <button class="btn btn-ghost btn-sm dp-btn-icon" id="dp-copy-all" title="Salin semua narasi">${_svgCopyAll} Salin Semua</button>

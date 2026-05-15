@@ -3,6 +3,7 @@
  */
 
 import { showToast } from '../shared/toast.js';
+import { escapeHTML, escapeAttr } from '../../utils/sanitize.js';
 import { renderChecklist } from '../report/checklist.js';
 import { renderPreview } from '../report/preview.js';
 import { generateTemplate, countSelected } from '../../services/template-engine.js';
@@ -522,8 +523,8 @@ function renderStudentList(state, container) {
                   data-id="${s.id}">
             <span class="student-avatar">${s.gender === 'P' ? '👧' : '👦'}</span>
             <div class="student-info">
-              <span class="student-name">${s.name}${state.finalizedStudents.has(s.id) ? ' <span class="finalized-tick">✅</span>' : ''}</span>
-              <span class="student-meta">${s.nickname || s.name.split(' ')[0]}</span>
+              <span class="student-name">${escapeHTML(s.name)}${state.finalizedStudents.has(s.id) ? ' <span class="finalized-tick">✅</span>' : ''}</span>
+              <span class="student-meta">${escapeHTML(s.nickname || s.name.split(' ')[0])}</span>
             </div>
           </button>
           <button class="student-edit-btn" data-id="${s.id}" title="Ganti nama siswa">
@@ -570,11 +571,11 @@ function renderStudentList(state, container) {
       form.innerHTML = `
         <div class="form-group" style="margin-bottom:var(--space-4)">
           <label class="form-label" for="rename-input">Nama Lengkap</label>
-          <input class="form-input" id="rename-input" value="${student.name}" autocomplete="off" />
+          <input class="form-input" id="rename-input" value="${escapeAttr(student.name)}" autocomplete="off" />
         </div>
         <div class="form-group" style="margin-bottom:var(--space-6)">
           <label class="form-label" for="rename-nickname">Nama Panggilan <span style="color:var(--text-tertiary);font-weight:400">(dipakai di narasi rapor)</span></label>
-          <input class="form-input" id="rename-nickname" value="${student.nickname || ''}" placeholder="Contoh: Ilmi" autocomplete="off" />
+          <input class="form-input" id="rename-nickname" value="${escapeAttr(student.nickname || '')}" placeholder="Contoh: Ilmi" autocomplete="off" />
         </div>
         <div style="display:flex;gap:var(--space-3);justify-content:flex-end">
           <button class="btn btn-secondary btn-sm" id="rename-cancel">Batal</button>
@@ -651,7 +652,7 @@ function renderStudentList(state, container) {
       const { showConfirmDialog } = await import('../shared/modal.js');
       const confirmed = await showConfirmDialog({
         title: 'Hapus Siswa?',
-        message: `Data "${student.name}" dan seluruh rapornya akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.`,
+        message: `Data "${escapeHTML(student.name)}" dan seluruh rapornya akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.`,
         confirmLabel: 'Hapus',
         danger: true,
       });
@@ -793,8 +794,8 @@ function renderMainPanel(state, container) {
         <div class="report-student-header">
           <span class="report-student-avatar">${state.selectedStudent.gender === 'P' ? '👧' : '👦'}</span>
           <div>
-            <h2 class="report-student-name">${state.selectedStudent.name}</h2>
-            <p class="report-student-meta">Kelompok ${state.selectedStudent.ageGroup} · ${state.selectedStudent.religion || 'Tidak diset'}</p>
+            <h2 class="report-student-name">${escapeHTML(state.selectedStudent.name)}</h2>
+            <p class="report-student-meta">Kelompok ${escapeHTML(state.selectedStudent.ageGroup)} · ${escapeHTML(state.selectedStudent.religion || 'Tidak diset')}</p>
           </div>
         </div>
         <div class="report-meta-row">
@@ -924,7 +925,7 @@ function renderMainPanel(state, container) {
 
     const confirmed = await showConfirmDialog({
       title: 'Finalisasi Laporan Capaian Pembelajaran',
-      message: `Tinjau kembali narasi sebelum menyimpan sebagai dokumen final.<br><br><strong style="color:var(--text-primary);font-size:1.1em">${state.selectedStudent.name}</strong><br>${semLabel} — TA ${year}<br><br><em>Dokumen final bersifat permanen dan tidak dapat diedit kembali.</em>`,
+      message: `Tinjau kembali narasi sebelum menyimpan sebagai dokumen final.<br><br><strong style="color:var(--text-primary);font-size:1.1em">${escapeHTML(state.selectedStudent.name)}</strong><br>${escapeHTML(semLabel)} — TA ${escapeHTML(year)}<br><br><em>Dokumen final bersifat permanen dan tidak dapat diedit kembali.</em>`,
       confirmLabel: 'Ya, Finalisasi',
       cancelLabel: 'Tinjau Ulang',
       danger: false,
@@ -997,7 +998,7 @@ function renderMainPanel(state, container) {
         <div class="rv-header">
           <div>
             <h2 class="rv-title">Arsip Rapor</h2>
-            <p class="rv-subtitle">${studentName}</p>
+            <p class="rv-subtitle">${escapeHTML(studentName)}</p>
           </div>
           <button class="rv-close-x" id="archive-close" aria-label="Tutup">&times;</button>
         </div>
@@ -1130,7 +1131,7 @@ function renderMainPanel(state, container) {
     const { showConfirmDialog } = await import('../shared/modal.js');
     const confirmed = await showConfirmDialog({
       title: 'Mulai Ulang Progress?',
-      message: `Semua indikator yang dicentang dan narasi AI untuk <strong>${state.selectedStudent.name}</strong> akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.`,
+      message: `Semua indikator yang dicentang dan narasi AI untuk <strong>${escapeHTML(state.selectedStudent.name)}</strong> akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.`,
       confirmLabel: 'Ya, Hapus Semua',
       cancelLabel: 'Batal',
       danger: true,
@@ -1281,7 +1282,7 @@ function renderAchievementState(container, options) {
       <div class="achievement-body">
         <div class="achievement-icon">✅</div>
         <h2 class="achievement-title">Laporan Capaian Pembelajaran<br>Telah Difinalisasi</h2>
-        <p class="achievement-meta"><strong>${studentName}</strong> — ${semester}, TA ${year}</p>
+        <p class="achievement-meta"><strong>${escapeHTML(studentName)}</strong> — ${escapeHTML(semester)}, TA ${escapeHTML(year)}</p>
         <p class="achievement-timestamp">Disimpan pada ${timestamp} WIB</p>
         <div class="achievement-actions">
           <button class="btn btn-primary" id="btn-ach-history">
@@ -1296,7 +1297,7 @@ function renderAchievementState(container, options) {
           ${onCopyCapaian ? `
             <div class="ach-copy-offer">
               <p class="ach-copy-offer-text">
-                <strong>Ada siswa lain yang perkembangannya mirip ${studentNickname || studentName}?</strong><br>
+                <strong>Ada siswa lain yang perkembangannya mirip ${escapeHTML(studentNickname || studentName)}?</strong><br>
                 Salin capaian yang sama ke mereka — hemat waktu, lanjutkan rapor lebih cepat.
               </p>
               <button class="btn btn-secondary btn-sm" id="btn-ach-copy-capaian">👥 Terapkan ke Siswa Lain</button>
@@ -1480,7 +1481,7 @@ function openReportViewerModal(report, institutionName) {
               <span>Salin</span>
             </button>
           </div>
-          <p class="rv-section-text">${text}</p>
+          <p class="rv-section-text">${escapeHTML(text)}</p>
         </div>`;
     }).join('');
 
@@ -1491,13 +1492,13 @@ function openReportViewerModal(report, institutionName) {
       <div class="rv-header">
         <div>
           <h2 class="rv-title">Laporan Capaian Pembelajaran Anak</h2>
-          <p class="rv-subtitle">${institutionName || ''}</p>
+          <p class="rv-subtitle">${escapeHTML(institutionName || '')}</p>
         </div>
         <button class="rv-close-x" id="rv-close" aria-label="Tutup">&times;</button>
       </div>
       <div class="rv-body">
         <div class="rv-meta-card">
-          <div class="rv-meta-item"><span class="rv-label">Nama Lengkap</span><span class="rv-value">${report.studentName || '-'}</span></div>
+          <div class="rv-meta-item"><span class="rv-label">Nama Lengkap</span><span class="rv-value">${escapeHTML(report.studentName || '-')}</span></div>
           <div class="rv-meta-item"><span class="rv-label">Kelompok</span><span class="rv-value">Kelompok ${report.studentMeta?.ageGroup || '-'}</span></div>
           <div class="rv-meta-item"><span class="rv-label">Semester</span><span class="rv-value">${semLabel}</span></div>
           <div class="rv-meta-item"><span class="rv-label">Tahun Ajaran</span><span class="rv-value">${report.academicYear || '-'}</span></div>
@@ -1581,7 +1582,7 @@ function openCopyCapaianModal(state) {
           <label class="cc-student-item">
             <input type="checkbox" value="${s.id}" class="cc-student-check" />
             <span class="cc-student-avatar">${s.gender === 'P' ? '👧' : '👦'}</span>
-            <span class="cc-student-name">${s.nickname || s.name}</span>
+            <span class="cc-student-name">${escapeHTML(s.nickname || s.name)}</span>
           </label>
         `).join('')}
       </div>
@@ -1595,7 +1596,7 @@ function openCopyCapaianModal(state) {
       <div class="rv-header">
         <div>
           <h2 class="rv-title">Terapkan ke Siswa Lain</h2>
-          <p class="rv-subtitle">Salin ${selCount.total} indikator dari <strong>${state.selectedStudent.nickname || state.selectedStudent.name}</strong> ke siswa lain</p>
+          <p class="rv-subtitle">Salin ${selCount.total} indikator dari <strong>${escapeHTML(state.selectedStudent.nickname || state.selectedStudent.name)}</strong> ke siswa lain</p>
         </div>
         <button class="rv-close-x" id="cc-close" aria-label="Tutup">&times;</button>
       </div>
@@ -1883,7 +1884,7 @@ function showInstitutionPicker(state, container) {
           <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2)">
             <button class="dropdown-item institution-pick-item" data-id="${inst.id}" style="padding:var(--space-4);flex:1;margin-bottom:0">
               <span style="display:flex;align-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-              <span>${inst.name} <span style="opacity:0.6; font-size:0.85em; margin-left:var(--space-2)">#${inst.inviteCode}</span></span>
+              <span>${escapeHTML(inst.name)} <span style="opacity:0.6; font-size:0.85em; margin-left:var(--space-2)">#${escapeHTML(inst.inviteCode)}</span></span>
             </button>
             <button class="header-icon-btn inst-settings-btn" data-id="${inst.id}" title="Kelola Instansi">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -2679,9 +2680,9 @@ function promptManageInstitution(state, container, details) {
         <div class="inst-details-card" style="background:var(--bg-secondary);border-radius:var(--radius-lg);padding:var(--space-4);margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-4)">
           <div style="font-size:32px">🏫</div>
           <div style="flex:1;overflow:hidden">
-            <h3 style="font-weight:700;font-size:var(--font-size-md);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${currentDetails.name}</h3>
-            <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:2px">Kode: <span style="user-select:none;color:var(--text-tertiary)">#</span><strong style="color:var(--primary);user-select:all">${currentDetails.inviteCode}</strong></p>
-            ${currentDetails.address ? `<p style="color:var(--text-tertiary);font-size:12px;margin-top:2px">${currentDetails.address}</p>` : ''}
+            <h3 style="font-weight:700;font-size:var(--font-size-md);margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHTML(currentDetails.name)}</h3>
+            <p style="color:var(--text-secondary);font-size:var(--font-size-sm);margin-top:2px">Kode: <span style="user-select:none;color:var(--text-tertiary)">#</span><strong style="color:var(--primary);user-select:all">${escapeHTML(currentDetails.inviteCode)}</strong></p>
+            ${currentDetails.address ? `<p style="color:var(--text-tertiary);font-size:12px;margin-top:2px">${escapeHTML(currentDetails.address)}</p>` : ''}
           </div>
           ${isCreator ? `<button class="btn btn-ghost btn-sm" id="btn-edit-inst-toggle" title="Edit nama/alamat instansi" style="flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Edit</button>` : ''}
         </div>
@@ -2690,11 +2691,11 @@ function promptManageInstitution(state, container, details) {
           <p style="font-weight:600;font-size:var(--font-size-sm);margin-bottom:var(--space-3)">Edit Instansi</p>
           <div class="form-group" style="margin-bottom:var(--space-3)">
             <label class="form-label" for="edit-inst-name">Nama Instansi</label>
-            <input class="form-input" id="edit-inst-name" value="${currentDetails.name}" maxlength="100" autocomplete="organization" />
+            <input class="form-input" id="edit-inst-name" value="${escapeAttr(currentDetails.name)}" maxlength="100" autocomplete="organization" />
           </div>
           <div class="form-group" style="margin-bottom:var(--space-4)">
             <label class="form-label" for="edit-inst-address">Alamat <span style="color:var(--text-tertiary);font-weight:normal">(opsional)</span></label>
-            <input class="form-input" id="edit-inst-address" value="${currentDetails.address || ''}" maxlength="200" autocomplete="street-address" />
+            <input class="form-input" id="edit-inst-address" value="${escapeAttr(currentDetails.address || '')}" maxlength="200" autocomplete="street-address" />
           </div>
           <div style="display:flex;gap:var(--space-2)">
             <button class="btn btn-primary btn-sm" id="btn-save-inst-edit">Simpan</button>
@@ -2710,9 +2711,9 @@ function promptManageInstitution(state, container, details) {
                 ${renderAvatar(m.name, 36, m.email)}
                 <div style="flex:1;overflow:hidden">
                   <p style="font-weight:600;font-size:var(--font-size-sm);margin:0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden">
-                    ${m.name} ${m.uid === user.uid ? '<span style="opacity:0.5;font-weight:normal">(Anda)</span>' : ''}
+                    ${escapeHTML(m.name)} ${m.uid === user.uid ? '<span style="opacity:0.5;font-weight:normal">(Anda)</span>' : ''}
                   </p>
-                  <p style="color:var(--text-tertiary);font-size:11px;margin-top:2px">${m.email}</p>
+                  <p style="color:var(--text-tertiary);font-size:11px;margin-top:2px">${escapeHTML(m.email)}</p>
                 </div>
                 ${m.role === 'admin' ? '<span class="badge" style="background:rgba(108,99,255,0.1);color:var(--primary);padding:4px 8px;border-radius:12px;font-size:10px;font-weight:700">ADMIN</span>' : ''}
               </div>
@@ -2806,7 +2807,7 @@ function promptManageInstitution(state, container, details) {
       // ---- Leave institution ----
       content.querySelector('#btn-leave-inst')?.addEventListener('click', async () => {
         const confirmed = await showConfirmDialog({
-          title: `Keluar dari "${currentDetails.name}"?`,
+          title: `Keluar dari "${escapeHTML(currentDetails.name)}"?`,
           message: 'Anda tidak akan bisa mengakses data siswa di instansi ini lagi. Progress yang sudah Anda buat tetap tersimpan.',
           confirmLabel: 'Ya, Keluar',
           cancelLabel: 'Batal',
@@ -2845,7 +2846,7 @@ function promptManageInstitution(state, container, details) {
       // ---- Delete institution ----
       content.querySelector('#btn-delete-inst')?.addEventListener('click', async () => {
         const confirmed = await showConfirmDialog({
-          title: `Hapus "${currentDetails.name}"?`,
+          title: `Hapus "${escapeHTML(currentDetails.name)}"?`,
           message: 'Data murid dan rapor di dalamnya tidak akan bisa diakses lagi. Tindakan ini tidak dapat dibatalkan.',
           confirmLabel: 'Ya, Hapus',
           cancelLabel: 'Batal',
