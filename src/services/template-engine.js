@@ -236,29 +236,8 @@ export function generateKokurikulerNarrative(studentName, selectedIndicators) {
 
   if (dimensiSentences.length === 0) return '';
 
-  // Build single cohesive paragraph with transitions between dimensi
   const prefix = `Ananda ${studentName} `;
-  if (dimensiSentences.length === 1) {
-    return prefix + dimensiSentences[0] + '.';
-  }
-
-  const transitions = [
-    'Dalam hal lain, Ananda juga ',
-    'Selain itu, Ananda ',
-    'Di samping itu, Ananda juga ',
-    'Ananda juga ',
-    'Hal yang membanggakan, Ananda ',
-    'Tak hanya itu, Ananda pun ',
-    'Patut diapresiasi, Ananda ',
-  ];
-
-  let paragraph = prefix + dimensiSentences[0] + '.';
-  for (let i = 1; i < dimensiSentences.length; i++) {
-    const t = transitions[(i - 1) % transitions.length];
-    paragraph += ' ' + t + dimensiSentences[i] + '.';
-  }
-
-  return paragraph;
+  return dimensiSentences.map(s => prefix + s + '.').join('\n\n');
 }
 
 /**

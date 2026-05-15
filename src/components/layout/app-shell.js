@@ -6,7 +6,7 @@ import { showToast } from '../shared/toast.js';
 import { escapeHTML, escapeAttr } from '../../utils/sanitize.js';
 import { renderChecklist, renderKokurikulerChecklist } from '../report/checklist.js';
 import { renderPreview } from '../report/preview.js';
-import { generateTemplate, countSelected, generateKokurikulerNarrative, countKokurikulerSelected } from '../../services/template-engine.js';
+import { generateTemplate, countSelected, generateKokurikulerNarrative } from '../../services/template-engine.js';
 import { api } from '../../services/api.js';
 import { printReport } from '../../services/report-export.js';
 import { exportInstitutionToXlsx } from '../../services/report-xlsx.js';
@@ -740,6 +740,9 @@ function seedAiHistory(state) {
       state.aiHistory[sectionId] = [text];
     }
   }
+  if (state.aiKokurikuler && !state.aiHistory['kokurikuler']?.length) {
+    state.aiHistory['kokurikuler'] = [state.aiKokurikuler];
+  }
 }
 
 // ---- Background Sync: pull server progress and re-render if newer ----
@@ -761,15 +764,18 @@ async function syncProgressFromServer(state, container, student) {
     const sameIndicators = JSON.stringify(serverData.selectedIndicators || {}) === JSON.stringify(local?.selectedIndicators || {});
     const sameAI = JSON.stringify(serverData.aiResult || {}) === JSON.stringify(local?.aiResult || {});
     const sameKokurikuler = JSON.stringify(serverData.kokurikulerSelected || {}) === JSON.stringify(local?.kokurikulerSelected || {});
-    if (sameIndicators && sameAI && sameKokurikuler) return;
+    const sameAiKokurikuler = (serverData.aiKokurikuler || null) === (local?.aiKokurikuler || null);
+    if (sameIndicators && sameAI && sameKokurikuler && sameAiKokurikuler) return;
 
     // Server has genuinely fresher data — update state and UI
+    // Defensive merge: if server doc predates kokurikuler feature, fall back to local values
     state.selectedIndicators = serverData.selectedIndicators || {};
     state.aiResult = serverData.aiResult || {};
-    state.kokurikulerSelected = serverData.kokurikulerSelected || {};
-    state.aiKokurikuler = serverData.aiKokurikuler || null;
+    state.kokurikulerSelected = serverData.kokurikulerSelected ?? local?.kokurikulerSelected ?? {};
+    state.aiKokurikuler = serverData.aiKokurikuler !== undefined ? serverData.aiKokurikuler : (local?.aiKokurikuler ?? null);
     seedAiHistory(state);
-    localStorage.setItem(getProgressKey(student), JSON.stringify(serverData));
+    const mergedData = { ...serverData, kokurikulerSelected: state.kokurikulerSelected, aiKokurikuler: state.aiKokurikuler };
+    localStorage.setItem(getProgressKey(student), JSON.stringify(mergedData));
 
     // Re-render if this student is still selected
     if (state.selectedStudent?.id === student.id) {
@@ -875,6 +881,36 @@ function renderMainPanel(state, container) {
     if (state.quota.weeklyUsed >= state.quota.limit) {
       showToast('Kuota AI minggu ini sudah habis.', 'error');
       throw new Error('quota_exceeded');
+    }
+    if (sectionId === 'kokurikuler') {
+      if (!state.kokurikulerNarrative) {
+        showToast('Pilih indikator kokurikuler terlebih dahulu.', 'warning');
+        throw new Error('no_template');
+      }
+      try {
+        const result = await api.generateAI({
+          studentName: state.selectedStudent.nickname || state.selectedStudent.name,
+          ageGroup: state.selectedStudent.ageGroup,
+          semester: mainContent.querySelector('#report-semester').value,
+          templateNarrative: { kokurikuler: state.kokurikulerNarrative },
+        });
+        state.aiKokurikuler = result.narrative['kokurikuler'];
+        if (!state.aiHistory['kokurikuler']) state.aiHistory['kokurikuler'] = [];
+        state.aiHistory['kokurikuler'].push(state.aiKokurikuler);
+        state.quota.weeklyUsed++;
+        updateQuotaBadge(container, state);
+        saveProgress(state);
+        const saveStatus = mainContent.querySelector('#save-status');
+        if (saveStatus) saveStatus.textContent = '✓ Tersimpan ' + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        renderPreviewWithCallbacks();
+        showToast('Narasi berhasil diperindah! ✨', 'success');
+        const sectionEl = mainContent.querySelector('#section-kokurikuler');
+        if (sectionEl) sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (err) {
+        showToast(err.message || 'Gagal generate AI. Coba lagi nanti.', 'error');
+        throw err;
+      }
+      return;
     }
     if (!state.templateResult[sectionId]) {
       showToast('Pilih indikator untuk bagian ini terlebih dahulu.', 'warning');
@@ -989,6 +1025,10 @@ function renderMainPanel(state, container) {
       renderStudentList(state, container);
 
       // Show Achievement State
+      const _achTemplate = { ...state.templateResult };
+      if (state.kokurikulerNarrative) _achTemplate.kokurikuler = state.kokurikulerNarrative;
+      const _achAI = { ...(state.aiResult || {}) };
+      if (state.aiKokurikuler) _achAI.kokurikuler = state.aiKokurikuler;
       renderAchievementState(mainContent.querySelector('#preview-panel'), {
         studentName: state.selectedStudent.name,
         semester: semLabel,
@@ -999,8 +1039,8 @@ function renderMainPanel(state, container) {
           studentMeta: { ageGroup: state.selectedStudent.ageGroup, religion: state.selectedStudent.religion, gender: state.selectedStudent.gender },
           semester,
           academicYear: year,
-          templateNarrative: state.templateResult,
-          aiNarrative: state.aiResult,
+          templateNarrative: _achTemplate,
+          aiNarrative: _achAI,
           finalizedAt: new Date(),
         },
         institutionName: state.currentInstitution?.name || '',
@@ -1144,7 +1184,11 @@ function renderMainPanel(state, container) {
 
   // Called by preview when user resets AI for one section (no quota cost)
   const onResetSectionAI = (sectionId) => {
-    delete state.aiResult[sectionId];
+    if (sectionId === 'kokurikuler') {
+      state.aiKokurikuler = null;
+    } else {
+      delete state.aiResult[sectionId];
+    }
     saveProgress(state);
     renderPreviewWithCallbacks();
     scrollToSection(sectionId);
@@ -1152,7 +1196,11 @@ function renderMainPanel(state, container) {
 
   // Called by preview when user navigates AI history for one section
   const onSelectAIVersion = (sectionId, idx) => {
-    state.aiResult[sectionId] = state.aiHistory[sectionId][idx];
+    if (sectionId === 'kokurikuler') {
+      state.aiKokurikuler = state.aiHistory['kokurikuler']?.[idx] ?? null;
+    } else {
+      state.aiResult[sectionId] = state.aiHistory[sectionId][idx];
+    }
     saveProgress(state);
     renderPreviewWithCallbacks();
     scrollToSection(sectionId);
@@ -1295,6 +1343,18 @@ function renderMainPanel(state, container) {
         state.aiKokurikuler = null;
       }
       renderPreviewWithCallbacks();
+      // Scroll + flash kokurikuler section on desktop (mirrors intrakurikuler behavior)
+      if (window.innerWidth > 1024 && prevNarrative !== state.kokurikulerNarrative) {
+        requestAnimationFrame(() => {
+          const el = mainContent.querySelector('#section-kokurikuler .preview-narrative');
+          if (!el) return;
+          el.closest('.preview-section')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          el.classList.remove('narrative-changed');
+          void el.offsetWidth;
+          el.classList.add('narrative-changed');
+          el.addEventListener('animationend', () => el.classList.remove('narrative-changed'), { once: true });
+        });
+      }
       saveProgress(state);
       const saveStatus = mainContent.querySelector('#save-status');
       if (saveStatus) saveStatus.textContent = '✓ Tersimpan ' + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
