@@ -3,6 +3,13 @@
  * Sistem Catatan Capaian Anak
  */
 
+// Unregister any stale service workers (localhost dev artifact, no-op in production)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((r) => r.unregister());
+  });
+}
+
 import { AuthService } from './services/auth.js';
 import { renderLoginScreen } from './components/auth/login-screen.js';
 import { renderAppShell } from './components/layout/app-shell.js';

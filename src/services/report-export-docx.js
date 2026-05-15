@@ -96,13 +96,14 @@ export async function downloadReportAsDocx(reportData, institutionName = '') {
       const meta = SECTION_META[id];
       const text = aiNarrative?.[id] || templateNarrative[id] || '';
 
-      // Section heading
+      // Section heading — with bottom divider matching PDF style
       sectionChildren.push(
         new Paragraph({
           children: [
             new TextRun({ text: `${meta.letter}. ${meta.title.toUpperCase()}`, bold: true, size: 22 }),
           ],
-          spacing: { before: 280, after: 120 },
+          spacing: { before: 280, after: 140 },
+          border: { bottom: { style: BorderStyle.SINGLE, size: 2, color: 'dddddd' } },
         }),
       );
 
@@ -204,6 +205,7 @@ export async function downloadReportAsDocx(reportData, institutionName = '') {
                     new Paragraph({
                       alignment: AlignmentType.CENTER,
                       border: { top: { style: BorderStyle.SINGLE, size: 4, color: '333333' } },
+                      indent: { left: convertInchesToTwip(0.25), right: convertInchesToTwip(0.25) },
                       children: [new TextRun({ text: 'NIP.', size: 20, color: '666666' })],
                     }),
                   ],
@@ -218,6 +220,7 @@ export async function downloadReportAsDocx(reportData, institutionName = '') {
                     new Paragraph({
                       alignment: AlignmentType.CENTER,
                       border: { top: { style: BorderStyle.SINGLE, size: 4, color: '333333' } },
+                      indent: { left: convertInchesToTwip(0.25), right: convertInchesToTwip(0.25) },
                       children: [new TextRun({ text: 'NIP.', size: 20, color: '666666' })],
                     }),
                   ],
@@ -235,6 +238,7 @@ export async function downloadReportAsDocx(reportData, institutionName = '') {
         new Paragraph({
           alignment: AlignmentType.CENTER,
           border: { top: { style: BorderStyle.SINGLE, size: 4, color: '333333' } },
+          indent: { left: convertInchesToTwip(1.9), right: convertInchesToTwip(1.9) },
           children: [new TextRun({ text: '( )', size: 22 })],
         }),
       ],

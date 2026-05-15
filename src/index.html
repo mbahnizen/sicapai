@@ -26,17 +26,6 @@
   <!-- Google Identity Services (One Tap) -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-  <!-- Anti-Service Worker (Fix for localhost PWA conflicts) -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function(registrations) {
-        for(let registration of registrations) {
-          registration.unregister();
-          console.log('Unregistered lingering Service Worker:', registration);
-        }
-      });
-    }
-  </script>
 </head>
 <body>
   <div id="app">
