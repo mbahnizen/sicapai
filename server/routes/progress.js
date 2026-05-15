@@ -4,16 +4,26 @@
  */
 
 import { Router } from 'express';
-import { db } from '../middleware/auth.js';
+import { db, checkMembership } from '../middleware/auth.js';
 
 const router = Router();
 
 const col = () => db.collection('progress');
 const docId = (uid, studentId) => `${uid}_${studentId}`;
 
+// Helper — verify student belongs to user's institution
+async function verifyStudentAccess(uid, studentId) {
+  const studentDoc = await db.collection('students').doc(studentId).get();
+  if (!studentDoc.exists) return false;
+  return checkMembership(uid, studentDoc.data().institutionId);
+}
+
 // GET /api/progress/:studentId
 router.get('/:studentId', async (req, res) => {
   try {
+    const hasAccess = await verifyStudentAccess(req.user.uid, req.params.studentId);
+    if (!hasAccess) return res.status(403).json({ message: 'Akses ditolak' });
+
     const doc = await col().doc(docId(req.user.uid, req.params.studentId)).get();
     res.json(doc.exists ? doc.data() : null);
   } catch (err) {
@@ -25,6 +35,9 @@ router.get('/:studentId', async (req, res) => {
 // POST /api/progress/:studentId
 router.post('/:studentId', async (req, res) => {
   try {
+    const hasAccess = await verifyStudentAccess(req.user.uid, req.params.studentId);
+    if (!hasAccess) return res.status(403).json({ message: 'Akses ditolak' });
+
     const { selectedIndicators, aiResult, semester, year } = req.body;
     await col().doc(docId(req.user.uid, req.params.studentId)).set({
       selectedIndicators: selectedIndicators || {},
@@ -43,6 +56,9 @@ router.post('/:studentId', async (req, res) => {
 // DELETE /api/progress/:studentId — reset all progress for this student
 router.delete('/:studentId', async (req, res) => {
   try {
+    const hasAccess = await verifyStudentAccess(req.user.uid, req.params.studentId);
+    if (!hasAccess) return res.status(403).json({ message: 'Akses ditolak' });
+
     await col().doc(docId(req.user.uid, req.params.studentId)).delete();
     res.json({ ok: true });
   } catch (err) {
@@ -52,3 +68,4 @@ router.delete('/:studentId', async (req, res) => {
 });
 
 export default router;
+
