@@ -4,9 +4,9 @@
 
 import { showToast } from '../shared/toast.js';
 import { escapeHTML, escapeAttr } from '../../utils/sanitize.js';
-import { renderChecklist } from '../report/checklist.js';
+import { renderChecklist, renderKokurikulerChecklist } from '../report/checklist.js';
 import { renderPreview } from '../report/preview.js';
-import { generateTemplate, countSelected } from '../../services/template-engine.js';
+import { generateTemplate, countSelected, generateKokurikulerNarrative, countKokurikulerSelected } from '../../services/template-engine.js';
 import { api } from '../../services/api.js';
 import { printReport } from '../../services/report-export.js';
 import { exportInstitutionToXlsx } from '../../services/report-xlsx.js';
@@ -22,6 +22,8 @@ function saveProgress(state) {
   const data = {
     selectedIndicators: state.selectedIndicators,
     aiResult: state.aiResult || {},
+    kokurikulerSelected: state.kokurikulerSelected || {},
+    aiKokurikuler: state.aiKokurikuler || null,
     semester: document.querySelector('#report-semester')?.value || '1',
     year: document.querySelector('#report-year')?.value || '',
     savedAt: Date.now(),
@@ -552,6 +554,9 @@ function renderStudentList(state, container) {
       state.selectedIndicators = {};
       state.templateResult = {};
       state.aiResult = null;
+      state.kokurikulerSelected = {};
+      state.kokurikulerNarrative = '';
+      state.aiKokurikuler = null;
 
       // Update active state
       listEl.querySelectorAll('.student-item').forEach((el) => el.classList.remove('active'));
@@ -673,6 +678,9 @@ function renderStudentList(state, container) {
           state.selectedIndicators = {};
           state.templateResult = {};
           state.aiResult = null;
+          state.kokurikulerSelected = {};
+          state.kokurikulerNarrative = '';
+          state.aiKokurikuler = null;
           state.aiHistory = {};
           const mainContent = container.querySelector('#main-content');
           if (mainContent) {
@@ -752,11 +760,14 @@ async function syncProgressFromServer(state, container, student) {
     // Content-guard: skip if indicators + AI are identical (avoids spurious re-renders on hot reload)
     const sameIndicators = JSON.stringify(serverData.selectedIndicators || {}) === JSON.stringify(local?.selectedIndicators || {});
     const sameAI = JSON.stringify(serverData.aiResult || {}) === JSON.stringify(local?.aiResult || {});
-    if (sameIndicators && sameAI) return;
+    const sameKokurikuler = JSON.stringify(serverData.kokurikulerSelected || {}) === JSON.stringify(local?.kokurikulerSelected || {});
+    if (sameIndicators && sameAI && sameKokurikuler) return;
 
     // Server has genuinely fresher data — update state and UI
     state.selectedIndicators = serverData.selectedIndicators || {};
     state.aiResult = serverData.aiResult || {};
+    state.kokurikulerSelected = serverData.kokurikulerSelected || {};
+    state.aiKokurikuler = serverData.aiKokurikuler || null;
     seedAiHistory(state);
     localStorage.setItem(getProgressKey(student), JSON.stringify(serverData));
 
@@ -780,12 +791,17 @@ function renderMainPanel(state, container) {
   state.templateResult = {};
   state.aiResult = {};
   state.aiHistory = {};
+  state.kokurikulerSelected = {};
+  state.kokurikulerNarrative = '';
+  state.aiKokurikuler = null;
 
   // Restore saved progress for this student
   const savedProgress = loadProgress(state.selectedStudent);
   if (savedProgress) {
     state.selectedIndicators = savedProgress.selectedIndicators || {};
     state.aiResult = savedProgress.aiResult || {};
+    state.kokurikulerSelected = savedProgress.kokurikulerSelected || {};
+    state.aiKokurikuler = savedProgress.aiKokurikuler || null;
     seedAiHistory(state);
   }
 
@@ -915,6 +931,9 @@ function renderMainPanel(state, container) {
     state.templateResult = {};
     state.aiResult = null;
     state.aiHistory = {};
+    state.kokurikulerSelected = {};
+    state.kokurikulerNarrative = '';
+    state.aiKokurikuler = null;
     const listEl = container.querySelector('#student-list');
     listEl.querySelectorAll('.student-item').forEach(el => el.classList.remove('active'));
     listEl.querySelector(`.student-item[data-id="${next.id}"]`)?.classList.add('active');
@@ -942,14 +961,21 @@ function renderMainPanel(state, container) {
     if (btnEl) { btnEl.disabled = true; btnEl.textContent = 'Menyimpan...'; }
 
     try {
+      // Merge kokurikuler narrative into template/ai results for unified storage
+      const mergedTemplate = { ...state.templateResult };
+      const mergedAI = { ...(state.aiResult || {}) };
+      if (state.kokurikulerNarrative) mergedTemplate.kokurikuler = state.kokurikulerNarrative;
+      if (state.aiKokurikuler) mergedAI.kokurikuler = state.aiKokurikuler;
+
       const savedReport = await api.saveReport({
         studentId: state.selectedStudent.id,
         institutionId: state.currentInstitution.id,
         semester,
         academicYear: year,
         selectedIndicators: state.selectedIndicators,
-        templateNarrative: state.templateResult,
-        aiNarrative: state.aiResult || null,
+        kokurikulerSelected: state.kokurikulerSelected || {},
+        templateNarrative: mergedTemplate,
+        aiNarrative: mergedAI || null,
         studentName: state.selectedStudent.name,
         studentMeta: {
           ageGroup: state.selectedStudent.ageGroup,
@@ -1150,6 +1176,9 @@ function renderMainPanel(state, container) {
       state.templateResult = {};
       state.aiResult = {};
       state.aiHistory = {};
+      state.kokurikulerSelected = {};
+      state.kokurikulerNarrative = '';
+      state.aiKokurikuler = null;
       renderMainPanel(state, container);
       showToast('Progress berhasil direset.', 'success');
     } catch (err) {
@@ -1168,10 +1197,16 @@ function renderMainPanel(state, container) {
 
   // --- Helper: render preview with all callbacks ---
   const renderPreviewWithCallbacks = () => {
+    // Merge kokurikuler narrative into template/AI for unified preview
+    const mergedTemplate = { ...state.templateResult };
+    const mergedAI = { ...(state.aiResult || {}) };
+    if (state.kokurikulerNarrative) mergedTemplate.kokurikuler = state.kokurikulerNarrative;
+    if (state.aiKokurikuler) mergedAI.kokurikuler = state.aiKokurikuler;
+
     renderPreview(
       mainContent.querySelector('#preview-panel'),
-      state.templateResult,
-      state.aiResult,
+      mergedTemplate,
+      mergedAI,
       state.selectedStudent.name,
       { onGenerateAI, quota: state.quota, onFinalizeReport, onViewHistory: showHistoryPanel, onResetSectionAI, onSelectAIVersion, aiHistory: state.aiHistory, onResetProgress: doResetProgress, onCopyCapaian: doCopyCapaian, onSave: () => saveProgress(state) }
     );
@@ -1190,7 +1225,7 @@ function renderMainPanel(state, container) {
         const sel = countSelected(indicators);
         const resetBtn = mainContent.querySelector('#btn-reset-progress');
         if (resetBtn) resetBtn.disabled = sel.total === 0;
-        if (sel.total === 0) {
+        if (sel.total === 0 && !state.kokurikulerNarrative) {
           state.templateResult = {};
           state.aiResult = {};
           renderPreview(mainContent.querySelector('#preview-panel'), null, null);
@@ -1244,8 +1279,38 @@ function renderMainPanel(state, container) {
     }
   );
 
+  // Kokurikuler checklist — appended below intrakurikuler with visual divider
+  renderKokurikulerChecklist(
+    mainContent.querySelector('#checklist-panel'),
+    state.kokurikulerSelected,
+    (kokurikulerSel) => {
+      state.kokurikulerSelected = kokurikulerSel;
+      const prevNarrative = state.kokurikulerNarrative;
+      state.kokurikulerNarrative = generateKokurikulerNarrative(
+        state.selectedStudent.nickname || state.selectedStudent.name,
+        kokurikulerSel
+      );
+      // Invalidate AI if template changed
+      if (prevNarrative !== state.kokurikulerNarrative) {
+        state.aiKokurikuler = null;
+      }
+      renderPreviewWithCallbacks();
+      saveProgress(state);
+      const saveStatus = mainContent.querySelector('#save-status');
+      if (saveStatus) saveStatus.textContent = '✓ Tersimpan ' + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    }
+  );
+
+  // Rebuild kokurikuler narrative from restored state
+  if (Object.keys(state.kokurikulerSelected).length > 0) {
+    state.kokurikulerNarrative = generateKokurikulerNarrative(
+      state.selectedStudent.nickname || state.selectedStudent.name,
+      state.kokurikulerSelected
+    );
+  }
+
   // Initial preview render (uses restored state if available)
-  if (Object.keys(state.templateResult).length > 0) {
+  if (Object.keys(state.templateResult).length > 0 || state.kokurikulerNarrative) {
     renderPreviewWithCallbacks();
   } else {
     renderPreview(
@@ -1458,6 +1523,7 @@ const VIEWER_META = {
   'agama-budi-pekerti': { title: 'Nilai Agama dan Budi Pekerti', letter: 'A' },
   'jati-diri':          { title: 'Jati Diri', letter: 'B' },
   'literasi-steam':     { title: 'Dasar-Dasar Literasi & STEAM', letter: 'C' },
+  'kokurikuler':        { title: 'Profil Lulusan — Kokurikuler (P5)', letter: 'D' },
 };
 
 function openReportViewerModal(report, institutionName) {
@@ -1669,7 +1735,9 @@ function openCopyCapaianModal(state) {
 
       const data = {
         selectedIndicators: { ...state.selectedIndicators },
+        kokurikulerSelected: { ...state.kokurikulerSelected },
         aiResult: {},
+        aiKokurikuler: null,
         semester,
         year,
         savedAt: Date.now(),
@@ -2046,6 +2114,9 @@ function showAddStudentForm(state, container, offlineMode = false) {
           state.templateResult = {};
           state.aiResult = null;
           state.aiHistory = {};
+          state.kokurikulerSelected = {};
+          state.kokurikulerNarrative = '';
+          state.aiKokurikuler = null;
           const listEl = container.querySelector('#student-list');
           listEl.querySelector(`.student-item[data-id="${saved.id}"]`)?.classList.add('active');
           renderMainPanel(state, container);
