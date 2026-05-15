@@ -87,6 +87,12 @@ export async function renderAppShell(container, user, authService) {
     templateResult: {},
     aiResult: null,
     aiHistory: {},
+    // Kokurikuler (8 Dimensi Profil Lulusan) — parallel track to intrakurikuler
+    // Shape: { "kk-ibadah-mandiri": true, "kl-kerja-kelompok": true, ... }
+    // Unlike selectedIndicators (which can hold sub-indicator arrays), these are always boolean.
+    kokurikulerSelected: {},
+    kokurikulerNarrative: '',  // combined template paragraph from all checked dimensi
+    aiKokurikuler: null,       // AI-enhanced version of kokurikulerNarrative
     quota: { weeklyUsed: 0, limit: 20 },
     theme: localStorage.getItem('sicapai-theme') || 'light',
     finalizedStudents: new Set(), // Track students with finalized reports (local session)

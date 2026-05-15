@@ -6,6 +6,7 @@
  */
 
 import kurikulumData from '../data/kurikulum.json';
+import kokurikulerData from '../data/kokurikuler.json';
 
 /**
  * Get all curriculum elements
@@ -196,4 +197,89 @@ export function countSelected(selectedIndicators) {
   }
 
   return { total, byElement };
+}
+
+// ---- Kokurikuler Functions ----
+
+/**
+ * Get kokurikuler data
+ * @returns {Array} dimensi array from kokurikuler data
+ */
+export function getKokurikulerData() {
+  return kokurikulerData.dimensi;
+}
+
+/**
+ * Generate combined kokurikuler narrative from selected indicators.
+ * Unlike intrakurikuler (3 separate paragraphs), this produces 1 merged paragraph.
+ *
+ * @param {string} studentName - Nama panggilan anak
+ * @param {object} selectedIndicators - Map { "kk-ibadah-mandiri": true, ... }
+ * @returns {string} Single combined narrative paragraph, or '' if nothing selected
+ */
+export function generateKokurikulerNarrative(studentName, selectedIndicators) {
+  if (!selectedIndicators || Object.keys(selectedIndicators).length === 0) return '';
+
+  const dimensiSentences = [];
+
+  for (const dimensi of kokurikulerData.dimensi) {
+    const sentences = [];
+    for (const ind of dimensi.indikator) {
+      if (selectedIndicators[ind.id]) {
+        sentences.push(ind.template);
+      }
+    }
+    if (sentences.length > 0) {
+      dimensiSentences.push(sentences.join(', serta '));
+    }
+  }
+
+  if (dimensiSentences.length === 0) return '';
+
+  // Build single cohesive paragraph with transitions between dimensi
+  const prefix = `Ananda ${studentName} `;
+  if (dimensiSentences.length === 1) {
+    return prefix + dimensiSentences[0] + '.';
+  }
+
+  const transitions = [
+    'Dalam hal lain, Ananda juga ',
+    'Selain itu, Ananda ',
+    'Di samping itu, Ananda juga ',
+    'Ananda juga ',
+    'Hal yang membanggakan, Ananda ',
+    'Tak hanya itu, Ananda pun ',
+    'Patut diapresiasi, Ananda ',
+  ];
+
+  let paragraph = prefix + dimensiSentences[0] + '.';
+  for (let i = 1; i < dimensiSentences.length; i++) {
+    const t = transitions[(i - 1) % transitions.length];
+    paragraph += ' ' + t + dimensiSentences[i] + '.';
+  }
+
+  return paragraph;
+}
+
+/**
+ * Count selected kokurikuler indicators
+ * @param {object} selectedIndicators - Map { "kk-ibadah-mandiri": true, ... }
+ * @returns {{ total: number, byDimensi: object }}
+ */
+export function countKokurikulerSelected(selectedIndicators) {
+  const byDimensi = {};
+  let total = 0;
+
+  for (const dimensi of kokurikulerData.dimensi) {
+    let count = 0;
+    for (const ind of dimensi.indikator) {
+      if (selectedIndicators?.[ind.id]) {
+        count++;
+        total++;
+      }
+    }
+    byDimensi[dimensi.id] = count;
+  }
+
+  return { total, byDimensi };
 }
