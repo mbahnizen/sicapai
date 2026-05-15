@@ -59,6 +59,12 @@ Gunakan tone suportif — soroti bagaimana anak beradaptasi dan berinteraksi dal
 
   'literasi-steam': `Fokuskan pada rasa ingin tahu, eksplorasi, dan keterlibatan anak dalam aktivitas literasi dan STEAM.
 Gunakan tone deskriptif — soroti proses berpikir dan keantusiasan anak, bukan sekadar daftar kemampuan.`,
+
+  'kokurikuler': `Ini adalah narasi kokurikuler (Profil Pelajar Pancasila) — bersifat reflektif dan holistik, bukan deskriptif teknis.
+Fokuskan pada karakter anak yang muncul secara natural dalam kegiatan projek dan pembiasaan di sekolah.
+Gunakan bahasa yang hangat dan naratif — gambarkan perkembangan dimensi profil lulusan (keimanan, kolaborasi, kemandirian, dll) secara terintegrasi dalam satu alur cerita.
+Hindari format daftar — tulis sebagai satu paragraf mengalir yang mencerminkan keunikan karakter anak.
+Jangan sebutkan nama dimensi secara eksplisit (misal 'dimensi kemandirian'), cukup jelaskan perilakunya secara natural.`,
 };
 
 // ---- Retry config ----
