@@ -13,6 +13,7 @@ const ELEMENT_META = {
   'agama-budi-pekerti': { icon: '📖', title: 'Nilai Agama dan Budi Pekerti', letter: 'A' },
   'jati-diri':          { icon: '🌟', title: 'Jati Diri', letter: 'B' },
   'literasi-steam':     { icon: '📚', title: 'Dasar-Dasar Literasi & STEAM', letter: 'C' },
+  'kokurikuler':        { icon: '🎯', title: 'Profil Lulusan — Kokurikuler (P5)', letter: 'D' },
 };
 
 /**

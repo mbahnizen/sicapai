@@ -6,7 +6,7 @@
  * Level 4: Sub-Indikator (nested checkbox/radio)
  */
 
-import { getChecklistStructure, countSelected } from '../../services/template-engine.js';
+import { getChecklistStructure, countSelected, getKokurikulerData, countKokurikulerSelected } from '../../services/template-engine.js';
 
 /**
  * Render the checklist UI
@@ -77,6 +77,141 @@ export function renderChecklist(container, student, selectedIndicators, onSelect
 
   // Update counter
   updateCounter(container, selectedIndicators);
+}
+
+/**
+ * Render kokurikuler checklist — separate function from renderChecklist (Option A).
+ * Flat checkboxes (no sub-indicators), 8 dimensi as collapsible groups.
+ * Appended BELOW the intrakurikuler checklist with a visual divider.
+ *
+ * @param {HTMLElement} container - Same container as renderChecklist
+ * @param {object} kokurikulerSelected - { "kk-ibadah-mandiri": true, ... }
+ * @param {Function} onSelectionChange - Callback with updated selection map
+ */
+export function renderKokurikulerChecklist(container, kokurikulerSelected, onSelectionChange) {
+  const dimensi = getKokurikulerData();
+  const elementsEl = container.querySelector('#checklist-elements');
+  if (!elementsEl) return;
+
+  // Remove previous kokurikuler section if re-rendering
+  elementsEl.querySelector('#kokurikuler-section')?.remove();
+
+  const section = document.createElement('div');
+  section.id = 'kokurikuler-section';
+  section.innerHTML = `
+    <div class="kokurikuler-divider">
+      <span class="kokurikuler-divider-line"></span>
+      <span class="kokurikuler-divider-label">Kokurikuler</span>
+      <span class="kokurikuler-divider-line"></span>
+    </div>
+    <div class="kokurikuler-header">
+      <span class="kokurikuler-title">🎯 Profil Lulusan (P5)</span>
+      <span class="kokurikuler-counter" id="kokurikuler-counter">0 dipilih</span>
+    </div>
+    ${dimensi.map(d => `
+      <div class="accordion checklist-element" data-element="kk-${d.id}">
+        <button class="accordion-header" aria-expanded="false" data-toggle="kk-${d.id}">
+          <span class="accordion-icon">🎯</span>
+          <span class="accordion-title">${d.nama}</span>
+          <span class="accordion-badge" id="badge-kk-${d.id}">0</span>
+          <span class="accordion-chevron">▾</span>
+        </button>
+        <div class="accordion-content" id="content-kk-${d.id}">
+          <div class="accordion-body">
+            ${d.indikator.map(ind => `
+              <div class="indicator-group">
+                <label class="check-item">
+                  <input type="checkbox"
+                         data-kokurikuler-id="${ind.id}"
+                         ${kokurikulerSelected[ind.id] ? 'checked' : ''} />
+                  <span class="check-label">${ind.label}</span>
+                </label>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+
+  elementsEl.appendChild(section);
+
+  // Setup accordion toggles for kokurikuler
+  section.querySelectorAll('[data-toggle]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.toggle;
+      const content = section.querySelector(`#content-${id}`);
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      content.classList.toggle('expanded');
+    });
+  });
+
+  // Setup checkbox interactions
+  section.querySelectorAll('[data-kokurikuler-id]').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const id = checkbox.dataset.kokurikulerId;
+      if (checkbox.checked) {
+        kokurikulerSelected[id] = true;
+      } else {
+        delete kokurikulerSelected[id];
+      }
+      updateKokurikulerCounter(section, kokurikulerSelected);
+      onSelectionChange({ ...kokurikulerSelected });
+    });
+  });
+
+  updateKokurikulerCounter(section, kokurikulerSelected);
+  addKokurikulerChecklistStyles();
+}
+
+function updateKokurikulerCounter(container, selected) {
+  const counts = countKokurikulerSelected(selected);
+  const counterEl = container.querySelector('#kokurikuler-counter');
+  if (counterEl) counterEl.textContent = `${counts.total} dipilih`;
+
+  for (const [dimId, count] of Object.entries(counts.byDimensi)) {
+    const badge = container.querySelector(`#badge-kk-${dimId}`);
+    if (badge) badge.textContent = count;
+  }
+}
+
+function addKokurikulerChecklistStyles() {
+  if (document.querySelector('#kokurikuler-checklist-styles')) return;
+  const s = document.createElement('style');
+  s.id = 'kokurikuler-checklist-styles';
+  s.textContent = `
+    .kokurikuler-divider {
+      display: flex; align-items: center; gap: var(--space-3);
+      margin: var(--space-6) 0 var(--space-4);
+    }
+    .kokurikuler-divider-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+    }
+    .kokurikuler-divider-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-tertiary);
+      white-space: nowrap;
+    }
+    .kokurikuler-header {
+      display: flex; align-items: center; gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+    .kokurikuler-title {
+      font-size: var(--font-size-md); font-weight: 700; margin-right: auto;
+    }
+    .kokurikuler-counter {
+      font-size: var(--font-size-sm); font-weight: 600;
+      color: var(--secondary); background: rgba(16,185,129,0.1);
+      padding: var(--space-1) var(--space-3); border-radius: var(--radius-full);
+    }
+    #kokurikuler-section .accordion-icon { font-size: 14px; }
+    #kokurikuler-section .accordion-header {
+      border-left: 3px solid var(--secondary);
+    }
+  `;
+  document.head.appendChild(s);
 }
 
 function renderIndicator(ind, selectedIndicators) {
