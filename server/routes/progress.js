@@ -38,10 +38,12 @@ router.post('/:studentId', async (req, res) => {
     const hasAccess = await verifyStudentAccess(req.user.uid, req.params.studentId);
     if (!hasAccess) return res.status(403).json({ message: 'Akses ditolak' });
 
-    const { selectedIndicators, aiResult, semester, year } = req.body;
+    const { selectedIndicators, aiResult, kokurikulerSelected, aiKokurikuler, semester, year } = req.body;
     await col().doc(docId(req.user.uid, req.params.studentId)).set({
       selectedIndicators: selectedIndicators || {},
       aiResult: aiResult || {},
+      kokurikulerSelected: kokurikulerSelected || {},
+      aiKokurikuler: aiKokurikuler || null,
       semester: semester || '1',
       year: year || '',
       savedAt: Date.now(),

@@ -60,11 +60,20 @@ Gunakan tone suportif — soroti bagaimana anak beradaptasi dan berinteraksi dal
   'literasi-steam': `Fokuskan pada rasa ingin tahu, eksplorasi, dan keterlibatan anak dalam aktivitas literasi dan STEAM.
 Gunakan tone deskriptif — soroti proses berpikir dan keantusiasan anak, bukan sekadar daftar kemampuan.`,
 
-  'kokurikuler': `Ini adalah narasi kokurikuler (Profil Pelajar Pancasila) — bersifat reflektif dan holistik, bukan deskriptif teknis.
-Fokuskan pada karakter anak yang muncul secara natural dalam kegiatan projek dan pembiasaan di sekolah.
-Gunakan bahasa yang hangat dan naratif — gambarkan perkembangan dimensi profil lulusan (keimanan, kolaborasi, kemandirian, dll) secara terintegrasi dalam satu alur cerita.
-Hindari format daftar — tulis sebagai satu paragraf mengalir yang mencerminkan keunikan karakter anak.
-Jangan sebutkan nama dimensi secara eksplisit (misal 'dimensi kemandirian'), cukup jelaskan perilakunya secara natural.`,
+  'kokurikuler': `Ini adalah narasi kokurikuler (Profil Pelajar Pancasila) yang terdiri dari beberapa paragraf — setiap paragraf mewakili satu dimensi karakter anak.
+
+STRUKTUR — wajib dipatuhi:
+- Pertahankan jumlah paragraf SAMA PERSIS dengan template. Hitung paragraf di template (dipisahkan baris kosong), output harus menghasilkan jumlah yang sama.
+- Jangan gabungkan dua paragraf berbeda menjadi satu blok. Jangan pisah satu paragraf menjadi dua.
+- Jangan tambahkan kalimat penutup, kesimpulan, atau ringkasan di akhir — narasi berhenti setelah paragraf terakhir selesai.
+
+PER PARAGRAF:
+- Perindah kalimat agar lebih mengalir — uraikan repetisi "serta ... serta ..." menjadi kalimat-kalimat terpisah yang variatif; campurkan kalimat pendek dan panjang.
+- Pertahankan atau perindah kata deskriptif hangat dari template (contoh: "menggembirakan", "mengagumkan", "menonjol"). JANGAN meratakan semua deskriptor menjadi kata "baik" — kata itu terlalu datar untuk narasi PAUD yang hangat dan personal.
+- Mulai setiap paragraf dengan "Ananda [nama]". Di dalam paragraf, gunakan "Ananda" (tanpa nama) — DILARANG mengganti subjek kalimat mana pun dengan "ia", "dia", atau kata ganti orang ketiga lainnya.
+- Jangan sebutkan nama dimensi secara eksplisit (misal: 'dimensi kemandirian', 'aspek kreativitas').
+- Jangan tambahkan fakta, penilaian, atau aktivitas yang tidak ada di template paragraf tersebut.
+- Gunakan bahasa hangat dan reflektif seperti guru yang mengamati anak secara langsung.`,
 };
 
 // ---- Retry config ----
