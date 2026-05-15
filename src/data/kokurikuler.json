@@ -1,0 +1,216 @@
+{
+  "_meta": {
+    "versi": "1.0.0",
+    "deskripsi": "Data kokurikuler PAUD — 8 Dimensi Profil Lulusan berbasis Deep Learning",
+    "referensi": [
+      "Panduan Pembelajaran dan Asesmen PAUD 2025",
+      "Permendikdasmen No. 10 Tahun 2025 tentang Standar Kompetensi Lulusan",
+      "New Pedagogies for Deep Learning — Michael Fullan"
+    ],
+    "petunjuk_template": "Gabungkan template indikator yang tercentang dari berbagai dimensi menjadi satu paragraf utuh per anak. Awali dengan nama anak. Gunakan kalimat transisi alami antar dimensi.",
+    "contoh_hasil": "[Nama] sudah menunjukkan keimanan yang baik, terlihat dari kemandiriannya dalam melaksanakan ibadah sehari-hari. Dalam hal kolaborasi, [Nama] mampu bekerja sama dengan teman saat mengerjakan projek kelompok dan dengan senang hati membantu teman yang kesulitan. [Nama] juga menunjukkan kemandirian dalam belajar, seperti menyelesaikan tugas tanpa harus selalu diminta dan berani mencoba hal baru meski belum pernah melakukannya.",
+    "diperbarui": "2025"
+  },
+  "dimensi": [
+    {
+      "id": "keimanan",
+      "nama": "Keimanan dan Ketakwaan",
+      "deskripsi": "Mencakup kesadaran spiritual anak dalam mengenal Tuhan, menerapkan nilai-nilai keimanan dalam kehidupan sehari-hari, serta menunjukkan akhlak mulia sebagai cerminan iman yang tumbuh.",
+      "indikator": [
+        {
+          "id": "kk-ibadah-mandiri",
+          "label": "Melaksanakan ibadah sehari-hari secara mandiri tanpa harus diminta",
+          "template": "sudah menunjukkan keimanan yang membanggakan, terlihat dari kemandiriannya dalam melaksanakan ibadah sehari-hari tanpa harus diingatkan",
+          "has_sub": false
+        },
+        {
+          "id": "kk-syukur-spontan",
+          "label": "Mengucapkan rasa syukur secara spontan atas hal-hal yang dialami",
+          "template": "terbiasa mengucapkan rasa syukur secara spontan atas segala nikmat yang dirasakannya dalam keseharian",
+          "has_sub": false
+        },
+        {
+          "id": "kk-akhlak-mulia",
+          "label": "Menunjukkan akhlak mulia dalam berinteraksi dengan teman dan guru",
+          "template": "senantiasa menunjukkan akhlak mulia dalam berinteraksi, seperti berlaku jujur, bertutur kata baik, dan bersikap santun kepada guru maupun teman-temannya",
+          "has_sub": false
+        }
+      ]
+    },
+    {
+      "id": "kewarganegaraan",
+      "nama": "Kewarganegaraan dan Kebhinekaan",
+      "deskripsi": "Mencakup pengenalan identitas diri sebagai bagian dari komunitas yang beragam, rasa bangga sebagai anak Indonesia, serta sikap menghargai perbedaan suku, agama, dan budaya di lingkungan sekitar.",
+      "indikator": [
+        {
+          "id": "kw-bangga-indonesia",
+          "label": "Mengenal dan menunjukkan rasa bangga terhadap budaya serta simbol kebangsaan Indonesia",
+          "template": "mengenal dan menunjukkan rasa bangga terhadap budaya serta simbol kebangsaan Indonesia, seperti lagu kebangsaan, bendera, dan kesenian daerah",
+          "has_sub": false
+        },
+        {
+          "id": "kw-hargai-perbedaan",
+          "label": "Menghargai dan menerima perbedaan teman dalam hal suku, agama, atau kebiasaan",
+          "template": "tumbuh dengan sikap yang indah dalam menghargai perbedaan, baik perbedaan suku, agama, maupun kebiasaan teman-temannya",
+          "has_sub": false
+        },
+        {
+          "id": "kw-taat-aturan",
+          "label": "Menaati aturan bersama dan ikut menjaga ketertiban di lingkungan sekolah",
+          "template": "dengan kesadaran yang baik menaati aturan bersama dan turut menjaga ketertiban di lingkungan sekolahnya",
+          "has_sub": false
+        }
+      ]
+    },
+    {
+      "id": "kolaborasi",
+      "nama": "Kolaborasi dan Gotong Royong",
+      "deskripsi": "Mencakup kemampuan anak bekerja sama dengan teman sebaya, berbagi peran, saling mendukung dalam kegiatan kelompok, serta menunjukkan semangat gotong royong dalam kehidupan sehari-hari.",
+      "indikator": [
+        {
+          "id": "kl-kerja-kelompok",
+          "label": "Berpartisipasi aktif dan kooperatif dalam kegiatan atau projek kelompok",
+          "template": "mampu berpartisipasi aktif dan kooperatif saat mengerjakan projek kelompok, dengan penuh semangat menyumbangkan ide dan tenaganya",
+          "has_sub": false
+        },
+        {
+          "id": "kl-bantu-teman",
+          "label": "Dengan inisiatif sendiri membantu teman yang mengalami kesulitan",
+          "template": "dengan inisiatif yang mengagumkan selalu siap membantu teman yang mengalami kesulitan tanpa harus diminta",
+          "has_sub": false
+        },
+        {
+          "id": "kl-berbagi-peran",
+          "label": "Bersedia berbagi peran dan giliran tanpa berebut dalam kegiatan bersama",
+          "template": "dengan lapang hati bersedia berbagi peran dan giliran dalam setiap kegiatan bersama, tanpa berebut atau memaksakan kehendak",
+          "has_sub": false
+        }
+      ]
+    },
+    {
+      "id": "kemandirian",
+      "nama": "Kemandirian dalam Belajar",
+      "deskripsi": "Mencakup kemampuan anak untuk mengambil inisiatif, menyelesaikan tugas dengan bertanggung jawab, serta mengelola diri dan proses belajarnya secara mandiri sesuai tahap perkembangan.",
+      "indikator": [
+        {
+          "id": "km-selesai-tugas",
+          "label": "Menyelesaikan tugas yang diberikan tanpa harus selalu diingatkan atau dibantu",
+          "template": "menunjukkan kemandirian yang menggembirakan dalam menyelesaikan tugas yang diberikan tanpa harus selalu diingatkan",
+          "has_sub": false
+        },
+        {
+          "id": "km-coba-hal-baru",
+          "label": "Berani mencoba hal baru dan tidak mudah menyerah saat menghadapi tantangan",
+          "template": "berani mencoba hal-hal baru dan tidak mudah menyerah ketika menghadapi tantangan dalam proses belajarnya",
+          "has_sub": false
+        },
+        {
+          "id": "km-rapikan-diri",
+          "label": "Merapikan peralatan dan membereskan keperluan diri sendiri setelah kegiatan tanpa diminta",
+          "template": "terbiasa merapikan peralatan dan membereskan dirinya sendiri setelah kegiatan selesai tanpa perlu diminta terlebih dahulu",
+          "has_sub": false
+        }
+      ]
+    },
+    {
+      "id": "penalaran-kritis",
+      "nama": "Penalaran Kritis",
+      "deskripsi": "Mencakup kemampuan anak untuk bertanya, mengamati, menalar, dan menarik kesimpulan sederhana dari pengalaman dan observasi sehari-hari, sebagai fondasi berpikir logis dan analitis.",
+      "indikator": [
+        {
+          "id": "pk-rasa-ingin-tahu",
+          "label": "Aktif mengajukan pertanyaan tentang hal-hal yang ingin diketahui di sekitarnya",
+          "template": "memiliki rasa ingin tahu yang tinggi dan aktif mengajukan pertanyaan tentang hal-hal yang menarik perhatiannya di lingkungan sekitar",
+          "has_sub": false
+        },
+        {
+          "id": "pk-amati-simpul",
+          "label": "Mengamati lingkungan atau kegiatan dan mampu menarik kesimpulan sederhana",
+          "template": "mampu mengamati lingkungan dan kegiatan di sekitarnya dengan saksama, kemudian menarik kesimpulan sederhana dari hasil pengamatannya",
+          "has_sub": false
+        },
+        {
+          "id": "pk-cari-solusi",
+          "label": "Berusaha mencari solusi atau alternatif cara saat menghadapi masalah sederhana",
+          "template": "menunjukkan kemampuan penalaran yang baik dengan berusaha mencari solusi atau cara lain saat menghadapi masalah sederhana dalam kesehariannya",
+          "has_sub": false
+        }
+      ]
+    },
+    {
+      "id": "kreativitas",
+      "nama": "Kreativitas dan Inovasi",
+      "deskripsi": "Mencakup kemampuan anak menghasilkan gagasan dan karya yang orisinal, mengeksplorasi berbagai media dan bahan secara imajinatif, serta keberanian menyampaikan ide yang berbeda dengan cara yang positif.",
+      "indikator": [
+        {
+          "id": "kr-karya-orisinal",
+          "label": "Menghasilkan karya atau produk yang mencerminkan gagasan dan imajinasi sendiri",
+          "template": "memiliki jiwa kreatif yang menonjol, terlihat dari karya-karyanya yang selalu mencerminkan gagasan dan imajinasi yang kaya",
+          "has_sub": false
+        },
+        {
+          "id": "kr-eksplorasi-bahan",
+          "label": "Dengan antusias mengeksplorasi berbagai bahan dan media dalam kegiatan berkarya",
+          "template": "dengan penuh antusias mengeksplorasi berbagai bahan dan media yang tersedia, menggunakannya dengan cara-cara yang inovatif dan menarik",
+          "has_sub": false
+        },
+        {
+          "id": "kr-ide-berbeda",
+          "label": "Berani menyampaikan ide yang berbeda dan unik dalam diskusi atau kegiatan kelompok",
+          "template": "berani menyampaikan ide-ide yang unik dan berbeda dalam diskusi atau kegiatan kelompok, yang sering kali memperkaya hasil karya bersama",
+          "has_sub": false
+        }
+      ]
+    },
+    {
+      "id": "kesehatan",
+      "nama": "Kesehatan dan Kesejahteraan",
+      "deskripsi": "Mencakup pembiasaan hidup bersih dan sehat, kemampuan mengelola emosi secara positif, serta antusiasme dalam aktivitas fisik sebagai fondasi kesejahteraan fisik, emosional, dan mental anak.",
+      "indikator": [
+        {
+          "id": "ks-pola-sehat",
+          "label": "Menerapkan kebiasaan hidup bersih dan sehat secara konsisten dalam keseharian",
+          "template": "secara konsisten menerapkan kebiasaan hidup bersih dan sehat, seperti mencuci tangan, menjaga kebersihan diri, dan memilih makanan yang bergizi",
+          "has_sub": false
+        },
+        {
+          "id": "ks-kelola-emosi",
+          "label": "Mampu mengekspresikan dan mengelola emosi secara sehat dan tepat",
+          "template": "mampu mengekspresikan dan mengelola emosinya secara sehat, seperti mengungkapkan perasaan dengan kata-kata dan menenangkan diri saat sedih atau marah",
+          "has_sub": false
+        },
+        {
+          "id": "ks-aktif-fisik",
+          "label": "Aktif dan bersemangat dalam kegiatan fisik serta bermain di luar ruangan",
+          "template": "selalu aktif dan bersemangat dalam kegiatan fisik maupun bermain di luar ruangan, menunjukkan tubuh yang bugar dan jiwa yang riang",
+          "has_sub": false
+        }
+      ]
+    },
+    {
+      "id": "komunikasi",
+      "nama": "Komunikasi Efektif",
+      "deskripsi": "Mencakup kemampuan anak menyampaikan ide, perasaan, dan informasi secara jelas dan percaya diri, serta kemampuan mendengarkan dan merespons lawan bicara dengan penuh perhatian.",
+      "indikator": [
+        {
+          "id": "ko-sampaikan-ide",
+          "label": "Menyampaikan ide, perasaan, dan pendapat dengan jelas dan percaya diri",
+          "template": "mampu menyampaikan ide, perasaan, dan pendapatnya dengan jelas dan penuh percaya diri di hadapan guru maupun teman-temannya",
+          "has_sub": false
+        },
+        {
+          "id": "ko-dengar-aktif",
+          "label": "Mendengarkan lawan bicara dengan penuh perhatian dan merespons dengan tepat",
+          "template": "menunjukkan kemampuan mendengarkan yang baik, selalu memberikan perhatian penuh kepada lawan bicara dan merespons dengan tepat serta santun",
+          "has_sub": false
+        },
+        {
+          "id": "ko-cerita-runtut",
+          "label": "Menceritakan pengalaman atau informasi secara runtut dan mudah dipahami",
+          "template": "mampu menceritakan pengalaman atau informasi yang diterimanya secara runtut dan mudah dipahami, menunjukkan perkembangan kemampuan berbahasa yang menggembirakan",
+          "has_sub": false
+        }
+      ]
+    }
+  ]
+}
