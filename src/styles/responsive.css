@@ -1,0 +1,379 @@
+/* ==========================================================
+   SiCAPAI — Responsive Styles
+   ========================================================== */
+
+/* ---- Tablet (≤ 1024px) ---- */
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+
+  .report-panels {
+    grid-template-columns: 1fr !important;
+  }
+
+  .report-checklist-panel,
+  .report-preview-panel {
+    max-height: none !important;
+  }
+}
+
+/* ---- Mobile (≤ 768px) ---- */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 56px;
+    --font-size-3xl: 1.75rem;
+    --font-size-2xl: 1.375rem;
+    --font-size-xl: 1.125rem;
+  }
+
+  /* ---- Header compact ---- */
+  .app-header-inner {
+    padding: 0 var(--space-3);
+  }
+
+  .header-brand {
+    display: none !important;
+  }
+
+  .header-divider {
+    display: none !important;
+  }
+
+  .workspace-switcher {
+    max-width: 140px;
+    font-size: var(--font-size-xs) !important;
+    padding: var(--space-1) var(--space-2) !important;
+  }
+
+  .workspace-name {
+    max-width: 90px;
+  }
+
+  .header-actions {
+    gap: var(--space-1) !important;
+  }
+
+  .quota-pill {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .header-icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* ---- Layout: stack sidebar + main vertically ---- */
+  .app-body {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+
+  /* Hide sidebar completely on mobile during onboarding/loading */
+  .app-sidebar[data-state="onboarding"],
+  .app-sidebar[data-state="loading"] {
+    display: none !important;
+  }
+
+  .app-sidebar[data-state="ready"] {
+    display: flex !important;
+    width: 100% !important;
+    max-height: 200px;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border-light);
+    flex-shrink: 0 !important;
+  }
+
+  .sidebar-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .sidebar-title {
+    font-size: var(--font-size-sm);
+  }
+
+  .sidebar-body {
+    max-height: 140px;
+  }
+
+  .student-item {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .student-avatar {
+    font-size: var(--font-size-lg);
+  }
+
+  .student-name {
+    font-size: var(--font-size-xs);
+  }
+
+  .student-meta {
+    font-size: 10px;
+  }
+
+  .app-main {
+    flex: 1 !important;
+    overflow-y: auto;
+  }
+
+  .main-content {
+    padding: var(--space-4) !important;
+  }
+
+  /* ---- Onboarding mobile ---- */
+  .onboarding {
+    padding: var(--space-4) 0 !important;
+  }
+
+  .onboarding-emoji {
+    font-size: 3rem !important;
+  }
+
+  .onboarding-title {
+    font-size: var(--font-size-xl) !important;
+  }
+
+  .onboarding-subtitle {
+    font-size: var(--font-size-sm) !important;
+  }
+
+  .onboarding-steps {
+    padding: var(--space-4) !important;
+  }
+
+  .onboarding-steps-title {
+    font-size: var(--font-size-sm) !important;
+  }
+
+  .step-content h4 {
+    font-size: var(--font-size-sm);
+  }
+
+  .step-content p {
+    font-size: var(--font-size-xs) !important;
+  }
+
+  .step-number {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    font-size: var(--font-size-sm) !important;
+  }
+
+  /* ---- Report workspace mobile ---- */
+  .report-info {
+    padding: var(--space-4) !important;
+  }
+
+  .report-student-avatar {
+    font-size: 2rem !important;
+  }
+
+  .report-student-name {
+    font-size: var(--font-size-md) !important;
+  }
+
+  .report-meta-row {
+    gap: var(--space-2) !important;
+  }
+
+  .meta-field {
+    min-width: 70px !important;
+  }
+
+  .save-indicator {
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+
+  /* ---- Preview ---- */
+  .preview-body {
+    padding: 0 var(--space-4) var(--space-4);
+  }
+
+  .preview-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .preview-title {
+    max-width: 100% !important;
+  }
+
+  .preview-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .preview-narrative {
+    font-size: var(--font-size-sm);
+    line-height: 1.7;
+  }
+
+/* ---- Modal mobile ---- */
+  .modal-backdrop {
+    padding: var(--space-3);
+  }
+
+  .modal {
+    padding: var(--space-5);
+    border-radius: var(--radius-xl);
+    max-width: 100%;
+  }
+
+  .modal-title {
+    font-size: var(--font-size-lg);
+  }
+
+  /* ---- Cards ---- */
+  .card {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  /* ---- Buttons ---- */
+  .btn-lg {
+    padding: var(--space-3) var(--space-5);
+    font-size: var(--font-size-sm);
+  }
+
+  /* ---- Toast ---- */
+  .toast-container {
+    top: var(--space-3);
+    right: var(--space-3);
+    left: var(--space-3);
+  }
+
+  .toast {
+    max-width: 100%;
+    font-size: var(--font-size-xs);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* ---- Checklist ---- */
+  .check-sub-list {
+    margin-left: var(--space-6);
+  }
+
+  .accordion-header {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+  }
+
+  /* ---- Login screen ---- */
+  .login-card {
+    padding: var(--space-8) var(--space-6) !important;
+  }
+
+  .login-logo .logo-text {
+    font-size: 2.75rem !important; /* Huge even on mobile */
+  }
+
+  .login-logo .logo-tagline {
+    font-size: var(--font-size-base) !important;
+  }
+
+  .login-desc {
+    font-size: var(--font-size-sm) !important;
+  }
+
+  .btn-google {
+    font-size: var(--font-size-base) !important;
+    padding: var(--space-4) !important;
+  }
+
+  /* ---- Dropdown ---- */
+  .dropdown-menu {
+    right: 0;
+    left: auto;
+    min-width: 180px;
+  }
+}
+
+/* ---- Small Mobile (≤ 480px) ---- */
+@media (max-width: 480px) {
+  .app-sidebar {
+    max-height: 160px;
+  }
+
+  .sidebar-body {
+    max-height: 110px;
+  }
+
+  .check-item {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .check-item input[type="checkbox"],
+  .check-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+  }
+
+  .check-label {
+    font-size: var(--font-size-sm);
+  }
+
+  .form-input,
+  .form-select {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .form-label {
+    font-size: 10px;
+  }
+
+  .onboarding-step {
+    gap: var(--space-3) !important;
+  }
+
+  .empty-state {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .empty-state-icon {
+    font-size: 2.5rem;
+  }
+
+  .empty-state-title {
+    font-size: var(--font-size-base);
+  }
+
+  .empty-state-desc {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ---- Print Styles ---- */
+@media print {
+  .app-header,
+  .app-sidebar,
+  .btn,
+  .toast-container,
+  .modal-backdrop {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .preview-panel {
+    border: none;
+    box-shadow: none;
+  }
+
+  .preview-narrative {
+    border-left-color: #333;
+    background: white;
+    font-size: 12pt;
+  }
+}

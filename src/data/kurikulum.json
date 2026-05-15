@@ -1,0 +1,1119 @@
+{
+  "_meta": {
+    "versi": "1.0.0",
+    "nama_produk": "SiCAPAI - Generator Narasi Rapor PAUD",
+    "kurikulum": "Kurikulum Merdeka - Fase Fondasi",
+    "referensi": [
+      "Permendikbudristek No. 5 Tahun 2022 tentang Standar Kompetensi Lulusan",
+      "Keputusan Kepala BSKAP No. 033/H/KR/2022 tentang Capaian Pembelajaran PAUD",
+      "Panduan Pembelajaran dan Asesmen PAUD 2022"
+    ],
+    "petunjuk_template": "Gabungkan template indikator + sub_indikator(s) untuk membentuk satu kalimat narasi. Awali dengan nama anak. Sub_indikator pertama pakai 'seperti', selanjutnya tanpa kata sambung atau dengan 'serta'/'dan'. Akhiri kalimat dengan titik.",
+    "contoh_hasil": "[Nama] sudah mampu melafalkan beberapa doa harian dengan baik, seperti doa sebelum dan sesudah makan, doa sebelum tidur dan bangun tidur, serta doa sebelum dan sesudah belajar.",
+    "diperbarui": "2025"
+  },
+  "elemen": [
+    {
+      "id": "agama-budi-pekerti",
+      "nama": "Nilai Agama dan Budi Pekerti",
+      "deskripsi": "Mencakup kemampuan anak mengenal dan mempraktikkan ajaran agama dan kepercayaan, mensyukuri ciptaan Tuhan Yang Maha Esa, serta menunjukkan perilaku budi pekerti dan akhlak mulia dalam kehidupan sehari-hari.",
+      "sub_elemen": [
+        {
+          "id": "ajaran-agama",
+          "nama": "Mengenal dan Mempraktikkan Ajaran Agama serta Kepercayaan",
+          "indikator": [
+            {
+              "id": "doa-harian",
+              "label": "Mengenal dan melafalkan doa harian",
+              "template": "sudah mampu melafalkan beberapa doa harian dengan baik",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "doa-makan",
+                  "label": "Doa sebelum dan sesudah makan",
+                  "template": "seperti doa sebelum dan sesudah makan"
+                },
+                {
+                  "id": "doa-tidur",
+                  "label": "Doa sebelum tidur dan bangun tidur",
+                  "template": "doa sebelum tidur dan bangun tidur"
+                },
+                {
+                  "id": "doa-belajar",
+                  "label": "Doa sebelum dan sesudah belajar",
+                  "template": "doa sebelum dan sesudah belajar"
+                },
+                {
+                  "id": "doa-kamar-mandi",
+                  "label": "Doa masuk dan keluar kamar mandi",
+                  "template": "doa masuk dan keluar kamar mandi"
+                },
+                {
+                  "id": "doa-kendaraan",
+                  "label": "Doa naik kendaraan",
+                  "template": "doa naik kendaraan"
+                },
+                {
+                  "id": "doa-orang-tua",
+                  "label": "Doa untuk kedua orang tua",
+                  "template": "serta doa untuk kedua orang tua"
+                }
+              ]
+            },
+            {
+              "id": "gerakan-ibadah",
+              "label": "Mengenal dan menirukan gerakan ibadah",
+              "template": "mengenal dan mampu menirukan gerakan ibadah sesuai agamanya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "gi-sholat",
+                  "label": "Gerakan sholat — Islam",
+                  "template": "seperti gerakan berdiri, rukuk, dan sujud dalam sholat"
+                },
+                {
+                  "id": "gi-kebaktian",
+                  "label": "Sikap doa kebaktian — Kristen / Katolik",
+                  "template": "seperti sikap tangan saat berdoa dan menyanyikan pujian rohani"
+                },
+                {
+                  "id": "gi-sembahyang-hindu",
+                  "label": "Gerakan sembahyang — Hindu",
+                  "template": "seperti sikap anjali dan gerakan dalam persembahyangan"
+                },
+                {
+                  "id": "gi-sembahyang-buddha",
+                  "label": "Gerakan doa — Buddha",
+                  "template": "seperti sikap tangan gasho dan duduk hening saat berdoa"
+                }
+              ]
+            },
+            {
+              "id": "kitab-suci",
+              "label": "Mengenal kitab suci agamanya",
+              "template": "mengenal kitab suci agamanya dan memperlakukannya dengan penuh rasa hormat",
+              "has_sub": false
+            },
+            {
+              "id": "tempat-ibadah",
+              "label": "Menyebutkan dan mengenal tempat ibadah",
+              "template": "dapat menyebutkan dan mengenal fungsi tempat ibadah agamanya dengan benar",
+              "has_sub": false
+            },
+            {
+              "id": "hari-besar-agama",
+              "label": "Mengenal hari besar keagamaan",
+              "template": "mulai mengenal hari-hari besar keagamaan",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "hb-idul-fitri",
+                  "label": "Hari Raya Idul Fitri",
+                  "template": "seperti Hari Raya Idul Fitri"
+                },
+                {
+                  "id": "hb-idul-adha",
+                  "label": "Hari Raya Idul Adha",
+                  "template": "Idul Adha"
+                },
+                {
+                  "id": "hb-natal",
+                  "label": "Hari Natal",
+                  "template": "Hari Natal"
+                },
+                {
+                  "id": "hb-nyepi",
+                  "label": "Hari Raya Nyepi",
+                  "template": "Hari Raya Nyepi"
+                },
+                {
+                  "id": "hb-waisak",
+                  "label": "Hari Raya Waisak",
+                  "template": "serta Hari Raya Waisak"
+                }
+              ]
+            },
+            {
+              "id": "sifat-tuhan",
+              "label": "Mengenal sifat-sifat Tuhan sesuai agamanya",
+              "template": "mulai memahami beberapa sifat dan kebesaran Tuhan sesuai dengan ajaran agama yang diyakininya",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "syukur-ciptaan",
+          "nama": "Mensyukuri, Menjaga, dan Melestarikan Ciptaan Tuhan",
+          "indikator": [
+            {
+              "id": "rasa-syukur",
+              "label": "Mengucapkan rasa syukur atas nikmat Tuhan",
+              "template": "terbiasa mengucapkan rasa syukur atas nikmat dan karunia yang diterimanya dari Tuhan",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "syukur-ucapan",
+                  "label": "Mengucapkan kata syukur secara spontan",
+                  "template": "seperti secara spontan mengucapkan kata syukur saat mendapat kebaikan atau keberuntungan"
+                },
+                {
+                  "id": "syukur-berdoa",
+                  "label": "Berdoa sebelum dan sesudah kegiatan",
+                  "template": "serta selalu memulai dan mengakhiri kegiatan dengan berdoa"
+                }
+              ]
+            },
+            {
+              "id": "merawat-makhluk-hidup",
+              "label": "Ikut merawat makhluk hidup sebagai ciptaan Tuhan",
+              "template": "menunjukkan kepedulian dengan aktif ikut merawat makhluk hidup di sekitarnya sebagai wujud syukur atas ciptaan Tuhan",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "mml-tanaman",
+                  "label": "Merawat tanaman",
+                  "template": "seperti menyiram dan merawat tanaman"
+                },
+                {
+                  "id": "mml-hewan",
+                  "label": "Memberi makan hewan peliharaan",
+                  "template": "serta memberi makan hewan peliharaan dengan penuh kasih sayang"
+                }
+              ]
+            },
+            {
+              "id": "menjaga-lingkungan",
+              "label": "Menjaga kebersihan dan kelestarian lingkungan",
+              "template": "aktif menjaga kebersihan dan kelestarian lingkungan sekitar sebagai bentuk tanggung jawab terhadap amanah ciptaan Tuhan",
+              "has_sub": false
+            },
+            {
+              "id": "kagum-alam",
+              "label": "Mengungkapkan kekaguman terhadap keindahan alam",
+              "template": "mampu mengungkapkan rasa kagum dan takjub terhadap keindahan alam sebagai cerminan kebesaran Tuhan",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "budi-pekerti",
+          "nama": "Menunjukkan Perilaku Budi Pekerti dan Akhlak Mulia",
+          "indikator": [
+            {
+              "id": "sopan-santun",
+              "label": "Menunjukkan perilaku sopan dan santun",
+              "template": "menunjukkan perilaku sopan dan santun yang membanggakan dalam kesehariannya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "ss-salam",
+                  "label": "Mengucapkan salam saat bertemu atau berpisah",
+                  "template": "seperti selalu mengucapkan salam saat bertemu atau berpisah dengan guru dan teman"
+                },
+                {
+                  "id": "ss-tolong",
+                  "label": "Mengucapkan 'tolong' saat meminta bantuan",
+                  "template": "mengucapkan 'tolong' setiap kali memerlukan bantuan orang lain"
+                },
+                {
+                  "id": "ss-terimakasih",
+                  "label": "Mengucapkan 'terima kasih'",
+                  "template": "mengucapkan 'terima kasih' saat menerima pertolongan atau pemberian"
+                },
+                {
+                  "id": "ss-maaf",
+                  "label": "Mengucapkan 'maaf' saat berbuat salah",
+                  "template": "serta dengan tulus mengucapkan 'maaf' saat berbuat salah"
+                }
+              ]
+            },
+            {
+              "id": "jujur",
+              "label": "Menunjukkan sikap jujur",
+              "template": "selalu bersikap jujur baik dalam perkataan maupun perbuatan, dan tidak mau berbohong",
+              "has_sub": false
+            },
+            {
+              "id": "empati-peduli",
+              "label": "Menunjukkan rasa empati dan kepedulian terhadap sesama",
+              "template": "memiliki rasa empati yang baik dan peduli terhadap perasaan serta kebutuhan orang lain",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "ep-berbagi",
+                  "label": "Mau berbagi dengan teman",
+                  "template": "seperti dengan sukarela berbagi mainan atau makanan bersama teman"
+                },
+                {
+                  "id": "ep-menghibur",
+                  "label": "Menghibur teman yang sedih",
+                  "template": "serta berupaya menghibur atau menenangkan teman yang sedang bersedih"
+                }
+              ]
+            },
+            {
+              "id": "disiplin-tanggung-jawab",
+              "label": "Menunjukkan sikap disiplin dan tanggung jawab",
+              "template": "mampu bersikap disiplin mengikuti aturan yang berlaku dan bertanggung jawab terhadap tugas serta barang miliknya",
+              "has_sub": false
+            },
+            {
+              "id": "menghargai-perbedaan",
+              "label": "Menghargai perbedaan teman",
+              "template": "tumbuh dengan sikap yang indah dalam menghargai perbedaan, baik perbedaan suku, agama, budaya, maupun kemampuan teman-temannya",
+              "has_sub": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jati-diri",
+      "nama": "Jati Diri",
+      "deskripsi": "Mencakup kemampuan anak mengenal dan bangga dengan identitas dirinya, mengelola emosi secara sehat, menunjukkan kemandirian, serta mengembangkan kemampuan motorik kasar, motorik halus, dan praktik hidup sehat dan aman.",
+      "sub_elemen": [
+        {
+          "id": "identitas-diri",
+          "nama": "Mengenal Identitas Diri, Keluarga, dan Lingkungan Sosial Budaya",
+          "indikator": [
+            {
+              "id": "data-diri",
+              "label": "Menyebutkan data diri sendiri",
+              "template": "dapat menyebutkan data dirinya secara lengkap dengan penuh rasa percaya diri",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "dd-nama",
+                  "label": "Menyebutkan nama lengkap",
+                  "template": "seperti nama lengkap"
+                },
+                {
+                  "id": "dd-usia",
+                  "label": "Menyebutkan usia",
+                  "template": "usia"
+                },
+                {
+                  "id": "dd-jenis-kelamin",
+                  "label": "Memahami identitas jenis kelaminnya",
+                  "template": "memahami identitas jenis kelaminnya"
+                },
+                {
+                  "id": "dd-alamat",
+                  "label": "Menyebutkan alamat rumah",
+                  "template": "serta sudah mulai hafal alamat rumahnya"
+                }
+              ]
+            },
+            {
+              "id": "anggota-keluarga",
+              "label": "Mengenal dan menyebutkan anggota keluarga inti",
+              "template": "dapat menyebutkan nama anggota keluarga intinya beserta peran masing-masing dengan bangga",
+              "has_sub": false
+            },
+            {
+              "id": "profesi-keluarga",
+              "label": "Mengenal pekerjaan anggota keluarga",
+              "template": "mengetahui dan bangga menceritakan pekerjaan orang tua serta anggota keluarganya",
+              "has_sub": false
+            },
+            {
+              "id": "budaya-asal",
+              "label": "Mengenal asal daerah dan budaya keluarganya",
+              "template": "mulai mengenal asal daerah dan kebudayaan keluarganya dengan rasa bangga sebagai bagian dari identitas dirinya",
+              "has_sub": false
+            },
+            {
+              "id": "konsep-diri-positif",
+              "label": "Memiliki konsep diri yang positif",
+              "template": "menunjukkan rasa percaya diri yang baik, mampu mengenali kelebihan dirinya, dan bangga menjadi dirinya sendiri",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "regulasi-emosi",
+          "nama": "Mengelola, Mengekspresikan, dan Meregulasi Emosi",
+          "indikator": [
+            {
+              "id": "mengenali-emosi",
+              "label": "Mengenali dan menamai emosi yang dirasakan",
+              "template": "mampu mengenali dan menamai berbagai emosi yang dirasakannya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "em-senang",
+                  "label": "Rasa senang",
+                  "template": "seperti rasa senang"
+                },
+                {
+                  "id": "em-sedih",
+                  "label": "Rasa sedih",
+                  "template": "sedih"
+                },
+                {
+                  "id": "em-marah",
+                  "label": "Rasa marah",
+                  "template": "marah"
+                },
+                {
+                  "id": "em-takut",
+                  "label": "Rasa takut",
+                  "template": "serta takut dengan cara yang tepat dan dapat dipahami orang lain"
+                }
+              ]
+            },
+            {
+              "id": "mengelola-emosi-negatif",
+              "label": "Mengelola emosi negatif dengan cara yang positif",
+              "template": "mulai mampu mengelola emosi negatif seperti rasa marah dan kecewa dengan cara yang baik tanpa menyakiti diri sendiri maupun orang lain",
+              "has_sub": false
+            },
+            {
+              "id": "antri-sabar",
+              "label": "Bersabar dan mau mengantri giliran",
+              "template": "sudah terbiasa bersabar dan mau mengantri menunggu giliran tanpa mengeluh",
+              "has_sub": false
+            },
+            {
+              "id": "interaksi-sosial",
+              "label": "Berinteraksi secara positif dengan teman sebaya dan orang dewasa",
+              "template": "mampu berinteraksi secara positif dan hangat baik dengan teman sebaya maupun orang dewasa di sekitarnya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "is-bermain-bersama",
+                  "label": "Bermain bersama dan mengajak teman baru",
+                  "template": "seperti aktif bermain bersama dan berani mengajak teman baru untuk bergabung"
+                },
+                {
+                  "id": "is-bergiliran",
+                  "label": "Bersedia bergiliran menggunakan fasilitas",
+                  "template": "serta bersedia bergiliran dan berbagi fasilitas kelas dengan senang hati"
+                }
+              ]
+            },
+            {
+              "id": "bangga-karya",
+              "label": "Menunjukkan rasa bangga atas hasil karyanya",
+              "template": "merasa bangga dan percaya diri dalam menunjukkan serta menceritakan hasil karya yang telah dibuatnya kepada orang lain",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "kemandirian",
+          "nama": "Menunjukkan Perilaku Mandiri, Percaya Diri, dan Bertanggung Jawab",
+          "indikator": [
+            {
+              "id": "merawat-diri-sendiri",
+              "label": "Melakukan kegiatan perawatan diri secara mandiri",
+              "template": "mampu melakukan berbagai kegiatan perawatan diri secara mandiri",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "mds-berpakaian",
+                  "label": "Memakai dan melepas pakaian sendiri",
+                  "template": "seperti memakai dan melepas pakaian sendiri"
+                },
+                {
+                  "id": "mds-makan",
+                  "label": "Makan dan minum secara mandiri",
+                  "template": "makan dan minum secara mandiri dan tertib"
+                },
+                {
+                  "id": "mds-toilet",
+                  "label": "Menggunakan toilet secara mandiri",
+                  "template": "menggunakan toilet secara mandiri serta menjaga kebersihannya"
+                },
+                {
+                  "id": "mds-sepatu",
+                  "label": "Memakai dan melepas alas kaki",
+                  "template": "serta memakai dan melepas alas kaki sendiri tanpa meminta bantuan"
+                }
+              ]
+            },
+            {
+              "id": "membereskan-barang",
+              "label": "Membereskan mainan dan peralatan setelah digunakan",
+              "template": "terbiasa dan dengan senang hati membereskan serta merapikan mainan dan peralatan belajar setelah selesai digunakan",
+              "has_sub": false
+            },
+            {
+              "id": "mengambil-keputusan",
+              "label": "Membuat pilihan dan keputusan sederhana secara mandiri",
+              "template": "sudah mampu membuat pilihan dan keputusan sederhana secara mandiri dan berani mempertahankan pilihannya",
+              "has_sub": false
+            },
+            {
+              "id": "menyelesaikan-tugas",
+              "label": "Menyelesaikan tugas hingga tuntas",
+              "template": "menunjukkan ketekunan yang baik dan mampu menyelesaikan tugas yang diberikan hingga tuntas tanpa mudah menyerah",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "motorik-kasar",
+          "nama": "Menunjukkan Kemampuan Motorik Kasar",
+          "indikator": [
+            {
+              "id": "berjalan-berlari",
+              "label": "Berjalan dan berlari dengan koordinasi yang baik",
+              "template": "menunjukkan kemampuan motorik kasar yang sangat baik dalam kegiatan gerak",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "mk-berjalan",
+                  "label": "Berjalan di berbagai jenis lintasan",
+                  "template": "seperti berjalan di berbagai jenis lintasan dengan keseimbangan yang baik"
+                },
+                {
+                  "id": "mk-berlari",
+                  "label": "Berlari dengan koordinasi yang baik",
+                  "template": "berlari dengan kecepatan dan koordinasi yang baik"
+                },
+                {
+                  "id": "mk-merangkak",
+                  "label": "Merayap dan merangkak",
+                  "template": "serta merayap dan merangkak dengan penuh kelincahan"
+                }
+              ]
+            },
+            {
+              "id": "melompat",
+              "label": "Melompat dan meloncat",
+              "template": "mampu melompat dan meloncat dengan terarah dan percaya diri",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "lp-dua-kaki",
+                  "label": "Melompat dengan dua kaki",
+                  "template": "seperti melompat ke depan dengan menggunakan kedua kaki"
+                },
+                {
+                  "id": "lp-satu-kaki",
+                  "label": "Melompat dengan satu kaki (engklek)",
+                  "template": "serta melompat dengan satu kaki secara bergantian"
+                }
+              ]
+            },
+            {
+              "id": "keseimbangan",
+              "label": "Menjaga keseimbangan tubuh",
+              "template": "mampu menjaga keseimbangan tubuh dengan baik dalam berbagai posisi",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "ks-satu-kaki",
+                  "label": "Berdiri dengan satu kaki",
+                  "template": "seperti berdiri dengan satu kaki selama beberapa detik"
+                },
+                {
+                  "id": "ks-papan-titian",
+                  "label": "Berjalan di atas papan titian",
+                  "template": "serta berjalan di atas papan titian dengan percaya diri"
+                }
+              ]
+            },
+            {
+              "id": "melempar-menangkap",
+              "label": "Melempar dan menangkap benda",
+              "template": "mampu melempar dan menangkap bola atau benda lain dengan koordinasi mata dan tangan yang baik",
+              "has_sub": false
+            },
+            {
+              "id": "koordinasi-kegiatan-fisik",
+              "label": "Koordinasi tubuh dalam kegiatan fisik dan olahraga",
+              "template": "menunjukkan koordinasi anggota tubuh yang baik dalam berbagai kegiatan fisik",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "kf-senam",
+                  "label": "Senam dan gerak lagu",
+                  "template": "seperti mengikuti gerakan senam dan gerak lagu dengan penuh semangat dan keceriaan"
+                },
+                {
+                  "id": "kf-sepeda",
+                  "label": "Mengendarai sepeda atau skuter",
+                  "template": "serta mulai terampil mengendarai sepeda roda tiga atau skuter keseimbangan"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "motorik-halus",
+          "nama": "Menunjukkan Kemampuan Motorik Halus",
+          "indikator": [
+            {
+              "id": "memegang-alat-tulis",
+              "label": "Memegang alat tulis dengan cara yang benar",
+              "template": "mampu memegang pensil, krayon, dan berbagai alat tulis lainnya dengan cara yang benar dan terkontrol",
+              "has_sub": false
+            },
+            {
+              "id": "menggunting",
+              "label": "Menggunting mengikuti pola",
+              "template": "mampu menggunting dengan mengikuti berbagai pola",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "gun-lurus",
+                  "label": "Menggunting garis lurus",
+                  "template": "seperti garis lurus"
+                },
+                {
+                  "id": "gun-lengkung",
+                  "label": "Menggunting garis lengkung",
+                  "template": "garis lengkung"
+                },
+                {
+                  "id": "gun-pola-gambar",
+                  "label": "Menggunting pola gambar sederhana",
+                  "template": "serta pola gambar sederhana dengan rapi"
+                }
+              ]
+            },
+            {
+              "id": "mewarnai-menggambar",
+              "label": "Mewarnai gambar dan menggambar bebas",
+              "template": "mampu mewarnai gambar dengan memperhatikan batas dan menggambar bebas sesuai imajinasinya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "mw-mewarnai",
+                  "label": "Mewarnai dalam batas garis",
+                  "template": "seperti mewarnai gambar dengan cukup rapi dalam batas garis"
+                },
+                {
+                  "id": "mw-menggambar",
+                  "label": "Menggambar bebas",
+                  "template": "serta menggambar berbagai objek sesuai imajinasinya secara kreatif"
+                }
+              ]
+            },
+            {
+              "id": "meronce-menyusun",
+              "label": "Meronce dan menyusun benda kecil",
+              "template": "terampil meronce manik-manik dan menyusun berbagai benda kecil dengan konsentrasi dan ketelitian yang baik",
+              "has_sub": false
+            },
+            {
+              "id": "melipat-kolase",
+              "label": "Melipat kertas dan membuat kolase",
+              "template": "mampu melipat kertas mengikuti pola sederhana dan membuat karya kolase dari berbagai bahan dengan hasil yang menarik",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "kesehatan-keselamatan",
+          "nama": "Mengenal dan Mempraktikkan Hidup Sehat, Bersih, dan Aman",
+          "indikator": [
+            {
+              "id": "kebersihan-diri",
+              "label": "Menjaga kebersihan diri sendiri",
+              "template": "telah terbiasa menjaga kebersihan dirinya sendiri secara mandiri",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "kd-cuci-tangan",
+                  "label": "Mencuci tangan dengan sabun",
+                  "template": "seperti mencuci tangan dengan sabun sebelum makan dan setelah menggunakan toilet"
+                },
+                {
+                  "id": "kd-sikat-gigi",
+                  "label": "Menggosok gigi secara teratur",
+                  "template": "menggosok gigi secara teratur"
+                },
+                {
+                  "id": "kd-mandi",
+                  "label": "Mandi dan merawat kebersihan tubuh",
+                  "template": "serta menjaga kebersihan dan kerapian tubuhnya setiap hari"
+                }
+              ]
+            },
+            {
+              "id": "makanan-bergizi",
+              "label": "Mengenal makanan bergizi dan mau mengonsumsinya",
+              "template": "mengenal konsep makanan bergizi dan mau mengonsumsi beragam jenis makanan sehat dengan antusias",
+              "has_sub": false
+            },
+            {
+              "id": "keselamatan-diri",
+              "label": "Mengenal dan mempraktikkan aturan keselamatan diri",
+              "template": "memahami pentingnya keselamatan diri dan mulai mempraktikkan aturan keselamatan dalam berbagai situasi",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "ks-lalu-lintas",
+                  "label": "Keselamatan berlalu lintas",
+                  "template": "seperti memahami pentingnya memakai helm dan menyeberang di tempat yang aman"
+                },
+                {
+                  "id": "ks-orang-asing",
+                  "label": "Waspada terhadap orang yang tidak dikenal",
+                  "template": "serta memahami untuk tidak sembarangan mengikuti atau menerima sesuatu dari orang yang tidak dikenal"
+                }
+              ]
+            },
+            {
+              "id": "istirahat-cukup",
+              "label": "Memahami pentingnya istirahat dan tidur yang cukup",
+              "template": "memahami pentingnya istirahat dan tidur yang cukup untuk menjaga kesehatan serta kebugaran tubuhnya",
+              "has_sub": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "literasi-steam",
+      "nama": "Dasar-Dasar Literasi, Matematika, Sains, Teknologi, Rekayasa, dan Seni",
+      "deskripsi": "Mencakup kemampuan dasar anak dalam berbahasa dan berkomunikasi, berhitung dan mengenal konsep matematika, mengeksplorasi sains dan lingkungan, mengenal teknologi dan rekayasa sederhana, serta mengekspresikan diri melalui berbagai karya seni.",
+      "sub_elemen": [
+        {
+          "id": "literasi-bahasa",
+          "nama": "Kemampuan Berbahasa, Berkomunikasi, dan Literasi Awal",
+          "indikator": [
+            {
+              "id": "menyimak",
+              "label": "Menyimak dan memahami informasi yang didengar",
+              "template": "mampu menyimak dengan seksama dan memahami informasi maupun instruksi yang disampaikan baik oleh guru maupun teman",
+              "has_sub": false
+            },
+            {
+              "id": "berbicara-komunikasi",
+              "label": "Berbicara dan berkomunikasi secara aktif dan jelas",
+              "template": "mampu berkomunikasi secara aktif, lancar, dan jelas",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "bk-bercerita",
+                  "label": "Bercerita tentang pengalaman secara runtut",
+                  "template": "seperti bercerita tentang pengalamannya dengan runtut dan mudah dipahami"
+                },
+                {
+                  "id": "bk-bertanya",
+                  "label": "Mengajukan pertanyaan secara aktif",
+                  "template": "aktif mengajukan pertanyaan yang relevan untuk memenuhi rasa ingin tahunya"
+                },
+                {
+                  "id": "bk-menjawab",
+                  "label": "Menjawab pertanyaan dengan tepat",
+                  "template": "serta menjawab pertanyaan yang diajukan dengan tepat dan percaya diri"
+                }
+              ]
+            },
+            {
+              "id": "kosakata",
+              "label": "Memiliki perbendaharaan kata yang kaya",
+              "template": "memiliki perbendaharaan kata yang cukup kaya sehingga mampu mengungkapkan pikiran, perasaan, dan ide-idenya dengan jelas kepada orang lain",
+              "has_sub": false
+            },
+            {
+              "id": "pra-membaca",
+              "label": "Menunjukkan kemampuan pra-membaca (pra-literasi)",
+              "template": "menunjukkan perkembangan kemampuan pra-membaca yang sangat baik",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "pr-huruf",
+                  "label": "Mengenal berbagai huruf abjad",
+                  "template": "seperti mengenal berbagai huruf abjad"
+                },
+                {
+                  "id": "pr-fonik",
+                  "label": "Memahami bunyi awal sebuah kata (kesadaran fonik)",
+                  "template": "memahami bunyi awal sebuah kata"
+                },
+                {
+                  "id": "pr-kata-familiar",
+                  "label": "Membaca kata-kata yang sudah familiar",
+                  "template": "serta mampu membaca beberapa kata yang sudah sering ditemuinya"
+                }
+              ]
+            },
+            {
+              "id": "pra-menulis",
+              "label": "Menunjukkan kemampuan pra-menulis",
+              "template": "menunjukkan kemampuan pra-menulis yang berkembang dengan sangat baik",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "pw-nama",
+                  "label": "Menuliskan namanya sendiri",
+                  "template": "seperti sudah mampu menuliskan namanya sendiri"
+                },
+                {
+                  "id": "pw-huruf",
+                  "label": "Menuliskan berbagai huruf",
+                  "template": "menuliskan berbagai huruf dengan bentuk yang dapat dikenali"
+                },
+                {
+                  "id": "pw-garis-dasar",
+                  "label": "Membuat garis dan bentuk dasar tulisan",
+                  "template": "serta membuat berbagai garis dan bentuk dasar penulisan dengan cukup rapi"
+                }
+              ]
+            },
+            {
+              "id": "minat-buku",
+              "label": "Menunjukkan kegemaran dan minat terhadap buku",
+              "template": "menunjukkan kegemaran dan antusiasme yang tinggi terhadap buku, dengan senang memperhatikan gambar, mengikuti alur cerita, dan meminta dibacakan buku favoritnya",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "numerasi",
+          "nama": "Kemampuan Numerasi dan Matematika Awal",
+          "indikator": [
+            {
+              "id": "mengenal-angka",
+              "label": "Mengenal lambang bilangan dan konsep angka",
+              "template": "sudah mengenal lambang bilangan dan konsep angka dengan baik",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "ang-1-10",
+                  "label": "Mengenal angka 1 sampai 10",
+                  "template": "seperti mengenal dan menyebut angka 1 sampai 10"
+                },
+                {
+                  "id": "ang-1-20",
+                  "label": "Mengenal angka 1 sampai 20",
+                  "template": "seperti mengenal dan menyebut angka 1 sampai 20"
+                },
+                {
+                  "id": "ang-tulis",
+                  "label": "Menuliskan lambang angka",
+                  "template": "serta mampu menuliskan lambang angka tersebut dengan benar"
+                }
+              ]
+            },
+            {
+              "id": "menghitung-benda",
+              "label": "Menghitung benda dengan korespondensi satu-satu",
+              "template": "mampu menghitung benda konkret secara tepat dengan prinsip korespondensi satu-satu dan mengetahui jumlah akhirnya",
+              "has_sub": false
+            },
+            {
+              "id": "operasi-sederhana",
+              "label": "Melakukan penjumlahan dan pengurangan sederhana",
+              "template": "mulai mampu melakukan operasi penjumlahan dan pengurangan sederhana menggunakan benda konkret atau gambar sebagai alat bantu",
+              "has_sub": false
+            },
+            {
+              "id": "mengenal-bentuk",
+              "label": "Mengenal bentuk geometri dasar",
+              "template": "mengenal dan mampu menyebutkan berbagai bentuk geometri dasar yang ditemuinya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "bt-lingkaran",
+                  "label": "Lingkaran",
+                  "template": "seperti lingkaran"
+                },
+                {
+                  "id": "bt-persegi",
+                  "label": "Persegi dan persegi panjang",
+                  "template": "persegi"
+                },
+                {
+                  "id": "bt-segitiga",
+                  "label": "Segitiga",
+                  "template": "segitiga"
+                },
+                {
+                  "id": "bt-3d",
+                  "label": "Bentuk tiga dimensi (bola, kubus, tabung)",
+                  "template": "serta mulai mengenal bentuk tiga dimensi seperti bola dan kubus"
+                }
+              ]
+            },
+            {
+              "id": "pola-pengurutan",
+              "label": "Mengenali, melanjutkan, dan membuat pola serta pengurutan",
+              "template": "mampu mengenali, melanjutkan, dan membuat pola sederhana, serta mengurutkan benda berdasarkan atribut tertentu dengan tepat",
+              "has_sub": false
+            },
+            {
+              "id": "konsep-ukuran",
+              "label": "Memahami konsep ukuran dan perbandingan",
+              "template": "memahami dan mampu membandingkan berbagai konsep ukuran",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "uk-besar-kecil",
+                  "label": "Besar–kecil",
+                  "template": "seperti besar-kecil"
+                },
+                {
+                  "id": "uk-panjang-pendek",
+                  "label": "Panjang–pendek",
+                  "template": "panjang-pendek"
+                },
+                {
+                  "id": "uk-tinggi-rendah",
+                  "label": "Tinggi–rendah",
+                  "template": "tinggi-rendah"
+                },
+                {
+                  "id": "uk-berat-ringan",
+                  "label": "Berat–ringan",
+                  "template": "serta berat-ringan dengan tepat"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sains-lingkungan",
+          "nama": "Mengenal dan Mengeksplorasi Sains serta Lingkungan Sekitar",
+          "indikator": [
+            {
+              "id": "eksplorasi-alam",
+              "label": "Melakukan eksplorasi dan pengamatan terhadap alam",
+              "template": "menunjukkan rasa ingin tahu yang besar dan aktif melakukan eksplorasi terhadap lingkungan alam di sekitarnya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "ea-tanaman",
+                  "label": "Mengamati bagian-bagian tanaman",
+                  "template": "seperti mengamati dan menyebutkan bagian-bagian tanaman"
+                },
+                {
+                  "id": "ea-hewan",
+                  "label": "Mengamati hewan dan habitatnya",
+                  "template": "mengamati berbagai jenis hewan dan habitatnya"
+                },
+                {
+                  "id": "ea-cuaca",
+                  "label": "Mengenal cuaca dan musim",
+                  "template": "serta mengenal perubahan cuaca dan kondisi alam dalam kehidupan sehari-hari"
+                }
+              ]
+            },
+            {
+              "id": "mengenal-warna",
+              "label": "Mengenal dan membedakan berbagai warna",
+              "template": "mampu mengenal dan membedakan berbagai warna",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "wr-primer",
+                  "label": "Warna primer — merah, kuning, biru",
+                  "template": "seperti warna primer: merah, kuning, dan biru"
+                },
+                {
+                  "id": "wr-sekunder",
+                  "label": "Warna sekunder — hijau, oranye, ungu",
+                  "template": "warna sekunder: hijau, oranye, dan ungu"
+                },
+                {
+                  "id": "wr-campuran",
+                  "label": "Mencampur dua warna menjadi warna baru",
+                  "template": "serta mulai memahami cara menghasilkan warna baru dari percampuran dua warna"
+                }
+              ]
+            },
+            {
+              "id": "sebab-akibat",
+              "label": "Memahami konsep sebab dan akibat sederhana",
+              "template": "mulai memahami hubungan sebab dan akibat dari berbagai fenomena sederhana yang diamatinya di lingkungan sekitar",
+              "has_sub": false
+            },
+            {
+              "id": "eksperimen-sederhana",
+              "label": "Melakukan eksperimen dan percobaan sains sederhana",
+              "template": "sangat antusias dalam melakukan eksperimen sains sederhana dan mampu menyampaikan hasil pengamatannya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "eks-larut",
+                  "label": "Percobaan larut dan tidak larut dalam air",
+                  "template": "seperti percobaan benda yang larut dan tidak larut dalam air"
+                },
+                {
+                  "id": "eks-terapung",
+                  "label": "Percobaan terapung dan tenggelam",
+                  "template": "percobaan benda yang terapung dan tenggelam"
+                },
+                {
+                  "id": "eks-magnet",
+                  "label": "Percobaan sederhana dengan magnet",
+                  "template": "serta percobaan mengenal sifat magnet"
+                }
+              ]
+            },
+            {
+              "id": "daur-ulang-lingkungan",
+              "label": "Mengenal konsep menjaga lingkungan dan daur ulang",
+              "template": "mulai memahami pentingnya menjaga kebersihan lingkungan dan mengenal konsep daur ulang sederhana dari bahan bekas",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "teknologi-rekayasa",
+          "nama": "Mengenal Teknologi dan Rekayasa Sederhana",
+          "indikator": [
+            {
+              "id": "alat-teknologi",
+              "label": "Mengenal fungsi alat-alat teknologi sehari-hari",
+              "template": "mengenal berbagai alat teknologi yang ada di lingkungan kehidupan sehari-hari beserta fungsinya masing-masing",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "at-hp-komputer",
+                  "label": "Ponsel dan komputer",
+                  "template": "seperti ponsel dan komputer sebagai alat komunikasi dan informasi"
+                },
+                {
+                  "id": "at-tv",
+                  "label": "Televisi dan radio",
+                  "template": "televisi dan radio sebagai media informasi dan hiburan"
+                },
+                {
+                  "id": "at-rumah-tangga",
+                  "label": "Peralatan rumah tangga (kipas, kulkas, dll.)",
+                  "template": "serta berbagai peralatan rumah tangga seperti kipas angin, kulkas, dan lampu"
+                }
+              ]
+            },
+            {
+              "id": "konstruksi-bongkar-pasang",
+              "label": "Melakukan kegiatan konstruksi dan bongkar pasang",
+              "template": "gemar melakukan kegiatan konstruksi dan bongkar pasang yang mengembangkan kemampuan rekayasa dan berpikir spasialnya",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "kb-balok",
+                  "label": "Menyusun balok menjadi bangunan",
+                  "template": "seperti menyusun balok menjadi berbagai struktur bangunan yang diimajinasikannya"
+                },
+                {
+                  "id": "kb-lego",
+                  "label": "Merangkai mainan konstruksi / Lego",
+                  "template": "serta merangkai mainan konstruksi mengikuti pola maupun berdasarkan kreativitasnya sendiri"
+                }
+              ]
+            },
+            {
+              "id": "memecahkan-masalah",
+              "label": "Memecahkan masalah sederhana secara kreatif",
+              "template": "menunjukkan kemampuan berpikir kreatif dan pantang menyerah dalam memecahkan masalah sederhana yang dihadapinya",
+              "has_sub": false
+            },
+            {
+              "id": "penggunaan-alat-tepat",
+              "label": "Menggunakan berbagai alat secara tepat dan aman",
+              "template": "mampu menggunakan berbagai alat permainan dan peralatan belajar secara tepat, aman, dan sesuai fungsinya",
+              "has_sub": false
+            }
+          ]
+        },
+        {
+          "id": "seni-kreativitas",
+          "nama": "Mengekspresikan Kreativitas dan Keindahan Melalui Seni",
+          "indikator": [
+            {
+              "id": "seni-visual",
+              "label": "Berkreasi melalui seni visual (menggambar, melukis, kolase, membentuk)",
+              "template": "mampu mengekspresikan diri dengan sangat kreatif melalui berbagai kegiatan seni visual",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "sv-menggambar",
+                  "label": "Menggambar bebas",
+                  "template": "seperti menggambar bebas yang mencerminkan imajinasi dan pengalamannya"
+                },
+                {
+                  "id": "sv-melukis",
+                  "label": "Melukis dengan berbagai media",
+                  "template": "melukis dengan berbagai media dan teknik yang bervariasi"
+                },
+                {
+                  "id": "sv-kolase",
+                  "label": "Membuat kolase dari berbagai bahan",
+                  "template": "membuat karya kolase dari berbagai bahan yang ada di sekitarnya"
+                },
+                {
+                  "id": "sv-plastisin",
+                  "label": "Membentuk dengan plastisin atau tanah liat",
+                  "template": "serta membentuk berbagai kreasi menggunakan plastisin atau tanah liat dengan penuh semangat"
+                }
+              ]
+            },
+            {
+              "id": "seni-musik",
+              "label": "Mengapresiasi dan berpartisipasi dalam kegiatan musik",
+              "template": "menunjukkan kegemaran dan kemampuan yang baik dalam kegiatan bermusik",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "sm-menyanyi",
+                  "label": "Menyanyi lagu anak-anak",
+                  "template": "seperti menyanyi berbagai lagu anak-anak dengan penuh semangat dan keceriaan"
+                },
+                {
+                  "id": "sm-alat-musik",
+                  "label": "Mengenal dan memainkan alat musik sederhana",
+                  "template": "mengenal dan memainkan alat musik perkusi sederhana"
+                },
+                {
+                  "id": "sm-ritme",
+                  "label": "Mengikuti ritme dan irama musik",
+                  "template": "serta mampu mengikuti ritme dan irama musik dengan tepat"
+                }
+              ]
+            },
+            {
+              "id": "seni-gerak-tari",
+              "label": "Mengekspresikan diri melalui gerak dan tari",
+              "template": "dengan percaya diri dan penuh keceriaan mengekspresikan dirinya melalui kegiatan gerak dan tari",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "gt-gerak-bebas",
+                  "label": "Bergerak bebas mengikuti musik",
+                  "template": "seperti bergerak bebas dan kreatif mengikuti alunan musik"
+                },
+                {
+                  "id": "gt-tari-sederhana",
+                  "label": "Menirukan gerakan tari sederhana",
+                  "template": "serta menirukan gerakan tari sederhana dengan luwes dan menyenangkan"
+                }
+              ]
+            },
+            {
+              "id": "seni-drama-peran",
+              "label": "Berpartisipasi dalam bermain peran dan drama kreatif",
+              "template": "senang dan antusias berpartisipasi dalam kegiatan bermain peran dan drama kreatif",
+              "has_sub": true,
+              "sub_indikator": [
+                {
+                  "id": "dp-bermain-peran",
+                  "label": "Bermain peran profesi atau kehidupan sehari-hari",
+                  "template": "seperti bermain peran profesi atau situasi kehidupan sehari-hari dengan penuh imajinasi"
+                },
+                {
+                  "id": "dp-tampil-bercerita",
+                  "label": "Berani tampil bercerita di depan teman",
+                  "template": "serta berani tampil bercerita atau mendongeng di depan teman-temannya dengan percaya diri"
+                }
+              ]
+            },
+            {
+              "id": "apresiasi-seni",
+              "label": "Mengapresiasi karya seni dan budaya",
+              "template": "mampu mengapresiasi dan menghargai karya seni milik teman maupun karya seni dan budaya daerah yang diperkenalkan kepadanya",
+              "has_sub": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

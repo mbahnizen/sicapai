@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SiCAPAI — Sistem Catatan Capaian Anak</title>
+  <meta name="description" content="SiCAPAI: Generator narasi rapor PAUD/TK otomatis berbasis Kurikulum Merdeka. Ubah checklist capaian anak menjadi narasi hangat dan profesional dengan bantuan AI." />
+  <meta name="keywords" content="SiCAPAI, rapor PAUD, rapor TK, Kurikulum Merdeka, narasi rapor, generator rapor, LCPA, capaian pembelajaran anak" />
+  <meta name="author" content="SiCAPAI Team" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SiCAPAI — Sistem Catatan Capaian Anak" />
+  <meta property="og:description" content="Generator narasi rapor PAUD/TK otomatis. Dari checklist ke narasi hangat dalam hitungan detik." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="stylesheet" href="./styles/components.css" />
+  <link rel="stylesheet" href="./styles/responsive.css" />
+
+  <!-- Google Identity Services (One Tap) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <!-- Anti-Service Worker (Fix for localhost PWA conflicts) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+          registration.unregister();
+          console.log('Unregistered lingering Service Worker:', registration);
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <!-- App content injected by JS -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-content">
+        <div class="loading-logo">
+          <span class="logo-icon">🎓</span>
+          <h1 class="logo-text">Si<span class="logo-highlight">CAPAI</span></h1>
+          <p class="logo-tagline">Sistem Catatan Capaian Anak</p>
+        </div>
+        <div class="loading-spinner">
+          <div class="spinner-ring"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
