@@ -5,8 +5,17 @@
 import { Router } from 'express';
 import { generateAINarrative } from '../services/gemini.js';
 import { checkAndDeductQuota } from '../services/quota.js';
+import { db } from '../middleware/auth.js';
 
 const router = Router();
+
+async function hasAnyMembership(uid) {
+  const snap = await db.collection('institution_members')
+    .where('userId', '==', uid)
+    .limit(1)
+    .get();
+  return !snap.empty;
+}
 
 router.post('/', async (req, res) => {
   try {
@@ -14,6 +23,12 @@ router.post('/', async (req, res) => {
 
     if (!templateNarrative || Object.keys(templateNarrative).length === 0) {
       return res.status(400).json({ message: 'Template narasi wajib diisi' });
+    }
+
+    // Require institution membership — prevents throwaway accounts from burning quota
+    const isMember = await hasAnyMembership(req.user.uid);
+    if (!isMember) {
+      return res.status(403).json({ message: 'Anda belum bergabung dengan instansi manapun.' });
     }
 
     // Check quota

@@ -26,7 +26,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 // ---- Security & Rate Limiting ----
 app.use(helmet({
   contentSecurityPolicy: isProduction ? {
-    reportOnly: true, // Log violations without blocking — switch to enforce after verifying
+    reportOnly: false,
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "https://accounts.google.com"],
@@ -82,9 +82,10 @@ app.get('/{*path}', (req, res) => {
 // ---- Error Handler ----
 app.use((err, req, res, _next) => {
   console.error('Server error:', err);
-  res.status(err.status || 500).json({
-    message: err.message || 'Terjadi kesalahan internal server',
-  });
+  const message = isProduction
+    ? 'Terjadi kesalahan internal server'
+    : (err.message || 'Terjadi kesalahan internal server');
+  res.status(err.status || 500).json({ message });
 });
 
 // ---- Start ----
