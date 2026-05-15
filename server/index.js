@@ -21,11 +21,30 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 // ---- Security & Rate Limiting ----
 app.use(helmet({
-  contentSecurityPolicy: false, // Nonaktifkan sementara jika Vite/Frontend bermasalah dengan CSP
-  crossOriginResourcePolicy: false, // Izinkan memuat gambar dari domain eksternal (Google Profil)
-  crossOriginEmbedderPolicy: false, // Wajib di-false-kan agar browser tidak menolak gambar eksternal yang tidak memiliki header CORP
+  contentSecurityPolicy: isProduction ? {
+    reportOnly: true, // Log violations without blocking — switch to enforce after verifying
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "https://accounts.google.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https://*.googleusercontent.com"],
+      connectSrc: [
+        "'self'",
+        "https://identitytoolkit.googleapis.com",
+        "https://securetoken.googleapis.com",
+      ],
+      frameSrc: ["https://accounts.google.com"],
+      objectSrc: ["'none'"],
+      baseUri: ["'self'"],
+    },
+  } : false,
+  crossOriginResourcePolicy: false,
+  crossOriginEmbedderPolicy: false,
 }));
 
 const limiter = rateLimit({
