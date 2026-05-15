@@ -27,6 +27,12 @@ export function showConfirmDialog({ title, message, confirmLabel = 'Ya, Hapus', 
       </div>
     `;
 
+    // SECURITY: title is set via textContent to prevent injection regardless of caller input.
+    backdrop.querySelector('#cd-title').textContent = title;
+    // SECURITY: `message` is rendered via innerHTML intentionally (unsafeHTML path).
+    // Callers that interpolate user data into `message` MUST escape it with escapeHTML().
+    // Currently 2 callers use HTML in message: finalize confirm (L927) and reset confirm (L1133).
+
     document.body.appendChild(backdrop);
 
     // Focus the cancel button by default (safer default)
@@ -64,6 +70,9 @@ export function showModal({ title, content, onClose }) {
       <div class="modal-body" id="modal-body"></div>
     </div>
   `;
+
+  // SECURITY: title is set via textContent to prevent injection.
+  backdrop.querySelector('.modal-title').textContent = title;
 
   const modalBody = backdrop.querySelector('#modal-body');
   if (typeof content === 'string') {
