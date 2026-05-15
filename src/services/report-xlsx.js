@@ -18,6 +18,7 @@ const HEADERS = [
   'Narasi_Agama',
   'Narasi_Jati_Diri',
   'Narasi_STEAM',
+  'Narasi_Kokurikuler',
   'Nama_Instansi',
   'Tanggal_Laporan',
 ];
@@ -48,6 +49,7 @@ function toRow(report, institutionName) {
     sanitizeXlsxCell(ai['agama-budi-pekerti']  || tmpl['agama-budi-pekerti']  || ''),
     sanitizeXlsxCell(ai['jati-diri']           || tmpl['jati-diri']           || ''),
     sanitizeXlsxCell(ai['literasi-steam']      || tmpl['literasi-steam']      || ''),
+    sanitizeXlsxCell(ai['kokurikuler']         || tmpl['kokurikuler']         || ''),
     institutionName,
     parseDate(report.finalizedAt),
   ];

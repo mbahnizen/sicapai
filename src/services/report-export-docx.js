@@ -22,6 +22,7 @@ const SECTION_META = {
   'agama-budi-pekerti': { letter: 'A', title: 'Nilai Agama dan Budi Pekerti' },
   'jati-diri':          { letter: 'B', title: 'Jati Diri' },
   'literasi-steam':     { letter: 'C', title: 'Dasar-Dasar Literasi dan STEAM' },
+  'kokurikuler':        { letter: 'D', title: 'Projek Penguatan Profil Pelajar Pancasila (Kokurikuler)' },
 };
 
 function formatDate(finalizedAt) {
