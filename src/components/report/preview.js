@@ -654,11 +654,10 @@ function openDraftPreviewModal(templateResult, aiResult, studentName, { onFinali
           <h2 class="dp-title">${_svgFile} Preview Narasi Rapor</h2>
           ${studentName ? `<p class="dp-subtitle">${escapeHTML(studentName)}</p>` : ''}
         </div>
+        <button class="dp-close-btn" id="dp-close" aria-label="Tutup">${_svgClose}</button>
         <div class="dp-header-actions">
           <button class="btn btn-ghost btn-sm dp-btn-icon" id="dp-copy-all" title="Salin semua narasi">${_svgCopyAll} Salin Semua</button>
-          ${onSave ? `<button class="btn btn-secondary btn-sm dp-btn-icon" id="dp-save" title="Simpan progress">${_svgSave} Simpan</button>` : ''}
           ${onFinalize ? `<button class="btn btn-primary btn-sm dp-btn-icon" id="dp-finalize" title="Finalisasi rapor">${_svgFinalize} Finalisasi</button>` : ''}
-          <button class="dp-close-btn" id="dp-close" aria-label="Tutup">${_svgClose}</button>
         </div>
       </div>
       <div class="dp-body">${sectionsHTML}</div>
@@ -705,13 +704,6 @@ function openDraftPreviewModal(templateResult, aiResult, studentName, { onFinali
     });
   });
 
-  if (onSave) {
-    backdrop.querySelector('#dp-save')?.addEventListener('click', () => {
-      onSave();
-      close();
-    });
-  }
-
   if (onFinalize) {
     backdrop.querySelector('#dp-finalize')?.addEventListener('click', () => {
       close();
@@ -754,7 +746,6 @@ function addDraftPreviewStyles() {
       padding: var(--space-5) var(--space-6);
       border-bottom: 1px solid var(--border-light);
       flex-shrink: 0;
-      flex-wrap: wrap;
     }
     .dp-title-group { flex: 1; min-width: 0; }
     .dp-title { font-size: var(--font-size-lg); font-weight: 700; }
@@ -807,6 +798,34 @@ function addDraftPreviewStyles() {
     @media (max-width: 520px) {
       .dp-backdrop { padding: 0; align-items: flex-end; }
       .dp-modal { border-radius: var(--radius-2xl) var(--radius-2xl) 0 0; max-height: 92vh; }
+      .dp-header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        grid-template-areas: "title close" "actions actions";
+        padding: var(--space-3) var(--space-4);
+        gap: var(--space-2) var(--space-2);
+      }
+      .dp-title-group {
+        grid-area: title;
+        min-width: 0;
+      }
+      .dp-title { font-size: var(--font-size-sm); font-weight: 700; white-space: nowrap; }
+      .dp-subtitle {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: var(--font-size-xs);
+      }
+      .dp-header .dp-close-btn {
+        grid-area: close;
+        align-self: center;
+      }
+      .dp-header-actions {
+        grid-area: actions;
+        gap: var(--space-2);
+      }
+      .dp-btn-icon { font-size: var(--font-size-xs) !important; padding: 5px 10px !important; }
     }
   `;
   document.head.appendChild(s);
