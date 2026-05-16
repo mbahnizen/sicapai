@@ -6,7 +6,7 @@
  * Level 4: Sub-Indikator (nested checkbox/radio)
  */
 
-import { getChecklistStructure, countSelected, getKokurikulerData, countKokurikulerSelected } from '../../services/template-engine.js';
+import { getChecklistStructure, countSelected, getKokurikulerData, countKokurikulerSelected, getNilaiPlusData, getSaranData } from '../../services/template-engine.js';
 
 /**
  * Render the checklist UI
@@ -37,6 +37,11 @@ export function renderChecklist(container, student, selectedIndicators, onSelect
         <span class="checklist-counter" id="checklist-counter">0 dipilih</span>
       </div>
       <div class="checklist-elements" id="checklist-elements">
+        <div class="kokurikuler-divider">
+          <span class="kokurikuler-divider-line"></span>
+          <span class="kokurikuler-divider-label">Intrakurikuler</span>
+          <span class="kokurikuler-divider-line"></span>
+        </div>
         ${structure.map((elemen) => `
           <div class="accordion checklist-element" data-element="${elemen.id}">
             <button class="accordion-header" aria-expanded="false" data-toggle="${elemen.id}">
@@ -75,6 +80,9 @@ export function renderChecklist(container, student, selectedIndicators, onSelect
   // Setup checkbox/radio interactions
   setupCheckboxes(container, selectedIndicators, onSelectionChange, structure);
 
+  // Setup fixed-position tooltips for level buttons (avoids overflow clipping)
+  setupLevelBtnTooltips(container);
+
   // Update counter
   updateCounter(container, selectedIndicators);
 }
@@ -105,7 +113,7 @@ export function renderKokurikulerChecklist(container, kokurikulerSelected, onSel
       <span class="kokurikuler-divider-line"></span>
     </div>
     <div class="kokurikuler-header">
-      <span class="kokurikuler-title">🎯 Profil Lulusan (P5)</span>
+      <span class="kokurikuler-title">🎯 Profil Lulusan (8 Dimensi)</span>
       <span class="kokurikuler-counter" id="kokurikuler-counter">0 dipilih</span>
     </div>
     ${dimensi.map(d => `
@@ -207,52 +215,83 @@ function addKokurikulerChecklistStyles() {
       padding: var(--space-1) var(--space-3); border-radius: var(--radius-full);
     }
     #kokurikuler-section .accordion-icon { font-size: 14px; }
-    #kokurikuler-section .accordion-header {
-      border-left: 3px solid var(--secondary);
-    }
   `;
   document.head.appendChild(s);
 }
 
-function renderIndicator(ind, selectedIndicators) {
-  const isSelected = !!selectedIndicators[ind.id];
-  const selectedSubs = Array.isArray(selectedIndicators[ind.id]) ? selectedIndicators[ind.id] : [];
+const LEVEL_TOOLTIPS = {
+  BB:  'Belum Berkembang',
+  MB:  'Mulai Berkembang',
+  BSH: 'Berkembang Sesuai Harapan',
+  BSB: 'Berkembang Sangat Baik',
+};
 
-  let subHTML = '';
-  if (ind.hasSub && ind.subIndikator.length > 0) {
+function renderIndicator(ind, selectedIndicators) {
+  const selection = selectedIndicators[ind.id];
+  const isSelected = !!selection;
+  const currentLevel = selection?.level ?? null;
+  const selectedSubs = selection?.subs || [];
+  const levels = ['BB', 'MB', 'BSH', 'BSB'];
+
+  if (ind.hasSub) {
+    // Level buttons ARE the selection mechanism — no checkbox
+    const showSubs = isSelected && ind.subIndikator.length > 0 &&
+                     ['BSH', 'BSB'].includes(currentLevel);
+
     const inputType = ind.isMutuallyExclusive ? 'radio' : 'checkbox';
-    subHTML = `
-      <div class="check-sub-list" id="sub-list-${ind.id}" style="${isSelected ? '' : 'display:none'}">
+    const subHTML = ind.subIndikator.length > 0 ? `
+      <div class="check-sub-list" id="sub-list-${ind.id}" style="${showSubs ? '' : 'display:none'}">
         ${ind.subIndikator.map((sub) => `
           <label class="check-item check-sub-item">
-            <input type="${inputType}" 
+            <input type="${inputType}"
                    name="${ind.isMutuallyExclusive ? 'radio-' + ind.id : ''}"
-                   data-parent="${ind.id}" 
+                   data-parent="${ind.id}"
                    data-sub-id="${sub.id}"
                    ${selectedSubs.includes(sub.id) ? 'checked' : ''} />
             <span class="check-label">${sub.label}</span>
           </label>
         `).join('')}
       </div>
+    ` : '';
+
+    return `
+      <div class="indicator-group indicator-group--parent${isSelected ? ' indicator-group--selected' : ''}"
+           data-ind-group="${ind.id}">
+        <div class="ind-level-row">
+          <span class="ind-label">${ind.label}</span>
+          <div class="level-selector level-selector--inline" id="level-${ind.id}">
+            ${levels.map((lvl) => `
+              <button type="button"
+                      class="level-btn${currentLevel === lvl ? ' active' : ''}"
+                      data-level-for="${ind.id}"
+                      data-level="${lvl}"
+                      data-ind-has-sub="true"
+                      data-tooltip="${LEVEL_TOOLTIPS[lvl]}">${lvl}</button>
+            `).join('')}
+          </div>
+        </div>
+        ${subHTML}
+      </div>
     `;
   }
 
-  const parentClass = ind.hasSub ? ' check-item--parent' : '';
-  const expandHint = ind.hasSub ? `<span class="check-expand-hint">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-  </span>` : '';
-
+  // Non-has_sub: same inline pattern as has_sub, no sub-list
   return `
-    <div class="indicator-group${ind.hasSub ? ' indicator-group--parent' : ''}">
-      <label class="check-item${parentClass}">
-        <input type="checkbox" 
-               data-indicator-id="${ind.id}" 
-               data-has-sub="${ind.hasSub}"
-               ${isSelected ? 'checked' : ''} />
-        <span class="check-label">${ind.label}</span>
-        ${expandHint}
-      </label>
-      ${subHTML}
+    <div class="indicator-group indicator-group--parent${isSelected ? ' indicator-group--selected' : ''}"
+         data-ind-group="${ind.id}">
+      <div class="ind-level-row">
+        <span class="ind-label">${ind.label}</span>
+        <div class="level-selector level-selector--inline" id="level-${ind.id}">
+          ${levels.map((lvl) => `
+            <button type="button"
+                    class="level-btn${currentLevel === lvl ? ' active' : ''}"
+                    data-level-for="${ind.id}"
+                    data-level="${lvl}"
+                    data-ind-has-sub="false"
+                    data-tooltip="${LEVEL_TOOLTIPS[lvl]}">${lvl}</button>
+          `).join('')}
+        </div>
+      </div>
     </div>
   `;
 }
@@ -284,28 +323,47 @@ function setupAccordions(container) {
 }
 
 function setupCheckboxes(container, selectedIndicators, onSelectionChange, structure) {
-  // Main indicator checkboxes
-  container.querySelectorAll('[data-indicator-id]').forEach((checkbox) => {
-    checkbox.addEventListener('change', () => {
-      const id = checkbox.dataset.indicatorId;
-      const hasSub = checkbox.dataset.hasSub === 'true';
+  // All indicator level buttons — unified toggle-select behavior
+  container.querySelectorAll('[data-level-for]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const indId = btn.dataset.levelFor;
+      const newLevel = btn.dataset.level;
+      const hasSub = btn.dataset.indHasSub === 'true';
+      const sel = selectedIndicators[indId];
+      const group = container.querySelector(`[data-ind-group="${indId}"]`);
 
-      if (checkbox.checked) {
+      if (sel && sel.level === newLevel) {
+        // Clicking the already-active level → deselect
+        delete selectedIndicators[indId];
+        group?.classList.remove('indicator-group--selected');
+        container.querySelector(`#level-${indId}`)
+          ?.querySelectorAll('.level-btn').forEach((b) => b.classList.remove('active'));
         if (hasSub) {
-          selectedIndicators[id] = [];
-          // Show sub-indicators
-          const subList = container.querySelector(`#sub-list-${id}`);
-          if (subList) subList.style.display = '';
-        } else {
-          selectedIndicators[id] = true;
+          const subList = container.querySelector(`#sub-list-${indId}`);
+          if (subList) {
+            subList.style.display = 'none';
+            subList.querySelectorAll('input').forEach((inp) => { inp.checked = false; });
+          }
         }
       } else {
-        delete selectedIndicators[id];
-        // Hide & uncheck sub-indicators
-        const subList = container.querySelector(`#sub-list-${id}`);
-        if (subList) {
-          subList.style.display = 'none';
-          subList.querySelectorAll('input').forEach((inp) => { inp.checked = false; });
+        // Select or switch level — preserve subs when staying in BSH/BSB
+        const prevSubs = hasSub && ['BSH', 'BSB'].includes(newLevel) ? (sel?.subs || []) : [];
+        selectedIndicators[indId] = { level: newLevel, subs: prevSubs };
+        group?.classList.add('indicator-group--selected');
+
+        container.querySelector(`#level-${indId}`)
+          ?.querySelectorAll('.level-btn').forEach((b) => {
+            b.classList.toggle('active', b.dataset.level === newLevel);
+          });
+
+        if (hasSub) {
+          const subList = container.querySelector(`#sub-list-${indId}`);
+          if (subList) {
+            subList.style.display = ['BSH', 'BSB'].includes(newLevel) ? '' : 'none';
+            if (!['BSH', 'BSB'].includes(newLevel)) {
+              subList.querySelectorAll('input').forEach((inp) => { inp.checked = false; });
+            }
+          }
         }
       }
 
@@ -317,24 +375,18 @@ function setupCheckboxes(container, selectedIndicators, onSelectionChange, struc
   // Sub-indicator checkboxes/radios
   container.querySelectorAll('[data-sub-id]').forEach((input) => {
     input.addEventListener('change', () => {
-      const parentId = input.dataset.parentId || input.getAttribute('data-parent');
+      const parentId = input.getAttribute('data-parent');
       const subId = input.dataset.subId;
-
-      if (!selectedIndicators[parentId]) {
-        selectedIndicators[parentId] = [];
-      }
+      const sel = selectedIndicators[parentId];
+      if (!sel) return;
 
       if (input.type === 'radio') {
-        // Radio: only one selected
-        selectedIndicators[parentId] = [subId];
+        sel.subs = [subId];
       } else {
-        // Checkbox: toggle
-        const arr = selectedIndicators[parentId];
         if (input.checked) {
-          if (!arr.includes(subId)) arr.push(subId);
+          if (!sel.subs.includes(subId)) sel.subs.push(subId);
         } else {
-          const idx = arr.indexOf(subId);
-          if (idx > -1) arr.splice(idx, 1);
+          sel.subs = sel.subs.filter((s) => s !== subId);
         }
       }
 
@@ -358,6 +410,235 @@ function updateCounter(container, selectedIndicators) {
       badge.style.display = count > 0 ? '' : '';
     }
   }
+}
+
+// ============================================================
+//  Nilai Plus Checklist
+// ============================================================
+
+/**
+ * Render nilai-plus checklist section below the main checklist.
+ * @param {HTMLElement} container - Same container as renderChecklist
+ * @param {object} nilaiPlusSelected - { "np-bantu-guru-beres": true, ... }
+ * @param {Function} onSelectionChange - Callback with updated selection map
+ */
+export function renderNilaiPlusChecklist(container, nilaiPlusSelected, onSelectionChange) {
+  const kategoriList = getNilaiPlusData();
+  const elementsEl = container.querySelector('#checklist-elements');
+  if (!elementsEl) return;
+
+  elementsEl.querySelector('#nilai-plus-section')?.remove();
+
+  const totalSelected = Object.keys(nilaiPlusSelected).length;
+  const section = document.createElement('div');
+  section.id = 'nilai-plus-section';
+  section.innerHTML = `
+    <div class="kokurikuler-divider">
+      <span class="kokurikuler-divider-line"></span>
+      <span class="kokurikuler-divider-label">Catatan Istimewa</span>
+      <span class="kokurikuler-divider-line"></span>
+    </div>
+    <div class="kokurikuler-header">
+      <span class="kokurikuler-title">⭐ Catatan Istimewa (Nilai Plus)</span>
+      <span class="kokurikuler-counter" id="nilai-plus-counter">${totalSelected} dipilih</span>
+    </div>
+    ${kategoriList.map((kat) => `
+      <div class="accordion checklist-element" data-element="np-${kat.id}">
+        <button class="accordion-header" aria-expanded="false" data-toggle="np-${kat.id}">
+          <span class="accordion-icon">⭐</span>
+          <span class="accordion-title">${kat.nama}</span>
+          <span class="accordion-badge" id="badge-np-${kat.id}">0</span>
+          <span class="accordion-chevron">▾</span>
+        </button>
+        <div class="accordion-content" id="content-np-${kat.id}">
+          <div class="accordion-body">
+            ${kat.item.map((item) => `
+              <div class="indicator-group">
+                <label class="check-item">
+                  <input type="checkbox"
+                         data-nilai-plus-id="${item.id}"
+                         data-kat="${kat.id}"
+                         ${nilaiPlusSelected[item.id] ? 'checked' : ''} />
+                  <span class="check-label">${item.label}</span>
+                </label>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+
+  elementsEl.appendChild(section);
+
+  section.querySelectorAll('[data-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.toggle;
+      const content = section.querySelector(`#content-${id}`);
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      content.classList.toggle('expanded');
+    });
+  });
+
+  section.querySelectorAll('[data-nilai-plus-id]').forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      const id = checkbox.dataset.nilaiPlusId;
+      if (checkbox.checked) {
+        nilaiPlusSelected[id] = true;
+      } else {
+        delete nilaiPlusSelected[id];
+      }
+      _updateNilaiPlusCounter(section, nilaiPlusSelected, kategoriList);
+      onSelectionChange({ ...nilaiPlusSelected });
+    });
+  });
+
+  _updateNilaiPlusCounter(section, nilaiPlusSelected, kategoriList);
+}
+
+function _updateNilaiPlusCounter(section, selected, kategoriList) {
+  const total = Object.keys(selected).length;
+  const counterEl = section.querySelector('#nilai-plus-counter');
+  if (counterEl) counterEl.textContent = `${total} dipilih`;
+
+  for (const kat of kategoriList) {
+    const count = kat.item.filter((item) => selected[item.id]).length;
+    const badge = section.querySelector(`#badge-np-${kat.id}`);
+    if (badge) badge.textContent = count;
+  }
+}
+
+// ============================================================
+//  Saran Checklist
+// ============================================================
+
+/**
+ * Render saran checklist section below nilai-plus.
+ * @param {HTMLElement} container - Same container as renderChecklist
+ * @param {object} saranSelected - { "saran-doa-harian-rutin": true, ... }
+ * @param {Function} onSelectionChange - Callback with updated selection map
+ */
+export function renderSaranChecklist(container, saranSelected, onSelectionChange) {
+  const kategoriList = getSaranData();
+  const elementsEl = container.querySelector('#checklist-elements');
+  if (!elementsEl) return;
+
+  elementsEl.querySelector('#saran-section')?.remove();
+
+  const totalSelected = Object.keys(saranSelected).length;
+  const section = document.createElement('div');
+  section.id = 'saran-section';
+  section.innerHTML = `
+    <div class="kokurikuler-divider">
+      <span class="kokurikuler-divider-line"></span>
+      <span class="kokurikuler-divider-label">Saran untuk Orang Tua</span>
+      <span class="kokurikuler-divider-line"></span>
+    </div>
+    <div class="kokurikuler-header">
+      <span class="kokurikuler-title">💡 Saran Pengembangan</span>
+      <span class="kokurikuler-counter" id="saran-counter">${totalSelected} dipilih</span>
+    </div>
+    ${kategoriList.map((kat) => `
+      <div class="accordion checklist-element" data-element="sr-${kat.id}">
+        <button class="accordion-header" aria-expanded="false" data-toggle="sr-${kat.id}">
+          <span class="accordion-icon">💡</span>
+          <span class="accordion-title">${kat.nama}</span>
+          <span class="accordion-badge" id="badge-sr-${kat.id}">0</span>
+          <span class="accordion-chevron">▾</span>
+        </button>
+        <div class="accordion-content" id="content-sr-${kat.id}">
+          <div class="accordion-body">
+            ${kat.item.map((item) => `
+              <div class="indicator-group">
+                <label class="check-item">
+                  <input type="checkbox"
+                         data-saran-id="${item.id}"
+                         data-kat="${kat.id}"
+                         ${saranSelected[item.id] ? 'checked' : ''} />
+                  <span class="check-label">${item.label}</span>
+                </label>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+
+  elementsEl.appendChild(section);
+
+  section.querySelectorAll('[data-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.toggle;
+      const content = section.querySelector(`#content-${id}`);
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      content.classList.toggle('expanded');
+    });
+  });
+
+  section.querySelectorAll('[data-saran-id]').forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      const id = checkbox.dataset.saranId;
+      if (checkbox.checked) {
+        saranSelected[id] = true;
+      } else {
+        delete saranSelected[id];
+      }
+      _updateSaranCounter(section, saranSelected, kategoriList);
+      onSelectionChange({ ...saranSelected });
+    });
+  });
+
+  _updateSaranCounter(section, saranSelected, kategoriList);
+}
+
+function _updateSaranCounter(section, selected, kategoriList) {
+  const total = Object.keys(selected).length;
+  const counterEl = section.querySelector('#saran-counter');
+  if (counterEl) counterEl.textContent = `${total} dipilih`;
+
+  for (const kat of kategoriList) {
+    const count = kat.item.filter((item) => selected[item.id]).length;
+    const badge = section.querySelector(`#badge-sr-${kat.id}`);
+    if (badge) badge.textContent = count;
+  }
+}
+
+function setupLevelBtnTooltips(container) {
+  let tip = document.getElementById('level-btn-tooltip');
+  if (!tip) {
+    tip = document.createElement('div');
+    tip.id = 'level-btn-tooltip';
+    tip.style.cssText = [
+      'position:fixed',
+      'background:#1a1a1a',
+      'color:#fff',
+      'font-size:10px',
+      'font-weight:500',
+      'padding:3px 8px',
+      'border-radius:5px',
+      'pointer-events:none',
+      'white-space:nowrap',
+      'z-index:9999',
+      'opacity:0',
+      'transition:opacity 0.15s',
+    ].join(';');
+    document.body.appendChild(tip);
+  }
+
+  container.querySelectorAll('.level-btn[data-tooltip]').forEach((btn) => {
+    btn.addEventListener('mouseenter', () => {
+      tip.textContent = btn.dataset.tooltip;
+      const r = btn.getBoundingClientRect();
+      tip.style.left = `${r.left + r.width / 2}px`;
+      tip.style.top = `${r.top - 8}px`;
+      tip.style.transform = 'translateX(-50%) translateY(-100%)';
+      tip.style.opacity = '1';
+    });
+    btn.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+  });
 }
 
 function addChecklistStyles(container) {
@@ -424,6 +705,76 @@ function addChecklistStyles(container) {
     }
     .check-item--parent input:checked ~ .check-expand-hint {
       transform: rotate(180deg);
+      color: var(--primary);
+    }
+    .level-selector {
+      display: flex;
+      gap: 4px;
+      margin: 4px 0 4px 24px;
+      flex-wrap: wrap;
+    }
+    .level-selector--inline {
+      margin: 0;
+      flex-shrink: 0;
+    }
+    .level-btn {
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      line-height: 1.6;
+      letter-spacing: 0.02em;
+    }
+    .level-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .level-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+    /* Level-specific colors — subtle default, stronger on hover/active */
+    .level-btn[data-level="BB"]               { border-color: #fca5a5; color: #f87171; }
+    .level-btn[data-level="BB"]:hover         { background: #fee2e2; border-color: #f87171; color: #dc2626; }
+    .level-btn[data-level="BB"].active        { background: #fecaca; border-color: #ef4444; color: #b91c1c; }
+
+    .level-btn[data-level="MB"]               { border-color: #fcd34d; color: #f59e0b; }
+    .level-btn[data-level="MB"]:hover         { background: #fef3c7; border-color: #fbbf24; color: #d97706; }
+    .level-btn[data-level="MB"].active        { background: #fde68a; border-color: #f59e0b; color: #92400e; }
+
+    .level-btn[data-level="BSH"]              { border-color: #5eead4; color: #0d9488; }
+    .level-btn[data-level="BSH"]:hover        { background: #f0fdfa; border-color: #2dd4bf; color: #0f766e; }
+    .level-btn[data-level="BSH"].active       { background: #ccfbf1; border-color: #14b8a6; color: #0f766e; }
+
+    .level-btn[data-level="BSB"]              { border-color: #86efac; color: #22c55e; }
+    .level-btn[data-level="BSB"]:hover        { background: #f0fdf4; border-color: #4ade80; color: #16a34a; }
+    .level-btn[data-level="BSB"].active       { background: #bbf7d0; border-color: #22c55e; color: #15803d; }
+    .ind-level-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      background: var(--bg-page);
+      transition: border-color 0.15s, background 0.15s;
+      cursor: default;
+    }
+    .ind-label {
+      font-weight: 600;
+      font-size: var(--font-size-sm);
+      flex: 1;
+      min-width: 0;
+      color: var(--text-primary);
+    }
+    .indicator-group--selected .ind-level-row {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .indicator-group--selected .ind-label {
       color: var(--primary);
     }
   `;
