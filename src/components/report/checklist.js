@@ -772,7 +772,8 @@ function addChecklistStyles(container) {
     }
     .indicator-group--selected .ind-level-row {
       border-color: var(--primary);
-      background: var(--primary-light);
+      background: var(--bg-card);
+      box-shadow: inset 3px 0 0 var(--primary);
     }
     .indicator-group--selected .ind-label {
       color: var(--primary);
