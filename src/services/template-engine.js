@@ -56,7 +56,13 @@ export function generateTemplate(studentName, selectedIndicators, religion = nul
             selection.subs.includes(sub.id)
           );
           if (selectedSubs.length > 0) {
-            sentence = template + ', ' + selectedSubs.map((sub) => sub.template).join(', ');
+            const subParts = selectedSubs.map((sub) => sub.template);
+            // Ensure first sub has a connector; JSON embeds "seperti/serta/dan" only on
+            // certain subs, so if the first selected sub lacks one, inject "seperti".
+            if (!/^(seperti|serta|dan)\s/i.test(subParts[0])) {
+              subParts[0] = 'seperti ' + subParts[0];
+            }
+            sentence = template + ', ' + subParts.join(', ');
           }
         }
 
