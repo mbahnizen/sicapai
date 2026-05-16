@@ -4,7 +4,7 @@
 
 import { Router } from 'express';
 import { generateAINarrative } from '../services/gemini.js';
-import { checkAndDeductQuota } from '../services/quota.js';
+import { checkQuota, deductQuota } from '../services/quota.js';
 import { db } from '../middleware/auth.js';
 
 const router = Router();
@@ -19,7 +19,7 @@ async function hasAnyMembership(uid) {
 
 router.post('/', async (req, res) => {
   try {
-    const { ageGroup, semester, templateNarrative } = req.body;
+    const { ageGroup, semester, templateNarrative, levelProfile } = req.body;
 
     if (!templateNarrative || Object.keys(templateNarrative).length === 0) {
       return res.status(400).json({ message: 'Template narasi wajib diisi' });
@@ -31,20 +31,24 @@ router.post('/', async (req, res) => {
       return res.status(403).json({ message: 'Anda belum bergabung dengan instansi manapun.' });
     }
 
-    // Check quota
-    const quotaOk = await checkAndDeductQuota(req.user.uid);
+    // Check quota before the expensive AI call
+    const quotaOk = await checkQuota(req.user.uid);
     if (!quotaOk) {
       return res.status(429).json({
         message: 'Kuota AI mingguan Anda sudah habis (20x/minggu). Kuota akan direset minggu depan.',
       });
     }
 
-    // Generate AI narrative
+    // Generate AI narrative — deduct only after success so a mid-request
+    // page refresh or Gemini error doesn't silently burn the user's quota.
     const narrative = await generateAINarrative({
       ageGroup,
       semester,
       templateNarrative,
+      levelProfile,
     });
+
+    await deductQuota(req.user.uid);
 
     res.json({ narrative });
   } catch (error) {

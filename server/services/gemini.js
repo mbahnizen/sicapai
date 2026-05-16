@@ -33,6 +33,23 @@ GAYA PENULISAN — gunakan pola ini:
 Prinsipnya berlaku terutama di AWAL paragraf: mulai dari situasi, kegiatan, atau minat anak → lalu deskripsikan perilaku yang terlihat.
 Variasikan cara membuka paragraf — tidak semua harus dimulai dengan "Dalam/Saat kegiatan".
 
+LEVEL PERKEMBANGAN — pertahankan register bahasa sesuai level capaian anak:
+Template yang diterima sudah mencerminkan level perkembangan melalui pilihan kata. JANGAN menaikkan atau menurunkan register level tersebut.
+
+BB (Belum Berkembang) — ditandai: "masih dalam proses", "belum", "masih memerlukan banyak dukungan", "dengan banyak bimbingan"
+  → Tone: hangat, non-judgmental. Fokus pada "perjalanan belajar" dan "proses". JANGAN terdengar seolah anak sudah mampu.
+
+MB (Mulai Berkembang) — ditandai: "mulai dapat", "mulai mampu", "sudah mulai", "dengan bimbingan guru", "meski masih"
+  → Tone: apresiasi kemajuan. Gunakan kata seperti "mulai menunjukkan", "tampak berkembang", "terus berproses".
+
+BSH (Berkembang Sesuai Harapan) — ditandai: "mampu", "dapat", "terlihat", "menunjukkan", "sudah mampu"
+  → Tone: afirmatif dan percaya diri. Standar positif — tidak perlu menonjolkan secara berlebihan.
+
+BSB (Berkembang Sangat Baik) — ditandai: "sangat", "mandiri penuh", "bahkan membantu teman", "secara tepat dan mandiri", "perbendaharaan yang kaya"
+  → Tone: perayaan hangat dan autentik. Kata seperti "menonjol", "mengagumkan", "luar biasa" tepat digunakan di sini — JANGAN ratakan ke kata "baik".
+
+⚠ DILARANG KERAS: mengubah "mulai dapat" → "mampu"; "masih dalam proses" → frasa yang terkesan sudah mahir; meratakan semua deskriptor menjadi "baik".
+
 PANDUAN:
 - Utamakan observasi perilaku dan aktivitas anak dibanding penilaian langsung — tulis apa yang terlihat, bukan hanya simpulkan kemampuan
 - Gunakan gaya narasi seperti pengamatan guru di kelas, bukan evaluasi formal atau daftar kemampuan
@@ -93,9 +110,10 @@ function extractJSON(text) {
  * @param {string} params.ageGroup
  * @param {string} params.semester
  * @param {object} params.templateNarrative - { sectionId: templateText } (always single section)
+ * @param {object} [params.levelProfile] - { dominant: 'BSH', distribution: { BB, MB, BSH, BSB } }
  * @returns {Promise<object>} { sectionId: aiText }
  */
-export async function generateAINarrative({ ageGroup, semester, templateNarrative }) {
+export async function generateAINarrative({ ageGroup, semester, templateNarrative, levelProfile }) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY not configured');
 
@@ -114,7 +132,11 @@ export async function generateAINarrative({ ageGroup, semester, templateNarrativ
     .join('\n\n');
   const formatExample = '{' + sectionKeys.map(k => `"${k}": "..."`).join(', ') + '}';
 
-  const userPrompt = `Kelompok: ${ageGroup} | ${semester}
+  const levelLine = levelProfile
+    ? `Profil Level (seksi ini): ${levelProfile.dominant} dominan — BB:${levelProfile.distribution.BB}, MB:${levelProfile.distribution.MB}, BSH:${levelProfile.distribution.BSH}, BSB:${levelProfile.distribution.BSB}`
+    : '';
+
+  const userPrompt = `Kelompok: ${ageGroup} | ${semester}${levelLine ? '\n' + levelLine : ''}
 
 Template:
 ${templateEntries}
