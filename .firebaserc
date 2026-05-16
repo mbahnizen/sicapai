@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "sicapai-mbahnizen"
+  },
+  "targets": {
+    "sicapai-mbahnizen": {
+      "hosting": {
+        "production": ["sicapai-paud"],
+        "redirect": ["sicapai-mbahnizen"]
+      }
+    }
+  }
+}
