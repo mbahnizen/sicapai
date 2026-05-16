@@ -30,13 +30,14 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "https://accounts.google.com"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://accounts.google.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:", "https://*.googleusercontent.com"],
       connectSrc: [
         "'self'",
         "https://identitytoolkit.googleapis.com",
         "https://securetoken.googleapis.com",
+        "https://accounts.google.com",
       ],
       frameSrc: ["https://accounts.google.com"],
       objectSrc: ["'none'"],
