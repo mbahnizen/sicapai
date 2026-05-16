@@ -7,26 +7,40 @@ import { db } from '../middleware/auth.js';
 const WEEKLY_LIMIT = 20;
 
 /**
- * Check and deduct quota for a user
+ * Check quota availability without deducting.
+ * Call this before the expensive AI operation.
  * @param {string} userId
- * @returns {Promise<boolean>} true if quota available and deducted
+ * @returns {Promise<boolean>} true if quota is available
  */
-export async function checkAndDeductQuota(userId) {
-
+export async function checkQuota(userId) {
   const ref = db.collection('quotas').doc(userId);
+  const doc = await ref.get();
+  if (!doc.exists) return true;
 
+  const data = doc.data();
+  const now = new Date();
+  const weekStart = getWeekStart(now);
+  const storedWeekStart = data.weekStartDate?.toDate
+    ? data.weekStartDate.toDate()
+    : new Date(data.weekStartDate);
+
+  if (weekStart.getTime() > storedWeekStart.getTime()) return true;
+  return data.weeklyUsed < WEEKLY_LIMIT;
+}
+
+/**
+ * Deduct one quota use. Call this only after AI generation succeeds.
+ * @param {string} userId
+ */
+export async function deductQuota(userId) {
+  const ref = db.collection('quotas').doc(userId);
   const doc = await ref.get();
   const now = new Date();
   const weekStart = getWeekStart(now);
 
   if (!doc.exists) {
-    // First time user — create quota doc
-    await ref.set({
-      weeklyUsed: 1,
-      weekStartDate: weekStart,
-      totalLifetime: 1,
-    });
-    return true;
+    await ref.set({ weeklyUsed: 1, weekStartDate: weekStart, totalLifetime: 1 });
+    return;
   }
 
   const data = doc.data();
@@ -34,28 +48,21 @@ export async function checkAndDeductQuota(userId) {
     ? data.weekStartDate.toDate()
     : new Date(data.weekStartDate);
 
-  // Check if we're in a new week
   if (weekStart.getTime() > storedWeekStart.getTime()) {
-    // Reset weekly counter
-    await ref.update({
-      weeklyUsed: 1,
-      weekStartDate: weekStart,
-      totalLifetime: (data.totalLifetime || 0) + 1,
-    });
-    return true;
+    await ref.update({ weeklyUsed: 1, weekStartDate: weekStart, totalLifetime: (data.totalLifetime || 0) + 1 });
+  } else {
+    await ref.update({ weeklyUsed: data.weeklyUsed + 1, totalLifetime: (data.totalLifetime || 0) + 1 });
   }
+}
 
-  // Same week — check limit
-  if (data.weeklyUsed >= WEEKLY_LIMIT) {
-    return false;
-  }
-
-  // Deduct
-  await ref.update({
-    weeklyUsed: data.weeklyUsed + 1,
-    totalLifetime: (data.totalLifetime || 0) + 1,
-  });
-  return true;
+/**
+ * @deprecated Use checkQuota + deductQuota separately.
+ * Kept for reference only — no longer called.
+ */
+export async function checkAndDeductQuota(userId) {
+  const ok = await checkQuota(userId);
+  if (ok) await deductQuota(userId);
+  return ok;
 }
 
 /**
