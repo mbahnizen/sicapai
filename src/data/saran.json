@@ -13,6 +13,11 @@
       "nama": "Saran — Nilai Agama & Budi Pekerti",
       "item": [
         {
+          "id": "saran-hindari-kata-kasar",
+          "label": "Perlu bimbingan menghindari kata-kata kasar",
+          "template": "perlu mendapat bimbingan yang konsisten dan penuh kasih sayang untuk menghindari penggunaan kata-kata kasar dalam percakapan sehari-hari, karena anak sangat mudah menyerap bahasa dari lingkungan sekitar — keteladanan orang tua dalam bertutur kata dengan santun adalah cara paling efektif untuk membentuk kebiasaan berbicara yang baik"
+        },
+        {
           "id": "saran-doa-harian-rutin",
           "label": "Perlu latihan doa harian lebih rutin",
           "template": "perlu didukung dengan pembiasaan melafalkan doa harian secara rutin dan konsisten di rumah — misalnya doa sebelum makan dan sebelum tidur — agar kemampuan dan kebiasaan berdoanya semakin kuat"
