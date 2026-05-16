@@ -13,8 +13,12 @@ const ELEMENT_META = {
   'agama-budi-pekerti': { icon: '📖', title: 'Nilai Agama dan Budi Pekerti', letter: 'A' },
   'jati-diri':          { icon: '🌟', title: 'Jati Diri', letter: 'B' },
   'literasi-steam':     { icon: '📚', title: 'Dasar-Dasar Literasi & STEAM', letter: 'C' },
-  'kokurikuler':        { icon: '🎯', title: 'Profil Lulusan — Kokurikuler (P5)', letter: 'D' },
+  'kokurikuler':        { icon: '🎯', title: 'Profil Lulusan — 8 Dimensi', letter: 'D' },
+  'nilai-plus':         { icon: '⭐', title: 'Catatan Istimewa', letter: 'E', noAI: true },
+  'saran':              { icon: '💡', title: 'Saran untuk Orang Tua', letter: 'F', noAI: true },
 };
+
+const NO_AI_SECTIONS = new Set(['nilai-plus', 'saran']);
 
 /**
  * Render preview panel (editing mode)
@@ -87,7 +91,7 @@ export function renderPreview(container, templateResult, aiResult, studentName =
         ` : ''}
         <div class="preview-narrative ${sectionHasAI ? 'ai-enhanced' : ''}">${escapeHTML(displayText)}</div>
         <div class="preview-section-actions" style="margin-top:var(--space-3);display:flex;gap:var(--space-2);flex-wrap:wrap">
-          ${onGenerateAI ? `
+          ${onGenerateAI && !NO_AI_SECTIONS.has(elemId) ? `
             <button class="btn btn-ai btn-sm preview-ai-btn" data-section="${elemId}">
               ${sectionHasAI ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg> Generate Ulang AI' : '✨ Percantik dengan AI'}
             </button>
