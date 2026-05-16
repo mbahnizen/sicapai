@@ -6,7 +6,7 @@ import { showToast } from '../shared/toast.js';
 import { escapeHTML, escapeAttr } from '../../utils/sanitize.js';
 import { renderChecklist, renderKokurikulerChecklist, renderNilaiPlusChecklist, renderSaranChecklist } from '../report/checklist.js';
 import { renderPreview } from '../report/preview.js';
-import { generateTemplate, countSelected, generateKokurikulerNarrative, generateNilaiPlusNarrative, generateSaranNarrative } from '../../services/template-engine.js';
+import { generateTemplate, countSelected, generateKokurikulerNarrative, generateNilaiPlusNarrative, generateSaranNarrative, getChecklistStructure } from '../../services/template-engine.js';
 import { api } from '../../services/api.js';
 import { printReport } from '../../services/report-export.js';
 import { exportInstitutionToXlsx } from '../../services/report-xlsx.js';
@@ -890,6 +890,24 @@ function renderMainPanel(state, container) {
     state.aiResult = validAI;
   }
 
+  // Compute level distribution for a specific curriculum section
+  const computeSectionLevelProfile = (sectionId, selectedIndicators) => {
+    const structure = getChecklistStructure();
+    const sectionData = structure.find((e) => e.id === sectionId);
+    if (!sectionData) return null;
+    const counts = { BB: 0, MB: 0, BSH: 0, BSB: 0 };
+    for (const sub of sectionData.subElemen) {
+      for (const ind of sub.indikator) {
+        const sel = selectedIndicators[ind.id];
+        if (sel?.level && Object.hasOwn(counts, sel.level)) counts[sel.level]++;
+      }
+    }
+    const total = Object.values(counts).reduce((a, b) => a + b, 0);
+    if (total === 0) return null;
+    const dominant = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+    return { dominant, distribution: counts };
+  };
+
   // Per-section AI generator
   const onGenerateAI = async (sectionId) => {
     if (state.quota.weeklyUsed >= state.quota.limit) {
@@ -937,6 +955,7 @@ function renderMainPanel(state, container) {
         ageGroup: state.selectedStudent.ageGroup,
         semester: mainContent.querySelector('#report-semester').value,
         templateNarrative: { [sectionId]: state.templateResult[sectionId] },
+        levelProfile: computeSectionLevelProfile(sectionId, state.selectedIndicators),
       });
 
       state.aiResult[sectionId] = result.narrative[sectionId];
@@ -1002,7 +1021,7 @@ function renderMainPanel(state, container) {
 
     const confirmed = await showConfirmDialog({
       title: 'Finalisasi Laporan Capaian Pembelajaran',
-      message: `Tinjau kembali narasi sebelum menyimpan sebagai dokumen final.<br><br><strong style="color:var(--text-primary);font-size:1.1em">${escapeHTML(state.selectedStudent.name)}</strong><br>${escapeHTML(semLabel)} — TA ${escapeHTML(year)}<br><br><em>Dokumen final bersifat permanen dan tidak dapat diedit kembali.</em>`,
+      message: `Tinjau kembali narasi sebelum menyimpan sebagai dokumen final.<br><br><strong style="color:var(--text-primary);font-size:1.1em">${escapeHTML(state.selectedStudent.name)}</strong><br>${escapeHTML(semLabel)} — TA ${escapeHTML(year)}`,
       confirmLabel: 'Ya, Finalisasi',
       cancelLabel: 'Tinjau Ulang',
       danger: false,
@@ -1488,15 +1507,19 @@ function renderAchievementState(container, options) {
         <p class="achievement-meta"><strong>${escapeHTML(studentName)}</strong> — ${escapeHTML(semester)}, TA ${escapeHTML(year)}</p>
         <p class="achievement-timestamp">Disimpan pada ${timestamp} WIB</p>
         <div class="achievement-actions">
-          <button class="btn btn-primary" id="btn-ach-history">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-            Lihat Arsip Rapor
+          <button class="btn btn-secondary" id="btn-ach-view">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Lihat Narasi Lengkap
           </button>
-          ${onNextStudent ? `<button class="btn btn-secondary" id="btn-ach-next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Lanjut ke Siswa Berikutnya</button>` : ''}
-          <div class="achievement-actions-row">
-            <button class="btn btn-ghost btn-sm" id="btn-ach-view">Lihat Dokumen</button>
-            <button class="btn btn-ghost btn-sm" id="btn-ach-docx">⬇️ Unduh DOCX</button>
-          </div>
+          <button class="btn btn-primary" id="btn-ach-docx">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Unduh DOCX
+          </button>
+          ${onNextStudent ? `
+          <button class="btn btn-secondary" id="btn-ach-next">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Lanjut ke Siswa Berikutnya
+          </button>` : ''}
           ${onCopyCapaian ? `
             <div class="ach-copy-offer">
               <p class="ach-copy-offer-text">
@@ -1506,7 +1529,11 @@ function renderAchievementState(container, options) {
               <button class="btn btn-secondary btn-sm" id="btn-ach-copy-capaian">👥 Terapkan ke Siswa Lain</button>
             </div>
           ` : ''}
-          <button class="btn btn-ghost btn-sm" id="btn-ach-back" style="color:var(--text-tertiary)">← Kembali ke Editor</button>
+          <div class="ach-tertiary-row">
+            <button class="btn btn-ghost btn-sm" id="btn-ach-history">Lihat Arsip</button>
+            <span class="ach-row-divider">·</span>
+            <button class="btn btn-ghost btn-sm" id="btn-ach-back">← Kembali ke Editor</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1525,13 +1552,14 @@ function renderAchievementState(container, options) {
   });
   container.querySelector('#btn-ach-docx')?.addEventListener('click', async () => {
     const btn = container.querySelector('#btn-ach-docx');
-    if (btn) { btn.disabled = true; btn.textContent = '⏳ Menyiapkan...'; }
+    const _svgDown = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`;
+    if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Menyiapkan...'; }
     try {
       await downloadReportAsDocx(reportData, institutionName || '');
     } catch (err) {
       showToast('Gagal mengunduh DOCX. Coba lagi.', 'error');
     } finally {
-      if (btn) { btn.disabled = false; btn.textContent = '⬇️ Unduh DOCX'; }
+      if (btn) { btn.disabled = false; btn.innerHTML = `${_svgDown} Unduh DOCX`; }
     }
   });
   container.querySelector('#btn-ach-copy-capaian')?.addEventListener('click', () => {
@@ -1608,15 +1636,20 @@ function addAchievementStyles() {
       align-items: center;
       gap: var(--space-3);
     }
-    .achievement-actions .btn-primary {
+    .achievement-actions .btn-primary,
+    .achievement-actions .btn-secondary:not(.btn-sm) {
       min-width: 220px;
     }
-    .achievement-actions-row {
+    .ach-tertiary-row {
       display: flex;
+      align-items: center;
       gap: var(--space-2);
+      margin-top: var(--space-1);
     }
-    .achievement-actions-row .btn {
-      min-width: 100px;
+    .ach-row-divider {
+      color: var(--text-tertiary);
+      font-size: var(--font-size-sm);
+      user-select: none;
     }
     /* Finalized tick in student list */
     .finalized-tick {
