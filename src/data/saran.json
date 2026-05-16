@@ -1,0 +1,199 @@
+{
+  "_meta": {
+    "versi": "1.0.0",
+    "deskripsi": "Koleksi saran pengembangan untuk rapor PAUD",
+    "petunjuk_template": "Template adalah fragmen kalimat siap disambung konteks pengantar di depannya. Contoh pengantar: 'Kami harapkan [nama] dapat...' atau 'Akan sangat mendukung jika [nama]...'",
+    "petunjuk_tone": "Gunakan frasa konstruktif: 'perlu didukung dengan...', 'akan berkembang lebih baik jika...', 'kami harapkan...', 'dengan pembiasaan yang konsisten...'. HINDARI: 'tidak bisa', 'belum mampu', 'kurang', 'gagal'.",
+    "diperbarui": "2026"
+  },
+  "kategori": [
+    {
+      "id": "saran-agama",
+      "elemen_id": "agama-budi-pekerti",
+      "nama": "Saran — Nilai Agama & Budi Pekerti",
+      "item": [
+        {
+          "id": "saran-doa-harian-rutin",
+          "label": "Perlu latihan doa harian lebih rutin",
+          "template": "perlu didukung dengan pembiasaan melafalkan doa harian secara rutin dan konsisten di rumah — misalnya doa sebelum makan dan sebelum tidur — agar kemampuan dan kebiasaan berdoanya semakin kuat"
+        },
+        {
+          "id": "saran-kata-sopan",
+          "label": "Perlu pembiasaan kata sopan sehari-hari",
+          "template": "akan berkembang lebih baik jika mendapat contoh dan pengingat yang konsisten dari orang-orang terdekat untuk membiasakan mengucapkan kata-kata sopan seperti 'tolong', 'maaf', dan 'terima kasih' dalam percakapan sehari-hari"
+        },
+        {
+          "id": "saran-kelola-marah",
+          "label": "Perlu bimbingan mengelola rasa marah",
+          "template": "akan sangat terbantu jika mendapat pendampingan yang sabar dan konsisten dalam mengelola perasaan seperti rasa marah atau kecewa, sehingga dapat mengungkapkannya dengan cara yang lebih positif dan tenang"
+        },
+        {
+          "id": "saran-kejujuran",
+          "label": "Perlu dukungan membiasakan berkata jujur",
+          "template": "perlu terus mendapat dorongan dan keteladanan dari lingkungan sekitarnya untuk membiasakan berkata dan berbuat jujur dalam keseharian, karena kebiasaan ini paling baik tumbuh melalui contoh nyata yang konsisten"
+        },
+        {
+          "id": "saran-empati-berbagi",
+          "label": "Perlu stimulasi rasa empati dan mau berbagi",
+          "template": "perlu mendapat lebih banyak kesempatan dan dorongan untuk berlatih merasakan perasaan orang lain serta mempraktikkan kebaikan kecil seperti berbagi, karena kepekaan sosial ini akan tumbuh subur melalui pengalaman langsung yang bermakna"
+        },
+        {
+          "id": "saran-merawat-ciptaan",
+          "label": "Perlu pembiasaan merawat alam dan lingkungan",
+          "template": "perlu didukung dengan kegiatan nyata di rumah yang menumbuhkan rasa syukur dan tanggung jawab terhadap ciptaan Tuhan, seperti ikut menyiram tanaman, memberi makan hewan, atau membuang sampah pada tempatnya"
+        },
+        {
+          "id": "saran-disiplin-aturan",
+          "label": "Perlu pembiasaan disiplin mengikuti aturan",
+          "template": "akan sangat terbantu dengan penerapan aturan yang jelas, hangat, dan konsisten di rumah sehingga terbiasa memahami bahwa setiap aturan dibuat untuk kebaikan bersama dan dapat mengikutinya dengan sukarela"
+        }
+      ]
+    },
+    {
+      "id": "saran-jati-diri",
+      "elemen_id": "jati-diri",
+      "nama": "Saran — Jati Diri & Perkembangan Diri",
+      "item": [
+        {
+          "id": "saran-mandiri-perawatan-diri",
+          "label": "Perlu latihan kemandirian perawatan diri",
+          "template": "perlu mendapat lebih banyak kesempatan berlatih melakukan perawatan diri secara mandiri di rumah — seperti memakai pakaian, menyiapkan tas, atau makan sendiri — karena kesempatan mencoba secara langsung adalah cara terbaik membangun kemandirian"
+        },
+        {
+          "id": "saran-berani-interaksi-sosial",
+          "label": "Perlu dorongan untuk berinteraksi dengan teman baru",
+          "template": "perlu terus mendapat dorongan semangat dan kesempatan untuk berlatih berinteraksi dengan orang-orang baru, karena kepercayaan diri sosialnya akan tumbuh semakin kuat seiring bertambahnya pengalaman bermain bersama"
+        },
+        {
+          "id": "saran-motorik-halus",
+          "label": "Perlu stimulasi motorik halus",
+          "template": "akan sangat terbantu dengan kegiatan-kegiatan menyenangkan di rumah yang melatih motorik halus, seperti mewarnai, menggunting, meronce manik-manik, atau bermain tanah liat, agar kemampuan tangan dan jari-jarinya semakin terampil"
+        },
+        {
+          "id": "saran-sabar-antri",
+          "label": "Perlu latihan bersabar dan mengantri giliran",
+          "template": "perlu terus dilatih kesabaran dalam menunggu giliran, karena pembiasaan yang konsisten di rumah maupun di sekolah — seperti saat bermain bersama atau mengambil makanan — akan sangat membantu perkembangan kemampuan sosialnya"
+        },
+        {
+          "id": "saran-motorik-kasar",
+          "label": "Perlu stimulasi motorik kasar dan koordinasi tubuh",
+          "template": "perlu mendapat lebih banyak kesempatan melakukan aktivitas fisik yang menyenangkan setiap hari — seperti bermain di luar, bersepeda, atau berlari bebas — agar kemampuan motorik kasar dan koordinasi tubuhnya semakin berkembang"
+        },
+        {
+          "id": "saran-selesaikan-tugas",
+          "label": "Perlu latihan menyelesaikan tugas hingga tuntas",
+          "template": "perlu mendapat pendampingan yang hangat dan konsisten agar terbiasa menyelesaikan tugas atau permainan hingga selesai sebelum beralih ke kegiatan lain, sehingga ketekunan dan daya juangnya semakin terbentuk"
+        },
+        {
+          "id": "saran-regulasi-emosi",
+          "label": "Perlu bimbingan regulasi emosi yang positif",
+          "template": "akan berkembang lebih baik dengan pendampingan yang sabar dalam mengenal dan memberi nama perasaan yang sedang dialami, serta belajar cara-cara positif untuk mengungkapkannya — seperti berbicara, menggambar, atau menarik napas dalam"
+        },
+        {
+          "id": "saran-percaya-diri-karya",
+          "label": "Perlu dorongan untuk percaya diri menampilkan karya",
+          "template": "perlu mendapat apresiasi yang tulus dan konsisten atas setiap hasil karya dan usahanya, karena penguatan positif dari orang-orang terdekat adalah kunci tumbuhnya rasa percaya diri untuk tampil dan mengekspresikan dirinya"
+        },
+        {
+          "id": "saran-keselamatan-diri",
+          "label": "Perlu pemahaman lebih dalam tentang keselamatan diri",
+          "template": "perlu mendapat pengenalan yang berulang dan menyenangkan tentang aturan keselamatan diri sehari-hari — seperti berhati-hati di jalan, tidak menerima sesuatu dari orang tidak dikenal — agar pemahaman ini benar-benar tertanam"
+        }
+      ]
+    },
+    {
+      "id": "saran-literasi-steam",
+      "elemen_id": "literasi-steam",
+      "nama": "Saran — Literasi, Numerasi & STEAM",
+      "item": [
+        {
+          "id": "saran-baca-buku-rumah",
+          "label": "Perlu stimulasi literasi harian di rumah",
+          "template": "perlu mendapat stimulasi literasi yang menyenangkan di rumah secara rutin, misalnya dengan membacakan buku cerita setiap malam atau mengajak mengamati tulisan-tulisan yang ada di sekitar, agar kecintaan dan kemampuan awal membacanya semakin berkembang"
+        },
+        {
+          "id": "saran-mengenal-huruf",
+          "label": "Perlu latihan mengenal dan menulis huruf",
+          "template": "perlu mendapat latihan mengenal huruf abjad yang lebih teratur dan menyenangkan di rumah — misalnya melalui permainan kartu huruf, buku aktivitas, atau menuliskan namanya sendiri — agar fondasi kemampuan membaca dan menulisnya semakin kuat"
+        },
+        {
+          "id": "saran-berhitung-angka",
+          "label": "Perlu dukungan mengenal angka dan berhitung",
+          "template": "akan sangat terbantu dengan permainan berhitung sederhana yang menyenangkan di rumah — seperti menghitung buah, anak tangga, atau mainan — karena pengalaman berhitung dalam konteks nyata akan mempercepat pemahaman konsep angkanya"
+        },
+        {
+          "id": "saran-berani-bercerita",
+          "label": "Perlu dorongan bercerita dan mengungkapkan pendapat",
+          "template": "perlu mendapat lebih banyak kesempatan dan dorongan untuk berlatih bercerita dan mengungkapkan pendapatnya secara lisan, karena kemampuan komunikasi verbal akan berkembang pesat melalui percakapan hangat yang sering dilakukan bersama keluarga"
+        },
+        {
+          "id": "saran-eksplorasi-sains",
+          "label": "Perlu kegiatan eksplorasi sains sederhana di rumah",
+          "template": "perlu mendapat lebih banyak pengalaman bereksplorasi dan bereksperimen secara sederhana di rumah — seperti bermain air, mengamati tanaman, atau mencampur warna — karena pengalaman langsung adalah cara paling efektif menumbuhkan rasa ingin tahu sains"
+        },
+        {
+          "id": "saran-pra-menulis",
+          "label": "Perlu latihan pra-menulis dan memegang alat tulis",
+          "template": "perlu mendapat latihan yang menyenangkan dan bertahap untuk memperkuat kemampuan pra-menulisnya, mulai dari kegiatan mewarnai, menebalkan garis, hingga menuliskan namanya sendiri, agar kesiapan menulisnya semakin matang"
+        },
+        {
+          "id": "saran-kreativitas-seni",
+          "label": "Perlu dorongan berekspresi melalui seni",
+          "template": "perlu mendapat lebih banyak kesempatan dan kebebasan untuk berekspresi melalui kegiatan seni seperti menggambar, melukis, atau membentuk tanah liat tanpa penilaian hasil, karena kebebasan berkreasi adalah jalan terbaik menumbuhkan rasa percaya diri artistiknya"
+        },
+        {
+          "id": "saran-pola-matematika",
+          "label": "Perlu latihan mengenal pola dan bentuk geometri",
+          "template": "perlu mendapat pengalaman yang lebih banyak dan menyenangkan dalam mengenal pola dan bentuk geometri melalui permainan sehari-hari — seperti menyusun puzzle, balok, atau mengamati bentuk benda di sekitar rumah"
+        },
+        {
+          "id": "saran-minat-buku-tumbuh",
+          "label": "Perlu stimulasi menumbuhkan minat terhadap buku",
+          "template": "perlu mendapat akses dan pengalaman yang lebih banyak bersama buku cerita bergambar, karena membacakan buku bersama secara rutin adalah cara yang paling menyenangkan untuk menumbuhkan kecintaannya terhadap cerita dan literasi"
+        }
+      ]
+    },
+    {
+      "id": "saran-umum",
+      "elemen_id": "umum",
+      "nama": "Saran — Umum & Kerjasama Orang Tua",
+      "item": [
+        {
+          "id": "saran-rutinitas-belajar",
+          "label": "Perlu rutinitas belajar yang konsisten di rumah",
+          "template": "perlu didukung dengan rutinitas belajar yang teratur dan menyenangkan di rumah — seperti waktu bercerita, menggambar, atau mengenal huruf dan angka bersama orang tua — agar semangat belajarnya terus terjaga"
+        },
+        {
+          "id": "saran-beri-kesempatan-mandiri",
+          "label": "Orang tua perlu memberi lebih banyak kesempatan mandiri",
+          "template": "akan berkembang lebih pesat kemandiriannya jika di rumah mendapat lebih banyak kesempatan untuk mencoba melakukan berbagai hal secara mandiri — seperti berpakaian, merapikan mainan, atau menyiapkan perlengkapan — walau hasilnya mungkin belum sempurna"
+        },
+        {
+          "id": "saran-gizi-tidur-cukup",
+          "label": "Perlu dukungan gizi seimbang dan jam tidur cukup",
+          "template": "perlu mendapat dukungan penuh dari keluarga dalam hal asupan gizi yang seimbang dan jam tidur yang cukup setiap malam, karena tumbuh kembang yang optimal sangat bergantung pada kesehatan fisik yang terjaga dengan baik"
+        },
+        {
+          "id": "saran-bermain-luar",
+          "label": "Perlu waktu bermain bebas di luar setiap hari",
+          "template": "perlu mendapat waktu bermain bebas di luar ruangan setiap hari sebagai stimulasi motorik, sosial, dan kreativitas yang sangat berharga, karena bermain adalah cara belajar yang paling alami dan menyenangkan bagi anak usia dini"
+        },
+        {
+          "id": "saran-batasi-gadget",
+          "label": "Perlu pembatasan waktu layar (gadget) yang sehat",
+          "template": "perlu mendapat pendampingan orang tua dalam mengatur waktu penggunaan gadget atau layar secara sehat, agar waktu yang tersedia dapat lebih banyak diisi dengan kegiatan bermain kreatif, membaca, dan berinteraksi langsung bersama keluarga"
+        },
+        {
+          "id": "saran-komunikasi-sekolah-rumah",
+          "label": "Perlu komunikasi aktif orang tua dengan guru",
+          "template": "akan sangat terbantu jika orang tua dan guru terus menjalin komunikasi yang aktif dan terbuka tentang perkembangan dan kebutuhan belajarnya, karena keselarasan antara pendampingan di rumah dan di sekolah adalah kunci keberhasilan tumbuh kembangnya"
+        },
+        {
+          "id": "saran-kunjungi-tempat-edukatif",
+          "label": "Perlu kunjungan ke tempat-tempat edukatif",
+          "template": "perlu mendapat kesempatan lebih banyak untuk mengunjungi tempat-tempat yang memperkaya pengalamannya secara nyata — seperti kebun binatang, museum anak, pasar tradisional, atau perpustakaan — sebagai stimulasi rasa ingin tahu dan wawasannya"
+        }
+      ]
+    }
+  ]
+}

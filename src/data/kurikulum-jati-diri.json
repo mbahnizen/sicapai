@@ -1,0 +1,733 @@
+{
+  "_meta": {
+    "versi": "2.0.0",
+    "elemen_id": "jati-diri",
+    "elemen_nama": "Jati Diri",
+    "kurikulum": "Kurikulum Merdeka - Fase Fondasi",
+    "referensi": [
+      "Permendikdasmen No. 10 Tahun 2025 tentang Standar Kompetensi Lulusan Pendidikan Anak Usia Dini",
+      "Permendikbudristek No. 5 Tahun 2022 tentang Standar Kompetensi Lulusan pada PAUD, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah",
+      "Keputusan Kepala BSKAP No. 033/H/KR/2022 tentang Capaian Pembelajaran PAUD Fase Fondasi",
+      "Panduan Pembelajaran dan Asesmen PAUD 2022 (Kemendikbudristek)",
+      "Panduan Profil Lulusan dan Deep Learning PAUD 2025"
+    ],
+    "petunjuk_level": {
+      "BB": "Belum Berkembang — anak belum menunjukkan capaian ini; gunakan template ini saat anak perlu banyak dukungan penuh",
+      "MB": "Mulai Berkembang — anak mulai menunjukkan capaian dengan bimbingan; template mencerminkan proses yang sedang berkembang",
+      "BSH": "Berkembang Sesuai Harapan — anak sudah mampu secara mandiri sesuai harapan; ini level default (kompatibel dengan v1)",
+      "BSB": "Berkembang Sangat Baik — anak melampaui harapan dan mampu menjadi model bagi teman"
+    },
+    "petunjuk_sub_indikator": "Sub-indikator hanya ditampilkan saat level BSH atau BSB. Pada level BB dan MB, hanya level_template yang digunakan.",
+    "petunjuk_template": "Gabungkan level_template indikator + sub_indikator(s) untuk membentuk satu kalimat narasi. Awali dengan nama anak. Sub_indikator pertama pakai 'seperti', selanjutnya tanpa kata sambung atau dengan 'serta'/'dan'. Akhiri kalimat dengan titik.",
+    "diperbarui": "2026"
+  },
+  "elemen": {
+    "id": "jati-diri",
+    "nama": "Jati Diri",
+    "deskripsi": "Mencakup kemampuan anak mengenal dan bangga dengan identitas dirinya, mengelola emosi secara sehat, menunjukkan kemandirian, serta mengembangkan kemampuan motorik kasar, motorik halus, dan praktik hidup sehat dan aman.",
+    "sub_elemen": [
+      {
+        "id": "identitas-diri",
+        "nama": "Mengenal Identitas Diri, Keluarga, dan Lingkungan Sosial Budaya",
+        "indikator": [
+          {
+            "id": "data-diri",
+            "label": "Menyebutkan data diri sendiri",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal dan mengingat data dirinya sendiri",
+              "MB": "mulai dapat menyebutkan sebagian data dirinya dengan bimbingan guru",
+              "BSH": "dapat menyebutkan data dirinya secara lengkap dengan penuh rasa percaya diri",
+              "BSB": "dengan sangat percaya diri dan lancar menyebutkan data dirinya secara lengkap serta senang memperkenalkan dirinya kepada orang lain yang baru dikenal"
+            },
+            "sub_indikator": [
+              {
+                "id": "dd-nama",
+                "label": "Menyebutkan nama lengkap",
+                "template": "seperti nama lengkap"
+              },
+              {
+                "id": "dd-usia",
+                "label": "Menyebutkan usia",
+                "template": "usia"
+              },
+              {
+                "id": "dd-jenis-kelamin",
+                "label": "Memahami identitas jenis kelaminnya",
+                "template": "memahami identitas jenis kelaminnya"
+              },
+              {
+                "id": "dd-alamat",
+                "label": "Menyebutkan alamat rumah",
+                "template": "serta sudah mulai hafal alamat rumahnya"
+              },
+              {
+                "id": "dd-nomor-telepon",
+                "label": "Menyebutkan nomor telepon orang tua (untuk keadaan darurat)",
+                "template": "serta hafal nomor telepon orang tua yang dapat dihubungi dalam keadaan darurat"
+              }
+            ]
+          },
+          {
+            "id": "anggota-keluarga",
+            "label": "Mengenal dan menyebutkan anggota keluarga inti",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal nama dan peran anggota keluarga intinya",
+              "MB": "mulai dapat menyebutkan nama anggota keluarga intinya dengan bimbingan",
+              "BSH": "dapat menyebutkan nama anggota keluarga intinya beserta peran masing-masing dengan bangga",
+              "BSB": "dengan bangga dan rinci dapat menyebutkan nama, peran, dan hal-hal istimewa tentang setiap anggota keluarga intinya, serta antusias menceritakannya kepada teman"
+            }
+          },
+          {
+            "id": "profesi-keluarga",
+            "label": "Mengenal pekerjaan anggota keluarga",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal pekerjaan orang tua dan anggota keluarganya",
+              "MB": "mulai mengetahui pekerjaan orang tuanya meski belum dapat menjelaskannya secara lengkap",
+              "BSH": "mengetahui dan bangga menceritakan pekerjaan orang tua serta anggota keluarganya",
+              "BSB": "dengan antusias dan penuh kebanggaan menceritakan pekerjaan orang tua dan anggota keluarganya secara rinci, termasuk manfaat pekerjaan tersebut bagi masyarakat"
+            }
+          },
+          {
+            "id": "budaya-asal",
+            "label": "Mengenal asal daerah dan budaya keluarganya",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal asal daerah dan kebudayaan keluarganya",
+              "MB": "mulai mengenal asal daerah keluarganya dengan bimbingan dan cerita dari guru maupun orang tua",
+              "BSH": "mulai mengenal asal daerah dan kebudayaan keluarganya dengan rasa bangga sebagai bagian dari identitas dirinya",
+              "BSB": "dengan penuh rasa bangga mengenal dan menceritakan asal daerah serta berbagai kekayaan budaya keluarganya, dan antusias berbagi cerita tersebut kepada teman-temannya"
+            },
+            "sub_indikator": [
+              {
+                "id": "ba-suku-daerah",
+                "label": "Menyebutkan nama suku atau daerah asal keluarga",
+                "template": "seperti menyebutkan nama suku atau daerah asal keluarganya dengan bangga"
+              },
+              {
+                "id": "ba-pakaian-adat",
+                "label": "Mengenal dan mengenakan pakaian adat daerah (mis. peringatan Hari Kartini)",
+                "template": "mengenal pakaian adat daerahnya dan pernah mengenakannya dalam kegiatan sekolah seperti peringatan Hari Kartini"
+              },
+              {
+                "id": "ba-lagu-daerah",
+                "label": "Menyanyikan lagu daerah asal keluarga",
+                "template": "menyanyikan lagu daerah asal keluarganya dengan penuh keceriaan"
+              },
+              {
+                "id": "ba-makanan-khas",
+                "label": "Mengenal makanan khas daerah",
+                "template": "mengenal dan dapat menyebutkan makanan khas daerahnya"
+              },
+              {
+                "id": "ba-pasar-tradisional",
+                "label": "Pernah mengunjungi pasar tradisional atau tempat bersejarah daerah",
+                "template": "serta pernah mengunjungi pasar tradisional atau tempat bersejarah daerahnya dan dapat menceritakan pengalamannya"
+              }
+            ]
+          },
+          {
+            "id": "konsep-diri-positif",
+            "label": "Memiliki konsep diri yang positif",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses membangun rasa percaya diri dan pengenalan terhadap kelebihan dirinya sendiri",
+              "MB": "mulai menunjukkan rasa percaya diri dan mulai mengenali kelebihan dirinya dengan dukungan guru",
+              "BSH": "menunjukkan rasa percaya diri yang baik, mampu mengenali kelebihan dirinya, dan bangga menjadi dirinya sendiri",
+              "BSB": "memancarkan rasa percaya diri yang luar biasa, dengan mantap mengenali kelebihan dan keunikan dirinya sendiri, serta menghargai dan mendorong teman-temannya untuk juga bangga menjadi diri mereka sendiri"
+            },
+            "sub_indikator": [
+              {
+                "id": "kdp-kelebihan",
+                "label": "Menyebutkan kelebihan dan hal yang disukainya tentang dirinya sendiri",
+                "template": "seperti mampu menyebutkan kelebihan dan hal-hal yang disukainya tentang dirinya sendiri"
+              },
+              {
+                "id": "kdp-keunikan",
+                "label": "Menghargai keunikan dirinya dibanding teman",
+                "template": "serta menghargai dan bangga dengan keunikan yang membedakannya dari teman-temannya"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "regulasi-emosi",
+        "nama": "Mengelola, Mengekspresikan, dan Meregulasi Emosi",
+        "indikator": [
+          {
+            "id": "mengenali-emosi",
+            "label": "Mengenali dan menamai emosi yang dirasakan",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses belajar mengenali dan menamai emosi yang dirasakannya",
+              "MB": "mulai dapat mengenali beberapa emosi dasar yang dirasakannya dengan bimbingan guru",
+              "BSH": "mampu mengenali dan menamai berbagai emosi yang dirasakannya",
+              "BSB": "dengan perbendaharaan emosi yang kaya mampu mengenali, menamai, dan menggambarkan berbagai emosi yang dirasakannya secara tepat, serta dapat membantu teman memahami perasaan mereka sendiri"
+            },
+            "sub_indikator": [
+              {
+                "id": "em-senang",
+                "label": "Rasa senang",
+                "template": "seperti rasa senang"
+              },
+              {
+                "id": "em-sedih",
+                "label": "Rasa sedih",
+                "template": "sedih"
+              },
+              {
+                "id": "em-marah",
+                "label": "Rasa marah",
+                "template": "marah"
+              },
+              {
+                "id": "em-takut",
+                "label": "Rasa takut",
+                "template": "serta takut dengan cara yang tepat dan dapat dipahami orang lain"
+              },
+              {
+                "id": "em-kecewa",
+                "label": "Rasa kecewa",
+                "template": "kecewa"
+              },
+              {
+                "id": "em-bangga",
+                "label": "Rasa bangga",
+                "template": "bangga"
+              },
+              {
+                "id": "em-malu",
+                "label": "Rasa malu",
+                "template": "serta malu dengan cara yang wajar dan dapat dipahami orang lain"
+              }
+            ]
+          },
+          {
+            "id": "mengelola-emosi-negatif",
+            "label": "Mengelola emosi negatif dengan cara yang positif",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih memerlukan banyak dukungan dalam mengelola emosi negatif seperti rasa marah atau kecewa",
+              "MB": "mulai mampu mengelola emosi negatif dengan cara yang lebih baik, meski masih memerlukan bimbingan guru",
+              "BSH": "mulai mampu mengelola emosi negatif seperti rasa marah dan kecewa dengan cara yang baik tanpa menyakiti diri sendiri maupun orang lain",
+              "BSB": "dengan sangat baik mampu mengelola berbagai emosi negatif secara mandiri menggunakan strategi yang sehat seperti menarik napas dalam atau mengungkapkan perasaannya dengan kata-kata, dan kerap membantu teman menemukan cara yang baik untuk menenangkan diri"
+            }
+          },
+          {
+            "id": "antri-sabar",
+            "label": "Bersabar dan mau mengantri giliran",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses belajar bersabar dan mau menunggu giliran",
+              "MB": "mulai mau bersabar dan mengantri giliran meskipun kadang masih memerlukan pengingat dari guru",
+              "BSH": "sudah terbiasa bersabar dan mau mengantri menunggu giliran tanpa mengeluh",
+              "BSB": "dengan penuh kesabaran dan keikhlasan selalu menunggu giliran tanpa mengeluh, bahkan kerap mengingatkan teman-temannya untuk mengantri dengan tertib"
+            }
+          },
+          {
+            "id": "interaksi-sosial",
+            "label": "Berinteraksi secara positif dengan teman sebaya dan orang dewasa",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses belajar berinteraksi secara positif dengan teman sebaya dan orang dewasa di sekitarnya",
+              "MB": "mulai mampu berinteraksi secara positif dengan teman dan orang dewasa, meskipun kadang masih memerlukan dorongan dari guru",
+              "BSH": "mampu berinteraksi secara positif dan hangat baik dengan teman sebaya maupun orang dewasa di sekitarnya",
+              "BSB": "menjalin interaksi yang sangat positif, hangat, dan membangun dengan semua orang di sekitarnya, serta secara aktif menjadi jembatan pertemanan yang menghubungkan teman-teman yang belum saling mengenal"
+            },
+            "sub_indikator": [
+              {
+                "id": "is-bermain-bersama",
+                "label": "Bermain bersama dan mengajak teman baru",
+                "template": "seperti aktif bermain bersama dan berani mengajak teman baru untuk bergabung"
+              },
+              {
+                "id": "is-bergiliran",
+                "label": "Bersedia bergiliran menggunakan fasilitas",
+                "template": "serta bersedia bergiliran dan berbagi fasilitas kelas dengan senang hati"
+              },
+              {
+                "id": "is-memimpin-kelompok",
+                "label": "Aktif mengambil peran dalam kegiatan kelompok",
+                "template": "serta aktif mengambil inisiatif dan peran positif dalam kegiatan kelompok"
+              }
+            ]
+          },
+          {
+            "id": "bangga-karya",
+            "label": "Menunjukkan rasa bangga atas hasil karyanya",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses membangun keberanian untuk menunjukkan hasil karyanya kepada orang lain",
+              "MB": "mulai berani menunjukkan hasil karyanya, meski masih membutuhkan dorongan semangat dari guru",
+              "BSH": "merasa bangga dan percaya diri dalam menunjukkan serta menceritakan hasil karya yang telah dibuatnya kepada orang lain",
+              "BSB": "dengan penuh kebanggaan dan semangat menampilkan serta menceritakan hasil karyanya kepada siapa saja, dan dengan tulus memberikan apresiasi yang hangat terhadap karya teman-temannya"
+            }
+          }
+        ]
+      },
+      {
+        "id": "kemandirian",
+        "nama": "Menunjukkan Perilaku Mandiri, Percaya Diri, dan Bertanggung Jawab",
+        "indikator": [
+          {
+            "id": "merawat-diri-sendiri",
+            "label": "Melakukan kegiatan perawatan diri secara mandiri",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih memerlukan banyak bantuan dalam melakukan kegiatan perawatan dirinya sehari-hari",
+              "MB": "mulai mampu melakukan beberapa kegiatan perawatan diri secara mandiri dengan sedikit bantuan",
+              "BSH": "mampu melakukan berbagai kegiatan perawatan diri secara mandiri",
+              "BSB": "dengan sangat mandiri dan penuh tanggung jawab mampu melakukan semua kegiatan perawatan diri sehari-hari, bahkan terkadang membantu mengingatkan atau membimbing teman yang membutuhkan bantuan"
+            },
+            "sub_indikator": [
+              {
+                "id": "mds-berpakaian",
+                "label": "Memakai dan melepas pakaian sendiri",
+                "template": "seperti memakai dan melepas pakaian sendiri"
+              },
+              {
+                "id": "mds-makan",
+                "label": "Makan dan minum secara mandiri",
+                "template": "makan dan minum secara mandiri dan tertib"
+              },
+              {
+                "id": "mds-toilet",
+                "label": "Menggunakan toilet secara mandiri",
+                "template": "menggunakan toilet secara mandiri serta menjaga kebersihannya"
+              },
+              {
+                "id": "mds-sepatu",
+                "label": "Memakai dan melepas alas kaki",
+                "template": "serta memakai dan melepas alas kaki sendiri tanpa meminta bantuan"
+              },
+              {
+                "id": "mds-rambut",
+                "label": "Menyisir rambut sendiri dengan rapi",
+                "template": "menyisir dan merapikan rambutnya sendiri"
+              },
+              {
+                "id": "mds-berkemas",
+                "label": "Menyiapkan tas dan perlengkapan belajar sendiri",
+                "template": "serta menyiapkan tas dan perlengkapan belajarnya sendiri sebelum berangkat ke sekolah"
+              }
+            ]
+          },
+          {
+            "id": "membereskan-barang",
+            "label": "Membereskan mainan dan peralatan setelah digunakan",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih memerlukan bimbingan penuh untuk membereskan mainan dan peralatan setelah digunakan",
+              "MB": "mulai mau membereskan mainan dan peralatan setelah digunakan dengan pengingat dari guru",
+              "BSH": "terbiasa dan dengan senang hati membereskan serta merapikan mainan dan peralatan belajar setelah selesai digunakan",
+              "BSB": "dengan penuh inisiatif dan kegembiraan selalu membereskan mainan dan peralatan belajar setelah digunakan, bahkan dengan spontan membantu teman merapikan barang-barang di sekitarnya"
+            }
+          },
+          {
+            "id": "mengambil-keputusan",
+            "label": "Membuat pilihan dan keputusan sederhana secara mandiri",
+            "has_sub": false,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "masih memerlukan arahan dalam membuat pilihan atau keputusan sederhana sehari-hari",
+              "MB": "mulai berani membuat pilihan sederhana secara mandiri meskipun terkadang masih ragu-ragu",
+              "BSH": "sudah mampu membuat pilihan dan keputusan sederhana secara mandiri dan berani mempertahankan pilihannya",
+              "BSB": "dengan penuh keyakinan dan ketegasan membuat pilihan serta keputusan sederhana secara mandiri, mampu menjelaskan alasan pilihannya, dan menghargai pilihan orang lain yang berbeda darinya"
+            }
+          },
+          {
+            "id": "menyelesaikan-tugas",
+            "label": "Menyelesaikan tugas hingga tuntas",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih memerlukan banyak dukungan dan pendampingan untuk menyelesaikan tugas yang diberikan hingga selesai",
+              "MB": "mulai mampu menyelesaikan tugas yang diberikan, meski terkadang masih memerlukan motivasi dari guru agar tidak mudah menyerah",
+              "BSH": "menunjukkan ketekunan yang baik dan mampu menyelesaikan tugas yang diberikan hingga tuntas tanpa mudah menyerah",
+              "BSB": "dengan semangat yang tinggi dan pantang menyerah selalu menyelesaikan tugas hingga tuntas dengan hasil yang memuaskan, dan sering menjadi penyemangat teman-temannya untuk turut menyelesaikan pekerjaan mereka"
+            }
+          }
+        ]
+      },
+      {
+        "id": "motorik-kasar",
+        "nama": "Menunjukkan Kemampuan Motorik Kasar",
+        "indikator": [
+          {
+            "id": "berjalan-berlari",
+            "label": "Berjalan dan berlari dengan koordinasi yang baik",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan koordinasi motorik kasar dalam kegiatan gerak dasar",
+              "MB": "mulai menunjukkan kemampuan motorik kasar yang berkembang dalam kegiatan gerak dengan bimbingan",
+              "BSH": "menunjukkan kemampuan motorik kasar yang sangat baik dalam kegiatan gerak",
+              "BSB": "menunjukkan kemampuan motorik kasar yang luar biasa dalam kegiatan gerak, dengan koordinasi tubuh yang sangat baik dan menjadi rujukan teman-teman dalam berbagai aktivitas fisik"
+            },
+            "sub_indikator": [
+              {
+                "id": "mk-berjalan",
+                "label": "Berjalan di berbagai jenis lintasan",
+                "template": "seperti berjalan di berbagai jenis lintasan dengan keseimbangan yang baik"
+              },
+              {
+                "id": "mk-berlari",
+                "label": "Berlari dengan koordinasi yang baik",
+                "template": "berlari dengan kecepatan dan koordinasi yang baik"
+              },
+              {
+                "id": "mk-merangkak",
+                "label": "Merayap dan merangkak",
+                "template": "serta merayap dan merangkak dengan penuh kelincahan"
+              },
+              {
+                "id": "mk-berjinjit",
+                "label": "Berjalan berjinjit dengan keseimbangan",
+                "template": "berjalan berjinjit dengan keseimbangan yang terjaga"
+              },
+              {
+                "id": "mk-berjalan-mundur",
+                "label": "Berjalan mundur dengan koordinasi yang baik",
+                "template": "serta berjalan mundur dengan koordinasi yang baik dan percaya diri"
+              }
+            ]
+          },
+          {
+            "id": "melompat",
+            "label": "Melompat dan meloncat",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan kemampuan melompat dan meloncat",
+              "MB": "mulai mampu melompat dan meloncat dengan dukungan dan bimbingan guru",
+              "BSH": "mampu melompat dan meloncat dengan terarah dan percaya diri",
+              "BSB": "mampu melompat dan meloncat dengan terarah, percaya diri, dan penuh kelincahan, serta berani mencoba berbagai tantangan lompatan yang lebih kompleks"
+            },
+            "sub_indikator": [
+              {
+                "id": "lp-dua-kaki",
+                "label": "Melompat dengan dua kaki",
+                "template": "seperti melompat ke depan dengan menggunakan kedua kaki"
+              },
+              {
+                "id": "lp-satu-kaki",
+                "label": "Melompat dengan satu kaki (engklek)",
+                "template": "serta melompat dengan satu kaki secara bergantian"
+              },
+              {
+                "id": "lp-rintangan",
+                "label": "Melompati rintangan rendah",
+                "template": "serta melompati rintangan rendah dengan percaya diri dan terarah"
+              }
+            ]
+          },
+          {
+            "id": "keseimbangan",
+            "label": "Menjaga keseimbangan tubuh",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan kemampuan menjaga keseimbangan tubuh",
+              "MB": "mulai mampu menjaga keseimbangan tubuh dalam beberapa posisi dengan bimbingan",
+              "BSH": "mampu menjaga keseimbangan tubuh dengan baik dalam berbagai posisi",
+              "BSB": "mampu menjaga keseimbangan tubuh dengan sangat baik dalam berbagai posisi dan tantangan, serta menikmati berbagai aktivitas yang membutuhkan keseimbangan tinggi"
+            },
+            "sub_indikator": [
+              {
+                "id": "ks-satu-kaki",
+                "label": "Berdiri dengan satu kaki",
+                "template": "seperti berdiri dengan satu kaki selama beberapa detik"
+              },
+              {
+                "id": "ks-papan-titian",
+                "label": "Berjalan di atas papan titian",
+                "template": "serta berjalan di atas papan titian dengan percaya diri"
+              },
+              {
+                "id": "ks-jongkok",
+                "label": "Berjongkok dan berdiri berulang kali",
+                "template": "berjongkok dan berdiri berulang kali dengan keseimbangan yang terjaga"
+              }
+            ]
+          },
+          {
+            "id": "melempar-menangkap",
+            "label": "Melempar dan menangkap benda",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan koordinasi mata dan tangan dalam kegiatan melempar dan menangkap",
+              "MB": "mulai mampu melempar dan menangkap bola dengan koordinasi yang berkembang",
+              "BSH": "mampu melempar dan menangkap bola atau benda lain dengan koordinasi mata dan tangan yang baik",
+              "BSB": "mampu melempar dan menangkap bola atau benda lain dengan koordinasi mata dan tangan yang sangat baik, akurasi yang tinggi, serta menikmati berbagai permainan yang membutuhkan keterampilan ini"
+            }
+          },
+          {
+            "id": "koordinasi-kegiatan-fisik",
+            "label": "Koordinasi tubuh dalam kegiatan fisik dan olahraga",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan koordinasi anggota tubuh dalam kegiatan fisik yang terstruktur",
+              "MB": "mulai menunjukkan koordinasi anggota tubuh yang berkembang dalam kegiatan fisik dengan bimbingan",
+              "BSH": "menunjukkan koordinasi anggota tubuh yang baik dalam berbagai kegiatan fisik",
+              "BSB": "menunjukkan koordinasi anggota tubuh yang luar biasa dalam berbagai kegiatan fisik, dengan antusiasme tinggi dan kemampuan mengikuti variasi gerakan yang kompleks"
+            },
+            "sub_indikator": [
+              {
+                "id": "kf-senam",
+                "label": "Senam dan gerak lagu",
+                "template": "seperti mengikuti gerakan senam dan gerak lagu dengan penuh semangat dan keceriaan"
+              },
+              {
+                "id": "kf-sepeda",
+                "label": "Mengendarai sepeda atau skuter",
+                "template": "serta mulai terampil mengendarai sepeda roda tiga atau skuter keseimbangan"
+              },
+              {
+                "id": "kf-permainan-tradisional",
+                "label": "Bermain permainan tradisional (engklek, lompat tali, dll.)",
+                "template": "serta aktif berpartisipasi dalam permainan tradisional seperti engklek dan lompat tali dengan penuh keceriaan"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "motorik-halus",
+        "nama": "Menunjukkan Kemampuan Motorik Halus",
+        "indikator": [
+          {
+            "id": "memegang-alat-tulis",
+            "label": "Memegang alat tulis dengan cara yang benar",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses belajar memegang alat tulis dengan cara yang benar dan terkontrol",
+              "MB": "mulai mampu memegang alat tulis dengan cara yang mendekati benar, meski masih perlu pembiasaan lebih lanjut",
+              "BSH": "mampu memegang pensil, krayon, dan berbagai alat tulis lainnya dengan cara yang benar dan terkontrol",
+              "BSB": "mampu memegang pensil, krayon, dan berbagai alat tulis dengan cara yang sangat benar, terkontrol, dan nyaman, sehingga menghasilkan goresan tulisan dan gambar yang rapi dan terarah"
+            }
+          },
+          {
+            "id": "menggunting",
+            "label": "Menggunting mengikuti pola",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses belajar cara menggunakan gunting dengan aman dan mengikuti pola",
+              "MB": "mulai mampu menggunting mengikuti pola sederhana dengan hasil yang masih perlu ditingkatkan",
+              "BSH": "mampu menggunting dengan mengikuti berbagai pola",
+              "BSB": "mampu menggunting dengan sangat rapi dan presisi mengikuti berbagai pola, termasuk pola yang cukup detail, dengan hasil yang memuaskan"
+            },
+            "sub_indikator": [
+              {
+                "id": "gun-lurus",
+                "label": "Menggunting garis lurus",
+                "template": "seperti garis lurus"
+              },
+              {
+                "id": "gun-lengkung",
+                "label": "Menggunting garis lengkung",
+                "template": "garis lengkung"
+              },
+              {
+                "id": "gun-pola-gambar",
+                "label": "Menggunting pola gambar sederhana",
+                "template": "serta pola gambar sederhana dengan rapi"
+              },
+              {
+                "id": "gun-zigzag",
+                "label": "Menggunting garis zigzag",
+                "template": "garis zigzag dengan cukup rapi"
+              }
+            ]
+          },
+          {
+            "id": "mewarnai-menggambar",
+            "label": "Mewarnai gambar dan menggambar bebas",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses belajar mewarnai dalam batas garis dan menuangkan imajinasinya melalui gambar",
+              "MB": "mulai mampu mewarnai gambar dan menggambar bebas sesuai imajinasinya meskipun hasil masih terus berkembang",
+              "BSH": "mampu mewarnai gambar dengan memperhatikan batas dan menggambar bebas sesuai imajinasinya",
+              "BSB": "mampu mewarnai gambar dengan sangat rapi dan memperhatikan detail batas garis, serta menghasilkan gambar bebas yang kaya ekspresi dan mencerminkan imajinasinya yang kreatif"
+            },
+            "sub_indikator": [
+              {
+                "id": "mw-mewarnai",
+                "label": "Mewarnai dalam batas garis",
+                "template": "seperti mewarnai gambar dengan cukup rapi dalam batas garis"
+              },
+              {
+                "id": "mw-menggambar",
+                "label": "Menggambar bebas",
+                "template": "serta menggambar berbagai objek sesuai imajinasinya secara kreatif"
+              },
+              {
+                "id": "mw-menghias",
+                "label": "Menghias karya dengan berbagai media dan teknik",
+                "template": "serta menghias karyanya menggunakan berbagai media seperti stiker, pola cap, atau teknik finger painting"
+              }
+            ]
+          },
+          {
+            "id": "meronce-menyusun",
+            "label": "Meronce dan menyusun benda kecil",
+            "has_sub": false,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan ketelitian dan konsentrasi dalam kegiatan meronce dan menyusun benda kecil",
+              "MB": "mulai mampu meronce manik-manik dan menyusun benda kecil dengan hasil yang masih terus berkembang",
+              "BSH": "terampil meronce manik-manik dan menyusun berbagai benda kecil dengan konsentrasi dan ketelitian yang baik",
+              "BSB": "dengan sangat terampil dan penuh konsentrasi meronce manik-manik dan menyusun berbagai benda kecil dengan pola yang kreatif dan hasil yang sangat rapi"
+            }
+          },
+          {
+            "id": "melipat-kolase",
+            "label": "Melipat kertas dan membuat kolase",
+            "has_sub": false,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "masih dalam proses belajar melipat kertas dan membuat kolase secara sederhana",
+              "MB": "mulai mampu melipat kertas mengikuti pola dasar dan membuat kolase dengan bimbingan guru",
+              "BSH": "mampu melipat kertas mengikuti pola sederhana dan membuat karya kolase dari berbagai bahan dengan hasil yang menarik",
+              "BSB": "mampu melipat kertas mengikuti pola yang cukup kompleks dan menghasilkan karya kolase yang sangat kreatif, orisinal, dan menarik dari berbagai bahan yang dipilihnya sendiri"
+            }
+          }
+        ]
+      },
+      {
+        "id": "kesehatan-keselamatan",
+        "nama": "Mengenal dan Mempraktikkan Hidup Sehat, Bersih, dan Aman",
+        "indikator": [
+          {
+            "id": "kebersihan-diri",
+            "label": "Menjaga kebersihan diri sendiri",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses membangun kebiasaan menjaga kebersihan dirinya sendiri secara mandiri",
+              "MB": "mulai terbiasa menjaga kebersihan dirinya sendiri dengan pengingat dari guru",
+              "BSH": "telah terbiasa menjaga kebersihan dirinya sendiri secara mandiri",
+              "BSB": "dengan penuh kesadaran dan kemandirian yang tinggi selalu menjaga kebersihan dirinya sendiri, bahkan kerap mengingatkan teman-temannya untuk turut menjaga kebersihan"
+            },
+            "sub_indikator": [
+              {
+                "id": "kd-cuci-tangan",
+                "label": "Mencuci tangan dengan sabun",
+                "template": "seperti mencuci tangan dengan sabun sebelum makan dan setelah menggunakan toilet"
+              },
+              {
+                "id": "kd-sikat-gigi",
+                "label": "Menggosok gigi secara teratur",
+                "template": "menggosok gigi secara teratur"
+              },
+              {
+                "id": "kd-mandi",
+                "label": "Mandi dan merawat kebersihan tubuh",
+                "template": "serta menjaga kebersihan dan kerapian tubuhnya setiap hari"
+              },
+              {
+                "id": "kd-potong-kuku",
+                "label": "Merawat kebersihan kuku",
+                "template": "merawat kebersihan kuku agar selalu bersih dan pendek"
+              },
+              {
+                "id": "kd-menutup-mulut",
+                "label": "Menutup mulut dan hidung saat batuk atau bersin",
+                "template": "serta membiasakan menutup mulut dan hidung dengan tangan atau tisu saat batuk atau bersin"
+              }
+            ]
+          },
+          {
+            "id": "makanan-bergizi",
+            "label": "Mengenal makanan bergizi dan mau mengonsumsinya",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal konsep makanan bergizi dan perlu dukungan untuk mau mencoba berbagai jenis makanan sehat",
+              "MB": "mulai mengenal konsep makanan bergizi dan mulai mau mencoba berbagai jenis makanan sehat dengan dukungan guru",
+              "BSH": "mengenal konsep makanan bergizi dan mau mengonsumsi beragam jenis makanan sehat dengan antusias",
+              "BSB": "memiliki pengetahuan yang baik tentang makanan bergizi, dengan antusias mengonsumsi beragam makanan sehat, serta mampu menjelaskan manfaat makanan bergizi kepada teman-temannya"
+            },
+            "sub_indikator": [
+              {
+                "id": "mb-jenis-makanan",
+                "label": "Mengenal berbagai jenis makanan bergizi (nasi, sayur, lauk, buah, susu)",
+                "template": "seperti mengenal berbagai jenis makanan bergizi seperti nasi, sayur, lauk-pauk, buah, dan susu"
+              },
+              {
+                "id": "mb-tidak-jajan-sembarangan",
+                "label": "Tidak sembarangan jajan atau memilih jajanan yang kurang sehat",
+                "template": "serta memahami pentingnya tidak sembarangan jajan dan memilih makanan yang bersih dan bergizi"
+              }
+            ]
+          },
+          {
+            "id": "keselamatan-diri",
+            "label": "Mengenal dan mempraktikkan aturan keselamatan diri",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal aturan keselamatan diri dan membutuhkan bimbingan penuh dalam situasi yang memerlukan kehati-hatian",
+              "MB": "mulai memahami beberapa aturan keselamatan diri dengan bimbingan guru",
+              "BSH": "memahami pentingnya keselamatan diri dan mulai mempraktikkan aturan keselamatan dalam berbagai situasi",
+              "BSB": "memiliki pemahaman yang kuat tentang keselamatan diri, mempraktikkan aturan keselamatan secara konsisten dalam berbagai situasi, dan aktif mengingatkan teman-temannya tentang pentingnya menjaga keselamatan"
+            },
+            "sub_indikator": [
+              {
+                "id": "ks-lalu-lintas",
+                "label": "Keselamatan berlalu lintas",
+                "template": "seperti memahami pentingnya memakai helm dan menyeberang di tempat yang aman"
+              },
+              {
+                "id": "ks-orang-asing",
+                "label": "Waspada terhadap orang yang tidak dikenal",
+                "template": "serta memahami untuk tidak sembarangan mengikuti atau menerima sesuatu dari orang yang tidak dikenal"
+              },
+              {
+                "id": "ks-bencana-alam",
+                "label": "Mengenal tanda bahaya dan prosedur bencana alam sederhana",
+                "template": "serta mengenal tanda-tanda bahaya dan langkah sederhana yang perlu dilakukan saat terjadi bencana alam"
+              },
+              {
+                "id": "ks-bagian-tubuh-pribadi",
+                "label": "Mengenal konsep bagian tubuh yang bersifat pribadi",
+                "template": "serta memahami bahwa ada bagian-bagian tubuh yang bersifat pribadi dan tidak boleh disentuh sembarangan oleh orang lain"
+              }
+            ]
+          },
+          {
+            "id": "istirahat-cukup",
+            "label": "Memahami pentingnya istirahat dan tidur yang cukup",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses memahami pentingnya istirahat dan tidur yang cukup bagi kesehatan tubuhnya",
+              "MB": "mulai memahami pentingnya istirahat dan tidur yang cukup dengan bimbingan dan penjelasan dari guru",
+              "BSH": "memahami pentingnya istirahat dan tidur yang cukup untuk menjaga kesehatan serta kebugaran tubuhnya",
+              "BSB": "memiliki pemahaman yang kuat tentang pentingnya istirahat dan tidur yang cukup, dapat menjelaskan alasannya kepada teman, serta secara aktif mencoba menerapkan kebiasaan tidur dan istirahat yang baik"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

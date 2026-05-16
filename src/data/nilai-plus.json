@@ -1,0 +1,259 @@
+{
+  "_meta": {
+    "versi": "1.0.0",
+    "deskripsi": "Koleksi pencapaian istimewa anak di luar indikator standar kurikulum",
+    "petunjuk_template": "Setiap item adalah kalimat mandiri. Template ditulis sebagai fragmen yang siap disambung 'Ananda [nama] ...'. Tidak perlu diawali huruf kapital.",
+    "petunjuk_penggunaan": "Guru memilih satu atau beberapa item. Tiap item menjadi kalimat tersendiri yang ditambahkan ke narasi elemen yang paling relevan.",
+    "diperbarui": "2026"
+  },
+  "kategori": [
+    {
+      "id": "karakter-inisiatif",
+      "nama": "Karakter & Inisiatif",
+      "elemen_terkait": [
+        "jati-diri",
+        "agama-budi-pekerti"
+      ],
+      "item": [
+        {
+          "id": "np-bantu-guru-beres",
+          "label": "Membantu guru beres-beres tanpa diminta",
+          "template": "dengan inisiatif yang menggembirakan selalu membantu guru membereskan dan merapikan kelas setelah kegiatan selesai, tanpa perlu diminta terlebih dahulu"
+        },
+        {
+          "id": "np-lerai-teman",
+          "label": "Melerai teman yang sedang bertengkar",
+          "template": "menunjukkan kematangan emosi yang patut diapresiasi dengan mau menengahi dan menenangkan teman-temannya yang sedang berselisih dengan cara yang damai"
+        },
+        {
+          "id": "np-kontrol-emosi-sulit",
+          "label": "Mengontrol emosi dengan baik dalam situasi sulit",
+          "template": "mampu mengelola perasaannya dengan sangat baik bahkan dalam situasi yang mengecewakan, memilih untuk menenangkan diri dengan cara yang positif tanpa menyakiti diri sendiri maupun orang lain"
+        },
+        {
+          "id": "np-pinjam-barang-spontan",
+          "label": "Meminjamkan barangnya kepada teman yang butuh tanpa diminta",
+          "template": "dengan ketulusan hati yang menyentuh secara spontan menawarkan dan meminjamkan barang miliknya kepada teman yang membutuhkan, tanpa perlu diminta atau diingatkan oleh guru"
+        },
+        {
+          "id": "np-hibur-teman-menangis",
+          "label": "Menghibur teman yang menangis secara spontan",
+          "template": "menunjukkan kepekaan sosial yang istimewa dengan secara spontan mendekati, menemani, dan berupaya menghibur teman yang sedang menangis atau tampak bersedih"
+        },
+        {
+          "id": "np-jujur-akui-kesalahan",
+          "label": "Jujur mengakui kesalahan tanpa menunggu ditanya",
+          "template": "menunjukkan keberanian dan kejujuran yang patut diapresiasi dengan secara sukarela mengakui kesalahannya sebelum ditanya, dan dengan tulus meminta maaf kepada yang bersangkutan"
+        },
+        {
+          "id": "np-bantu-teman-jatuh",
+          "label": "Membantu teman yang terjatuh atau terluka",
+          "template": "tanggap dan peduli terhadap kondisi teman, langsung sigap membantu teman yang terjatuh atau terluka dan memastikan teman tersebut mendapat pertolongan yang diperlukan"
+        }
+      ]
+    },
+    {
+      "id": "kepedulian-sosial-budaya",
+      "nama": "Kepedulian Sosial & Budaya",
+      "elemen_terkait": [
+        "kokurikuler",
+        "jati-diri"
+      ],
+      "item": [
+        {
+          "id": "np-baju-adat-kartini",
+          "label": "Mengenakan pakaian adat saat peringatan Hari Kartini",
+          "template": "berpartisipasi dengan penuh semangat kebangsaan dalam peringatan Hari Kartini dengan mengenakan pakaian adat daerahnya dan mampu menceritakan makna peringatan tersebut"
+        },
+        {
+          "id": "np-kunjungi-landmark",
+          "label": "Mengunjungi tempat bersejarah dan menceritakannya",
+          "template": "pernah mengunjungi tempat bersejarah atau ikon budaya daerahnya dan dengan antusias menceritakan pengalaman serta hal-hal menarik yang dilihatnya kepada teman-teman di kelas"
+        },
+        {
+          "id": "np-surat-hardiknas",
+          "label": "Membuat surat untuk Hari Pendidikan Nasional",
+          "template": "menunjukkan kepedulian yang menyentuh dengan ikut serta membuat dan mengirimkan kartu atau surat ucapan kepada pahlawan pendidikan dalam rangka memperingati Hari Pendidikan Nasional"
+        },
+        {
+          "id": "np-bakti-sosial",
+          "label": "Berpartisipasi aktif dalam bakti sosial atau berbagi sekolah",
+          "template": "berpartisipasi dengan sepenuh hati dalam kegiatan sosial sekolah seperti berbagi bekal atau donasi keperluan belajar, dan tampak tulus senang dapat memberikan sesuatu kepada orang yang membutuhkan"
+        },
+        {
+          "id": "np-pasar-kunjungan",
+          "label": "Aktif belajar saat kunjungan ke pasar tradisional",
+          "template": "menunjukkan rasa ingin tahu dan ketertarikan yang hangat terhadap kehidupan masyarakat saat mengikuti kunjungan ke pasar tradisional, aktif bertanya, dan bersemangat menceritakan kembali pengalamannya"
+        },
+        {
+          "id": "np-kenalkan-budaya-teman",
+          "label": "Memperkenalkan budaya daerahnya kepada teman secara spontan",
+          "template": "dengan rasa bangga yang tulus secara spontan memperkenalkan budaya, lagu, atau kebiasaan khas daerahnya kepada teman-teman tanpa diminta, memperkaya wawasan dan rasa kebersamaan di kelas"
+        },
+        {
+          "id": "np-peduli-lingkungan-sekolah",
+          "label": "Berinisiatif memungut sampah tanpa diminta",
+          "template": "menunjukkan kepedulian nyata terhadap kebersihan lingkungan sekolah dengan berinisiatif memungut sampah yang ditemukan di sekitarnya dan membuangnya ke tempat sampah tanpa diminta oleh siapa pun"
+        }
+      ]
+    },
+    {
+      "id": "prestasi-akademik",
+      "nama": "Prestasi Akademik Menonjol",
+      "elemen_terkait": [
+        "literasi-steam"
+      ],
+      "item": [
+        {
+          "id": "np-baca-kalimat-mandiri",
+          "label": "Sudah bisa membaca kalimat sederhana secara mandiri",
+          "template": "telah menunjukkan kemajuan literasi yang menggembirakan dengan mampu membaca kalimat-kalimat sederhana secara mandiri dan dengan lafal yang jelas"
+        },
+        {
+          "id": "np-hitung-mundur-20",
+          "label": "Berhitung mundur dari 20 dengan lancar",
+          "template": "mampu menghitung mundur dari angka 20 hingga 1 dengan lancar dan percaya diri, melampaui kemampuan numerasi yang umum dicapai pada usianya"
+        },
+        {
+          "id": "np-jelaskan-eksperimen",
+          "label": "Menjelaskan hasil eksperimen sains dengan bahasanya",
+          "template": "mampu menceritakan kembali proses dan hasil eksperimen sains yang dilakukan dengan bahasa yang runtut dan dapat dipahami, menunjukkan pemahaman konsep yang melampaui ekspektasi"
+        },
+        {
+          "id": "np-minat-buku-kuat",
+          "label": "Menunjukkan minat sangat kuat terhadap buku dan cerita",
+          "template": "menunjukkan kecintaan terhadap buku yang sangat menonjol dibandingkan teman sebayanya, dengan selalu memilih membaca atau meminta dibacakan buku di waktu bermain bebas dan mampu menceritakan kembali isi cerita dengan rinci"
+        },
+        {
+          "id": "np-tulis-kata-sendiri",
+          "label": "Mampu menuliskan kata-kata sederhana secara mandiri",
+          "template": "menunjukkan kemampuan menulis yang berkembang pesat dengan mampu menuliskan kata-kata sederhana secara mandiri menggunakan huruf-huruf yang dapat dikenali dengan jelas"
+        },
+        {
+          "id": "np-pola-kompleks",
+          "label": "Membuat pola bilangan atau warna yang lebih kompleks",
+          "template": "menunjukkan pemahaman matematika yang melampaui usianya dengan mampu membuat dan melanjutkan pola bilangan atau warna yang cukup kompleks secara mandiri"
+        },
+        {
+          "id": "np-tanya-sains-mendalam",
+          "label": "Mengajukan pertanyaan sains yang mendalam dan reflektif",
+          "template": "menunjukkan rasa ingin tahu ilmiah yang luar biasa dengan kerap mengajukan pertanyaan-pertanyaan tentang alam dan fenomena sekitarnya yang mendalam dan melampaui topik yang sedang dibahas di kelas"
+        }
+      ]
+    },
+    {
+      "id": "kreativitas-inovasi",
+      "nama": "Kreativitas & Inovasi",
+      "elemen_terkait": [
+        "literasi-steam",
+        "kokurikuler"
+      ],
+      "item": [
+        {
+          "id": "np-ciptakan-permainan-baru",
+          "label": "Menciptakan permainan baru yang diikuti teman",
+          "template": "menciptakan sebuah permainan baru dengan aturan yang dipikirkannya sendiri, dan permainan tersebut dengan cepat diadopsi oleh teman-temannya yang ikut bermain dengan antusias"
+        },
+        {
+          "id": "np-karya-seni-orisinal",
+          "label": "Menghasilkan karya seni yang sangat orisinal dan ekspresif",
+          "template": "menghasilkan karya seni yang sangat orisinal dan penuh ekspresi pribadi, dengan pilihan warna, komposisi, atau bentuk yang unik dan tidak meniru karya orang lain"
+        },
+        {
+          "id": "np-cara-baru-selesaikan-tantangan",
+          "label": "Menemukan cara baru untuk menyelesaikan suatu tantangan",
+          "template": "menunjukkan pemikiran kreatif yang mengejutkan dengan menemukan cara yang tidak diajarkan sebelumnya untuk menyelesaikan suatu tantangan atau tugas, dan caranya pun berhasil"
+        },
+        {
+          "id": "np-ciptakan-cerita-spontan",
+          "label": "Menciptakan cerita atau lagu pendek secara spontan",
+          "template": "secara spontan menciptakan cerita pendek atau lagu sederhana dari imajinasinya sendiri dan dengan bangga membagikannya kepada teman-teman maupun guru"
+        },
+        {
+          "id": "np-daur-ulang-kreatif",
+          "label": "Membuat karya unik dari bahan-bahan bekas secara mandiri",
+          "template": "menunjukkan kreativitas yang menggembirakan dengan mengubah bahan-bahan bekas seperti kardus, kaleng, atau koran menjadi sebuah karya yang fungsional atau dekoratif atas inisiatifnya sendiri"
+        },
+        {
+          "id": "np-dekorasi-kelas",
+          "label": "Ikut mendekorasi atau memperindah kelas secara spontan",
+          "template": "menunjukkan inisiatif estetika yang hangat dengan secara sukarela ikut memperindah lingkungan kelas, baik melalui gambar, susunan benda, atau ide dekorasi sederhana yang diwujudkannya sendiri"
+        }
+      ]
+    },
+    {
+      "id": "kepemimpinan-tanggung-jawab",
+      "nama": "Kepemimpinan & Tanggung Jawab",
+      "elemen_terkait": [
+        "kokurikuler",
+        "jati-diri"
+      ],
+      "item": [
+        {
+          "id": "np-pimpin-doa-kelas",
+          "label": "Memimpin doa kelas atau kegiatan kelompok",
+          "template": "dengan penuh percaya diri dan rasa tanggung jawab bersedia memimpin doa kelas atau membuka suatu kegiatan kelompok, memberikan teladan yang baik bagi teman-temannya"
+        },
+        {
+          "id": "np-teman-buddy-siswa-baru",
+          "label": "Menjadi 'teman buddy' bagi siswa baru",
+          "template": "dengan kehangatan hati yang tulus menjadi teman buddy bagi siswa baru, membantunya mengenal lingkungan sekolah, memperkenalkannya kepada teman-teman lain, dan memastikannya merasa diterima di kelas"
+        },
+        {
+          "id": "np-ingatkan-aturan-kelas",
+          "label": "Secara konsisten mengingatkan teman tentang aturan kelas",
+          "template": "secara konsisten dan dengan cara yang bersahabat mengingatkan teman-temannya untuk mengikuti aturan kelas, menunjukkan rasa memiliki dan tanggung jawab terhadap ketertiban bersama"
+        },
+        {
+          "id": "np-tugas-lebih-tuntas",
+          "label": "Menyelesaikan tugas jauh lebih tuntas dari yang diminta",
+          "template": "menyelesaikan tugas yang diberikan dengan hasil yang jauh melampaui ekspektasi, menambahkan detail, kreasi, atau usaha ekstra atas kemauannya sendiri tanpa dorongan dari guru"
+        },
+        {
+          "id": "np-pimpin-antrian",
+          "label": "Memimpin dan mengatur antrian teman secara tertib",
+          "template": "dengan sikap yang tenang dan berwibawa secara natural mengambil peran untuk memimpin dan mengatur antrian teman-temannya agar berjalan dengan tertib dan menyenangkan"
+        },
+        {
+          "id": "np-jaga-fasilitas-kelas",
+          "label": "Secara konsisten menjaga dan merawat fasilitas kelas",
+          "template": "menunjukkan rasa tanggung jawab yang menonjol terhadap fasilitas kelas dengan selalu menggunakan peralatan belajar dan mainan dengan hati-hati serta mengembalikannya ke tempat semula dengan rapi"
+        }
+      ]
+    },
+    {
+      "id": "spiritualitas-karakter-agama",
+      "nama": "Spiritualitas & Karakter Keagamaan yang Menonjol",
+      "elemen_terkait": [
+        "agama-budi-pekerti"
+      ],
+      "item": [
+        {
+          "id": "np-ingatkan-doa-bersama",
+          "label": "Mengingatkan teman untuk berdoa sebelum kegiatan",
+          "template": "dengan kesadaran spiritual yang menggembirakan secara spontan mengingatkan teman-temannya untuk berdoa bersama sebelum memulai makan atau kegiatan, tanpa diminta oleh guru"
+        },
+        {
+          "id": "np-ungkap-syukur-spontan",
+          "label": "Mengungkapkan rasa syukur secara spontan dan tulus",
+          "template": "kerap mengungkapkan rasa syukur secara spontan dalam percakapan sehari-hari, seperti mengucapkan kata syukur saat mendapat hal yang menyenangkan dan mengajak teman untuk ikut bersyukur"
+        },
+        {
+          "id": "np-ajak-amal",
+          "label": "Mengajak teman berbuat kebaikan atau amal bersama",
+          "template": "menunjukkan kepekaan sosial berbasis nilai agama yang menyentuh dengan mengajak teman-temannya untuk bersama-sama melakukan kebaikan, seperti berbagi bekal atau mengumpulkan barang untuk disumbangkan"
+        },
+        {
+          "id": "np-hafal-doa-tambahan",
+          "label": "Hafal doa tambahan di luar yang diajarkan di sekolah",
+          "template": "menunjukkan ketekunan dan kecintaan terhadap nilai agama dengan mampu melafalkan doa-doa tambahan di luar yang diajarkan di sekolah, dan dengan senang hati membagikannya kepada teman"
+        },
+        {
+          "id": "np-sikap-hormat-ibadah",
+          "label": "Menunjukkan sikap khidmat saat kegiatan ibadah atau doa",
+          "template": "selalu menunjukkan sikap khidmat, tenang, dan penuh perhatian saat kegiatan berdoa atau ibadah berlangsung, menjadi teladan ketenangan bagi teman-temannya di sekitarnya"
+        }
+      ]
+    }
+  ]
+}
