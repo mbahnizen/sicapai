@@ -1,0 +1,786 @@
+{
+  "_meta": {
+    "versi": "2.0.0",
+    "elemen_id": "literasi-steam",
+    "elemen_nama": "Dasar-Dasar Literasi, Matematika, Sains, Teknologi, Rekayasa, dan Seni",
+    "kurikulum": "Kurikulum Merdeka - Fase Fondasi",
+    "referensi": [
+      "Permendikdasmen No. 10 Tahun 2025 tentang Standar Kompetensi Lulusan Pendidikan Anak Usia Dini",
+      "Permendikbudristek No. 5 Tahun 2022 tentang Standar Kompetensi Lulusan pada PAUD, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah",
+      "Keputusan Kepala BSKAP No. 033/H/KR/2022 tentang Capaian Pembelajaran PAUD Fase Fondasi",
+      "Panduan Pembelajaran dan Asesmen PAUD 2022 (Kemendikbudristek)",
+      "Panduan Profil Lulusan dan Deep Learning PAUD 2025"
+    ],
+    "petunjuk_level": {
+      "BB": "Belum Berkembang — anak belum menunjukkan capaian ini; gunakan template ini saat anak perlu banyak dukungan penuh",
+      "MB": "Mulai Berkembang — anak mulai menunjukkan capaian dengan bimbingan; template mencerminkan proses yang sedang berkembang",
+      "BSH": "Berkembang Sesuai Harapan — anak sudah mampu secara mandiri sesuai harapan; ini level default (kompatibel dengan v1)",
+      "BSB": "Berkembang Sangat Baik — anak melampaui harapan dan mampu menjadi model bagi teman"
+    },
+    "petunjuk_sub_indikator": "Sub-indikator hanya ditampilkan saat level BSH atau BSB. Pada level BB dan MB, hanya level_template yang digunakan.",
+    "petunjuk_template": "Gabungkan level_template indikator + sub_indikator(s) untuk membentuk satu kalimat narasi. Awali dengan nama anak. Sub_indikator pertama pakai 'seperti', selanjutnya tanpa kata sambung atau dengan 'serta'/'dan'. Akhiri kalimat dengan titik.",
+    "catatan_khusus_numerasi": "Indikator mengenal-angka memiliki dua sub_indikator yang bersifat MUTUALLY EXCLUSIVE: ang-1-10 dan ang-1-20 — guru hanya memilih salah satu sesuai capaian anak. Keduanya menggunakan awalan 'seperti' karena tidak pernah dipilih bersamaan.",
+    "diperbarui": "2026"
+  },
+  "elemen": {
+    "id": "literasi-steam",
+    "nama": "Dasar-Dasar Literasi, Matematika, Sains, Teknologi, Rekayasa, dan Seni",
+    "deskripsi": "Mencakup kemampuan dasar anak dalam berbahasa dan berkomunikasi, berhitung dan mengenal konsep matematika, mengeksplorasi sains dan lingkungan, mengenal teknologi dan rekayasa sederhana, serta mengekspresikan diri melalui berbagai karya seni.",
+    "sub_elemen": [
+      {
+        "id": "literasi-bahasa",
+        "nama": "Kemampuan Berbahasa, Berkomunikasi, dan Literasi Awal",
+        "indikator": [
+          {
+            "id": "menyimak",
+            "label": "Menyimak dan memahami informasi yang didengar",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan kemampuan menyimak dan memahami informasi yang disampaikan secara lisan",
+              "MB": "mulai mampu menyimak dan memahami instruksi sederhana yang disampaikan guru, meskipun terkadang masih perlu pengulangan",
+              "BSH": "mampu menyimak dengan seksama dan memahami informasi maupun instruksi yang disampaikan baik oleh guru maupun teman",
+              "BSB": "mampu menyimak dengan sangat seksama, memahami secara cepat, dan langsung merespons informasi maupun instruksi yang disampaikan, bahkan dapat menceritakan kembali poin-poin penting yang didengarnya"
+            }
+          },
+          {
+            "id": "berbicara-komunikasi",
+            "label": "Berbicara dan berkomunikasi secara aktif dan jelas",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan kemampuan berkomunikasi verbal secara aktif dan jelas kepada orang lain",
+              "MB": "mulai mampu berkomunikasi secara aktif, meski terkadang masih memerlukan bantuan untuk mengungkapkan maksudnya dengan jelas",
+              "BSH": "mampu berkomunikasi secara aktif, lancar, dan jelas",
+              "BSB": "mampu berkomunikasi secara aktif, lancar, dan jelas dengan perbendaharaan kata yang kaya dan kemampuan bercerita yang memukau, serta menjadi teman bicara yang menyenangkan bagi semua orang di sekitarnya"
+            },
+            "sub_indikator": [
+              {
+                "id": "bk-bercerita",
+                "label": "Bercerita tentang pengalaman secara runtut",
+                "template": "seperti bercerita tentang pengalamannya dengan runtut dan mudah dipahami"
+              },
+              {
+                "id": "bk-bertanya",
+                "label": "Mengajukan pertanyaan secara aktif",
+                "template": "aktif mengajukan pertanyaan yang relevan untuk memenuhi rasa ingin tahunya"
+              },
+              {
+                "id": "bk-menjawab",
+                "label": "Menjawab pertanyaan dengan tepat",
+                "template": "serta menjawab pertanyaan yang diajukan dengan tepat dan percaya diri"
+              },
+              {
+                "id": "bk-mendongeng",
+                "label": "Mendongeng atau bercerita kreatif dengan tokoh dan alur sederhana",
+                "template": "serta mampu mendongeng atau bercerita kreatif dengan tokoh dan alur yang diimajinasikannya sendiri"
+              }
+            ]
+          },
+          {
+            "id": "kosakata",
+            "label": "Memiliki perbendaharaan kata yang kaya",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses membangun perbendaharaan kata dan memerlukan dukungan untuk mengungkapkan pikiran serta perasaannya kepada orang lain",
+              "MB": "mulai memiliki perbendaharaan kata yang berkembang dan mampu mengungkapkan pikiran serta perasaannya, meski kadang masih mencari kata yang tepat",
+              "BSH": "memiliki perbendaharaan kata yang cukup kaya sehingga mampu mengungkapkan pikiran, perasaan, dan ide-idenya dengan jelas kepada orang lain",
+              "BSB": "memiliki perbendaharaan kata yang sangat kaya, mampu mengungkapkan pikiran, perasaan, dan ide-idenya secara jelas dan kreatif, serta dengan senang hati berbagi kosakata baru yang dipelajarinya kepada teman-temannya"
+            }
+          },
+          {
+            "id": "pra-membaca",
+            "label": "Menunjukkan kemampuan pra-membaca (pra-literasi)",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal huruf dan bunyi-bunyi dasar yang menjadi fondasi kemampuan membaca",
+              "MB": "mulai menunjukkan perkembangan kemampuan pra-membaca dengan bimbingan guru",
+              "BSH": "menunjukkan perkembangan kemampuan pra-membaca yang sangat baik",
+              "BSB": "menunjukkan perkembangan kemampuan pra-membaca yang luar biasa dan mulai dapat membaca kata-kata sederhana secara mandiri dengan penuh kebanggaan"
+            },
+            "sub_indikator": [
+              {
+                "id": "pr-huruf",
+                "label": "Mengenal berbagai huruf abjad",
+                "template": "seperti mengenal berbagai huruf abjad"
+              },
+              {
+                "id": "pr-fonik",
+                "label": "Memahami bunyi awal sebuah kata (kesadaran fonik)",
+                "template": "memahami bunyi awal sebuah kata"
+              },
+              {
+                "id": "pr-kata-familiar",
+                "label": "Membaca kata-kata yang sudah familiar",
+                "template": "serta mampu membaca beberapa kata yang sudah sering ditemuinya"
+              },
+              {
+                "id": "pr-suku-kata",
+                "label": "Membaca suku kata sederhana (ba, bi, bu, be, bo)",
+                "template": "mampu membaca suku kata sederhana dengan lancar"
+              },
+              {
+                "id": "pr-kalimat-pendek",
+                "label": "Membaca kalimat pendek secara mandiri",
+                "template": "serta mulai mampu membaca kalimat pendek secara mandiri dengan intonasi yang benar"
+              }
+            ]
+          },
+          {
+            "id": "pra-menulis",
+            "label": "Menunjukkan kemampuan pra-menulis",
+            "has_sub": true,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan kemampuan dasar pra-menulis seperti membuat garis dan bentuk dasar",
+              "MB": "mulai menunjukkan kemampuan pra-menulis yang berkembang dengan bimbingan guru",
+              "BSH": "menunjukkan kemampuan pra-menulis yang berkembang dengan sangat baik",
+              "BSB": "menunjukkan kemampuan pra-menulis yang berkembang dengan luar biasa, mampu menuliskan namanya sendiri, berbagai huruf, dan kata-kata sederhana dengan bentuk yang jelas dan terbaca"
+            },
+            "sub_indikator": [
+              {
+                "id": "pw-nama",
+                "label": "Menuliskan namanya sendiri",
+                "template": "seperti sudah mampu menuliskan namanya sendiri"
+              },
+              {
+                "id": "pw-huruf",
+                "label": "Menuliskan berbagai huruf",
+                "template": "menuliskan berbagai huruf dengan bentuk yang dapat dikenali"
+              },
+              {
+                "id": "pw-garis-dasar",
+                "label": "Membuat garis dan bentuk dasar tulisan",
+                "template": "serta membuat berbagai garis dan bentuk dasar penulisan dengan cukup rapi"
+              },
+              {
+                "id": "pw-kata-sederhana",
+                "label": "Menuliskan kata-kata sederhana",
+                "template": "serta mampu menuliskan beberapa kata sederhana dengan huruf yang terbaca"
+              }
+            ]
+          },
+          {
+            "id": "minat-buku",
+            "label": "Menunjukkan kegemaran dan minat terhadap buku",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses menumbuhkan kegemaran dan minat terhadap buku dan kegiatan membaca",
+              "MB": "mulai menunjukkan kegemaran terhadap buku dengan mau memperhatikan gambar dan mengikuti cerita yang dibacakan guru",
+              "BSH": "menunjukkan kegemaran dan antusiasme yang tinggi terhadap buku, dengan senang memperhatikan gambar, mengikuti alur cerita, dan meminta dibacakan buku favoritnya",
+              "BSB": "menunjukkan kecintaan yang luar biasa terhadap buku, dengan antusias memilih buku favoritnya sendiri, meminta dibacakan berulang kali, dan sering bercerita kepada teman-temannya tentang isi buku yang pernah dibacakan kepadanya"
+            }
+          }
+        ]
+      },
+      {
+        "id": "numerasi",
+        "nama": "Kemampuan Numerasi dan Matematika Awal",
+        "indikator": [
+          {
+            "id": "mengenal-angka",
+            "label": "Mengenal lambang bilangan dan konsep angka",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal lambang bilangan dan konsep angka",
+              "MB": "mulai mengenal beberapa lambang bilangan dan konsep angka dengan bimbingan guru",
+              "BSH": "sudah mengenal lambang bilangan dan konsep angka dengan baik",
+              "BSB": "sudah sangat mengenal lambang bilangan dan konsep angka, mampu menuliskan, menyebutkan, dan mengurutkannya dengan tepat, serta dengan senang hati mengajarkan angka kepada teman"
+            },
+            "sub_indikator": [
+              {
+                "id": "ang-1-10",
+                "label": "Mengenal angka 1 sampai 10",
+                "template": "seperti mengenal dan menyebut angka 1 sampai 10"
+              },
+              {
+                "id": "ang-1-20",
+                "label": "Mengenal angka 1 sampai 20",
+                "template": "seperti mengenal dan menyebut angka 1 sampai 20"
+              },
+              {
+                "id": "ang-tulis",
+                "label": "Menuliskan lambang angka",
+                "template": "serta mampu menuliskan lambang angka tersebut dengan benar"
+              },
+              {
+                "id": "ang-urutan",
+                "label": "Mengurutkan angka dari kecil ke besar",
+                "template": "serta mampu mengurutkan angka dari yang terkecil ke yang terbesar dengan tepat"
+              },
+              {
+                "id": "ang-mundur",
+                "label": "Menghitung mundur dari 10 atau 20",
+                "template": "serta mampu menghitung mundur dari 10 atau 20 dengan lancar"
+              }
+            ]
+          },
+          {
+            "id": "menghitung-benda",
+            "label": "Menghitung benda dengan korespondensi satu-satu",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses belajar menghitung benda satu per satu secara berurutan",
+              "MB": "mulai mampu menghitung benda konkret satu per satu dengan bimbingan, meski terkadang masih melewatkan atau menghitung ganda",
+              "BSH": "mampu menghitung benda konkret secara tepat dengan prinsip korespondensi satu-satu dan mengetahui jumlah akhirnya",
+              "BSB": "mampu menghitung benda konkret dengan sangat tepat dan percaya diri, memahami prinsip korespondensi satu-satu dengan kuat, serta mampu memperkirakan jumlah benda secara kasar sebelum menghitungnya"
+            }
+          },
+          {
+            "id": "operasi-sederhana",
+            "label": "Melakukan penjumlahan dan pengurangan sederhana",
+            "has_sub": false,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal konsep penjumlahan dan pengurangan sederhana",
+              "MB": "mulai mengenal konsep penjumlahan dan pengurangan dengan bimbingan guru menggunakan benda konkret sebagai alat bantu",
+              "BSH": "mulai mampu melakukan operasi penjumlahan dan pengurangan sederhana menggunakan benda konkret atau gambar sebagai alat bantu",
+              "BSB": "mampu melakukan operasi penjumlahan dan pengurangan sederhana dengan lancar, baik menggunakan benda konkret maupun secara mental untuk bilangan-bilangan kecil, dan senang menjadi 'guru kecil' yang membantu teman berlatih berhitung"
+            }
+          },
+          {
+            "id": "mengenal-bentuk",
+            "label": "Mengenal bentuk geometri dasar",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal dan membedakan bentuk-bentuk geometri dasar",
+              "MB": "mulai mampu mengenal dan menyebutkan beberapa bentuk geometri dasar dengan bimbingan guru",
+              "BSH": "mengenal dan mampu menyebutkan berbagai bentuk geometri dasar yang ditemuinya",
+              "BSB": "mengenal dan mampu menyebutkan berbagai bentuk geometri dasar dengan sangat tepat, serta mampu menemukan dan menunjukkan bentuk-bentuk tersebut dalam benda-benda nyata di lingkungan sekitarnya"
+            },
+            "sub_indikator": [
+              {
+                "id": "bt-lingkaran",
+                "label": "Lingkaran",
+                "template": "seperti lingkaran"
+              },
+              {
+                "id": "bt-persegi",
+                "label": "Persegi dan persegi panjang",
+                "template": "persegi"
+              },
+              {
+                "id": "bt-segitiga",
+                "label": "Segitiga",
+                "template": "segitiga"
+              },
+              {
+                "id": "bt-3d",
+                "label": "Bentuk tiga dimensi (bola, kubus, tabung)",
+                "template": "serta mulai mengenal bentuk tiga dimensi seperti bola dan kubus"
+              },
+              {
+                "id": "bt-oval",
+                "label": "Oval",
+                "template": "oval"
+              },
+              {
+                "id": "bt-belah-ketupat",
+                "label": "Belah ketupat",
+                "template": "serta belah ketupat"
+              }
+            ]
+          },
+          {
+            "id": "pola-pengurutan",
+            "label": "Mengenali, melanjutkan, dan membuat pola serta pengurutan",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal konsep pola berulang dan pengurutan benda berdasarkan atributnya",
+              "MB": "mulai mampu mengenali dan melanjutkan pola sederhana dengan bimbingan guru",
+              "BSH": "mampu mengenali, melanjutkan, dan membuat pola sederhana, serta mengurutkan benda berdasarkan atribut tertentu dengan tepat",
+              "BSB": "mampu mengenali, melanjutkan, membuat, dan bahkan menciptakan pola yang lebih kompleks secara mandiri, serta mengurutkan benda berdasarkan berbagai atribut dengan sangat tepat dan percaya diri"
+            }
+          },
+          {
+            "id": "konsep-ukuran",
+            "label": "Memahami konsep ukuran dan perbandingan",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal konsep-konsep ukuran dan perbandingan benda",
+              "MB": "mulai memahami dan membandingkan beberapa konsep ukuran dengan bimbingan guru",
+              "BSH": "memahami dan mampu membandingkan berbagai konsep ukuran",
+              "BSB": "dengan sangat baik memahami dan membandingkan berbagai konsep ukuran secara mandiri, serta mampu menjelaskan perbandingan tersebut kepada teman dengan bahasa yang mudah dipahami"
+            },
+            "sub_indikator": [
+              {
+                "id": "uk-besar-kecil",
+                "label": "Besar–kecil",
+                "template": "seperti besar-kecil"
+              },
+              {
+                "id": "uk-panjang-pendek",
+                "label": "Panjang–pendek",
+                "template": "panjang-pendek"
+              },
+              {
+                "id": "uk-tinggi-rendah",
+                "label": "Tinggi–rendah",
+                "template": "tinggi-rendah"
+              },
+              {
+                "id": "uk-berat-ringan",
+                "label": "Berat–ringan",
+                "template": "serta berat-ringan dengan tepat"
+              },
+              {
+                "id": "uk-penuh-kosong",
+                "label": "Penuh–kosong",
+                "template": "penuh dan kosong"
+              },
+              {
+                "id": "uk-waktu-dasar",
+                "label": "Konsep waktu dasar (kemarin, hari ini, besok)",
+                "template": "serta memahami konsep waktu dasar seperti kemarin, hari ini, dan besok"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sains-lingkungan",
+        "nama": "Mengenal dan Mengeksplorasi Sains serta Lingkungan Sekitar",
+        "indikator": [
+          {
+            "id": "eksplorasi-alam",
+            "label": "Melakukan eksplorasi dan pengamatan terhadap alam",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan rasa ingin tahu dan keberanian untuk bereksplorasi terhadap lingkungan alam di sekitarnya",
+              "MB": "mulai menunjukkan rasa ingin tahu dan aktif mengamati lingkungan alam di sekitarnya dengan bimbingan guru",
+              "BSH": "menunjukkan rasa ingin tahu yang besar dan aktif melakukan eksplorasi terhadap lingkungan alam di sekitarnya",
+              "BSB": "menunjukkan rasa ingin tahu yang luar biasa besar terhadap alam, dengan spontan mengajukan pertanyaan-pertanyaan mendalam tentang fenomena alam dan dengan antusias mengajak teman untuk bereksplorasi bersama"
+            },
+            "sub_indikator": [
+              {
+                "id": "ea-tanaman",
+                "label": "Mengamati bagian-bagian tanaman",
+                "template": "seperti mengamati dan menyebutkan bagian-bagian tanaman"
+              },
+              {
+                "id": "ea-hewan",
+                "label": "Mengamati hewan dan habitatnya",
+                "template": "mengamati berbagai jenis hewan dan habitatnya"
+              },
+              {
+                "id": "ea-cuaca",
+                "label": "Mengenal cuaca dan musim",
+                "template": "serta mengenal perubahan cuaca dan kondisi alam dalam kehidupan sehari-hari"
+              },
+              {
+                "id": "ea-daur-hidup",
+                "label": "Mengamati daur hidup hewan sederhana (kupu-kupu, katak)",
+                "template": "mengamati dan menceritakan tahapan daur hidup hewan sederhana seperti kupu-kupu atau katak"
+              },
+              {
+                "id": "ea-benih-tumbuh",
+                "label": "Mengamati proses pertumbuhan benih atau tanaman",
+                "template": "serta mengamati dan mencatat proses pertumbuhan benih yang ditanamnya sendiri"
+              }
+            ]
+          },
+          {
+            "id": "mengenal-warna",
+            "label": "Mengenal dan membedakan berbagai warna",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal dan membedakan warna-warna dasar",
+              "MB": "mulai mampu mengenal dan membedakan beberapa warna dasar dengan bimbingan guru",
+              "BSH": "mampu mengenal dan membedakan berbagai warna",
+              "BSB": "mampu mengenal dan membedakan berbagai warna dengan sangat tepat termasuk gradasi warna, serta dengan kreativitas dan rasa ingin tahu mencampur warna untuk menghasilkan warna-warna baru yang menarik"
+            },
+            "sub_indikator": [
+              {
+                "id": "wr-primer",
+                "label": "Warna primer — merah, kuning, biru",
+                "template": "seperti warna primer: merah, kuning, dan biru"
+              },
+              {
+                "id": "wr-sekunder",
+                "label": "Warna sekunder — hijau, oranye, ungu",
+                "template": "warna sekunder: hijau, oranye, dan ungu"
+              },
+              {
+                "id": "wr-campuran",
+                "label": "Mencampur dua warna menjadi warna baru",
+                "template": "serta mulai memahami cara menghasilkan warna baru dari percampuran dua warna"
+              },
+              {
+                "id": "wr-gradasi",
+                "label": "Mengenal gradasi warna (gelap–terang)",
+                "template": "serta mengenal konsep gradasi warna dari gelap ke terang"
+              }
+            ]
+          },
+          {
+            "id": "sebab-akibat",
+            "label": "Memahami konsep sebab dan akibat sederhana",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal konsep sebab dan akibat dalam fenomena sederhana di sekitarnya",
+              "MB": "mulai mengenali hubungan sebab dan akibat dalam beberapa kejadian sederhana dengan bimbingan guru",
+              "BSH": "mulai memahami hubungan sebab dan akibat dari berbagai fenomena sederhana yang diamatinya di lingkungan sekitar",
+              "BSB": "dengan sangat baik memahami hubungan sebab dan akibat dari berbagai fenomena di lingkungan sekitarnya, serta mampu membuat prediksi sederhana tentang apa yang akan terjadi berdasarkan pengamatannya"
+            }
+          },
+          {
+            "id": "eksperimen-sederhana",
+            "label": "Melakukan eksperimen dan percobaan sains sederhana",
+            "has_sub": true,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal dan mengikuti langkah-langkah eksperimen sains sederhana",
+              "MB": "mulai antusias mengikuti eksperimen sains sederhana dan mulai mampu menyampaikan apa yang diamatinya dengan kata-kata sendiri",
+              "BSH": "sangat antusias dalam melakukan eksperimen sains sederhana dan mampu menyampaikan hasil pengamatannya",
+              "BSB": "sangat antusias dan penuh rasa ingin tahu dalam melakukan eksperimen sains sederhana, mampu menyampaikan hasil pengamatan dengan bahasa yang runtut, dan sering mengajukan dugaan sementara sebelum percobaan dimulai"
+            },
+            "sub_indikator": [
+              {
+                "id": "eks-larut",
+                "label": "Percobaan larut dan tidak larut dalam air",
+                "template": "seperti percobaan benda yang larut dan tidak larut dalam air"
+              },
+              {
+                "id": "eks-terapung",
+                "label": "Percobaan terapung dan tenggelam",
+                "template": "percobaan benda yang terapung dan tenggelam"
+              },
+              {
+                "id": "eks-magnet",
+                "label": "Percobaan sederhana dengan magnet",
+                "template": "percobaan mengenal sifat magnet"
+              },
+              {
+                "id": "eks-balon-ajaib",
+                "label": "Percobaan balon ajaib (soda kue + cuka)",
+                "template": "percobaan balon ajaib yang mengembang sendiri menggunakan soda kue dan cuka"
+              },
+              {
+                "id": "eks-tarian-merica",
+                "label": "Percobaan tarian merica di atas air sabun",
+                "template": "percobaan tarian merica yang bergerak menjauh saat setetes sabun cair diteteskan ke permukaannya"
+              },
+              {
+                "id": "eks-es-krim",
+                "label": "Percobaan membuat es krim dalam kantong plastik",
+                "template": "percobaan membuat es krim sederhana dalam kantong plastik menggunakan es batu dan garam"
+              },
+              {
+                "id": "eks-pelangi-susu",
+                "label": "Percobaan pelangi susu (susu + pewarna + sabun)",
+                "template": "percobaan pelangi susu yang memperlihatkan gerakan indah pewarna makanan di susu saat terkena sabun cair"
+              },
+              {
+                "id": "eks-gunung-berapi",
+                "label": "Percobaan gunung berapi mini (tanah liat + soda kue + cuka)",
+                "template": "serta percobaan gunung berapi mini dari tanah liat dengan campuran soda kue dan cuka berwarna"
+              }
+            ]
+          },
+          {
+            "id": "daur-ulang-lingkungan",
+            "label": "Mengenal konsep menjaga lingkungan dan daur ulang",
+            "has_sub": false,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal konsep menjaga kebersihan lingkungan dan pentingnya daur ulang",
+              "MB": "mulai memahami pentingnya menjaga kebersihan lingkungan dan mulai mengenal konsep daur ulang sederhana dengan bimbingan guru",
+              "BSH": "mulai memahami pentingnya menjaga kebersihan lingkungan dan mengenal konsep daur ulang sederhana dari bahan bekas",
+              "BSB": "dengan sangat baik memahami pentingnya menjaga kebersihan lingkungan, aktif memilah dan mendaur ulang bahan bekas menjadi karya yang berguna, serta dengan penuh semangat menginspirasi teman-temannya untuk peduli terhadap lingkungan"
+            }
+          }
+        ]
+      },
+      {
+        "id": "teknologi-rekayasa",
+        "nama": "Mengenal Teknologi dan Rekayasa Sederhana",
+        "indikator": [
+          {
+            "id": "alat-teknologi",
+            "label": "Mengenal fungsi alat-alat teknologi sehari-hari",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal berbagai alat teknologi dan fungsinya di lingkungan sehari-hari",
+              "MB": "mulai mengenal beberapa alat teknologi umum dan fungsinya dengan bimbingan guru",
+              "BSH": "mengenal berbagai alat teknologi yang ada di lingkungan kehidupan sehari-hari beserta fungsinya masing-masing",
+              "BSB": "mengenal berbagai alat teknologi di lingkungan sehari-hari dengan sangat baik, mampu menjelaskan fungsi dan cara penggunaannya secara rinci, serta menunjukkan rasa ingin tahu yang tinggi terhadap perkembangan teknologi"
+            },
+            "sub_indikator": [
+              {
+                "id": "at-hp-komputer",
+                "label": "Ponsel dan komputer",
+                "template": "seperti ponsel dan komputer sebagai alat komunikasi dan informasi"
+              },
+              {
+                "id": "at-tv",
+                "label": "Televisi dan radio",
+                "template": "televisi dan radio sebagai media informasi dan hiburan"
+              },
+              {
+                "id": "at-rumah-tangga",
+                "label": "Peralatan rumah tangga (kipas, kulkas, dll.)",
+                "template": "serta berbagai peralatan rumah tangga seperti kipas angin, kulkas, dan lampu"
+              },
+              {
+                "id": "at-transportasi-online",
+                "label": "Aplikasi transportasi online (ojek online, taksi online)",
+                "template": "serta mengenal aplikasi transportasi online yang sering digunakan keluarganya seperti ojek atau taksi berbasis aplikasi"
+              },
+              {
+                "id": "at-pembayaran-digital",
+                "label": "Pembayaran digital — QRIS dan dompet digital",
+                "template": "serta mengenal cara pembayaran digital seperti QRIS dan dompet digital yang mulai digunakan orang tua dalam keseharian"
+              }
+            ]
+          },
+          {
+            "id": "konstruksi-bongkar-pasang",
+            "label": "Melakukan kegiatan konstruksi dan bongkar pasang",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan minat dan kemampuan dalam kegiatan konstruksi dan bongkar pasang",
+              "MB": "mulai gemar melakukan kegiatan konstruksi dan bongkar pasang sederhana dengan bimbingan guru",
+              "BSH": "gemar melakukan kegiatan konstruksi dan bongkar pasang yang mengembangkan kemampuan rekayasa dan berpikir spasialnya",
+              "BSB": "sangat gemar dan terampil dalam kegiatan konstruksi dan bongkar pasang, mampu membuat rancangan yang kompleks dan kreatif, serta dengan percaya diri menjelaskan proses yang dilakukannya kepada teman"
+            },
+            "sub_indikator": [
+              {
+                "id": "kb-balok",
+                "label": "Menyusun balok menjadi bangunan",
+                "template": "seperti menyusun balok menjadi berbagai struktur bangunan yang diimajinasikannya"
+              },
+              {
+                "id": "kb-lego",
+                "label": "Merangkai mainan konstruksi / Lego",
+                "template": "serta merangkai mainan konstruksi mengikuti pola maupun berdasarkan kreativitasnya sendiri"
+              },
+              {
+                "id": "kb-bahan-alam",
+                "label": "Konstruksi dari bahan alam (ranting, batu, daun kering)",
+                "template": "serta membuat kreasi konstruksi dari bahan-bahan alam yang ada di sekitarnya seperti ranting, batu, dan daun kering"
+              },
+              {
+                "id": "kb-daur-ulang-bahan",
+                "label": "Membuat karya dari bahan daur ulang (kardus, botol, dll.)",
+                "template": "serta berkreasi membuat karya rekayasa sederhana dari bahan daur ulang seperti kardus dan botol bekas"
+              }
+            ]
+          },
+          {
+            "id": "memecahkan-masalah",
+            "label": "Memecahkan masalah sederhana secara kreatif",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan kemampuan untuk menghadapi dan memecahkan masalah sederhana secara mandiri",
+              "MB": "mulai menunjukkan kemampuan berpikir kreatif dalam memecahkan masalah sederhana, meski masih memerlukan bimbingan dan dorongan guru",
+              "BSH": "menunjukkan kemampuan berpikir kreatif dan pantang menyerah dalam memecahkan masalah sederhana yang dihadapinya",
+              "BSB": "menunjukkan kemampuan berpikir kreatif yang luar biasa dan sikap pantang menyerah yang sangat kuat dalam memecahkan masalah, sering menemukan cara-cara baru yang inovatif, dan menginspirasi teman-temannya untuk juga berani mencoba"
+            }
+          },
+          {
+            "id": "penggunaan-alat-tepat",
+            "label": "Menggunakan berbagai alat secara tepat dan aman",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses belajar menggunakan berbagai alat permainan dan peralatan belajar dengan tepat dan aman",
+              "MB": "mulai mampu menggunakan beberapa alat permainan dan peralatan belajar dengan tepat dan aman, meski masih memerlukan pengawasan",
+              "BSH": "mampu menggunakan berbagai alat permainan dan peralatan belajar secara tepat, aman, dan sesuai fungsinya",
+              "BSB": "mampu menggunakan berbagai alat permainan dan peralatan belajar secara sangat tepat, aman, dan efisien, memahami alasan setiap alat harus digunakan sesuai fungsinya, dan kerap mengingatkan teman untuk menggunakan alat dengan benar"
+            }
+          }
+        ]
+      },
+      {
+        "id": "seni-kreativitas",
+        "nama": "Mengekspresikan Kreativitas dan Keindahan Melalui Seni",
+        "indikator": [
+          {
+            "id": "seni-visual",
+            "label": "Berkreasi melalui seni visual (menggambar, melukis, kolase, membentuk)",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan kemampuan dan keberanian mengekspresikan diri melalui kegiatan seni visual",
+              "MB": "mulai mampu mengekspresikan diri melalui kegiatan seni visual sederhana dengan bimbingan dan motivasi dari guru",
+              "BSH": "mampu mengekspresikan diri dengan sangat kreatif melalui berbagai kegiatan seni visual",
+              "BSB": "mampu mengekspresikan diri dengan sangat kreatif dan orisinal melalui berbagai kegiatan seni visual, menghasilkan karya yang mencerminkan keunikan pribadinya, dan dengan bangga memamerkan karyanya kepada orang lain"
+            },
+            "sub_indikator": [
+              {
+                "id": "sv-menggambar",
+                "label": "Menggambar bebas",
+                "template": "seperti menggambar bebas yang mencerminkan imajinasi dan pengalamannya"
+              },
+              {
+                "id": "sv-melukis",
+                "label": "Melukis dengan berbagai media",
+                "template": "melukis dengan berbagai media dan teknik yang bervariasi"
+              },
+              {
+                "id": "sv-kolase",
+                "label": "Membuat kolase dari berbagai bahan",
+                "template": "membuat karya kolase dari berbagai bahan yang ada di sekitarnya"
+              },
+              {
+                "id": "sv-plastisin",
+                "label": "Membentuk dengan plastisin atau tanah liat",
+                "template": "serta membentuk berbagai kreasi menggunakan plastisin atau tanah liat dengan penuh semangat"
+              },
+              {
+                "id": "sv-batik",
+                "label": "Membuat motif batik sederhana (jumputan, cap, atau gambar)",
+                "template": "membuat motif batik sederhana sebagai pengenalan kekayaan seni budaya Indonesia"
+              },
+              {
+                "id": "sv-cap-alam",
+                "label": "Mencetak / cap dengan bahan alam (daun, pelepah, umbi)",
+                "template": "serta berkreasi membuat karya cetak menggunakan bahan-bahan alam seperti daun, pelepah pisang, atau umbi"
+              }
+            ]
+          },
+          {
+            "id": "seni-musik",
+            "label": "Mengapresiasi dan berpartisipasi dalam kegiatan musik",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "masih dalam proses mengenal dan mengembangkan minat terhadap kegiatan bermusik",
+              "MB": "mulai menunjukkan kegemaran dalam kegiatan bermusik dan mampu mengikuti kegiatan musik sederhana dengan bimbingan",
+              "BSH": "menunjukkan kegemaran dan kemampuan yang baik dalam kegiatan bermusik",
+              "BSB": "menunjukkan kegemaran dan kemampuan bermusik yang luar biasa, memimpin nyanyian dengan percaya diri, memainkan alat musik dengan ekspresif, dan tampil di depan teman-temannya dengan penuh kebanggaan"
+            },
+            "sub_indikator": [
+              {
+                "id": "sm-menyanyi",
+                "label": "Menyanyi lagu anak-anak",
+                "template": "seperti menyanyi berbagai lagu anak-anak dengan penuh semangat dan keceriaan"
+              },
+              {
+                "id": "sm-alat-musik",
+                "label": "Mengenal dan memainkan alat musik sederhana",
+                "template": "mengenal dan memainkan alat musik perkusi sederhana"
+              },
+              {
+                "id": "sm-ritme",
+                "label": "Mengikuti ritme dan irama musik",
+                "template": "serta mampu mengikuti ritme dan irama musik dengan tepat"
+              },
+              {
+                "id": "sm-alat-musik-tradisional",
+                "label": "Mengenal alat musik tradisional Indonesia (angklung, gamelan, kendang, sasando)",
+                "template": "mengenal alat musik tradisional Indonesia seperti angklung, gamelan, kendang, atau sasando"
+              },
+              {
+                "id": "sm-lagu-nasional",
+                "label": "Menyanyikan lagu nasional atau lagu daerah",
+                "template": "serta menyanyikan lagu nasional atau lagu daerah dengan penuh semangat kebanggaan"
+              }
+            ]
+          },
+          {
+            "id": "seni-gerak-tari",
+            "label": "Mengekspresikan diri melalui gerak dan tari",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan keberanian dan kemampuan mengekspresikan diri melalui gerak dan tari",
+              "MB": "mulai berani mengekspresikan diri melalui gerak dan tari sederhana dengan bimbingan dan dorongan semangat dari guru",
+              "BSH": "dengan percaya diri dan penuh keceriaan mengekspresikan dirinya melalui kegiatan gerak dan tari",
+              "BSB": "dengan percaya diri yang tinggi, penuh keceriaan, dan ekspresif mengekspresikan dirinya melalui gerak dan tari, mampu mengikuti koreografi yang cukup kompleks, dan tampil dengan penuh kebanggaan di hadapan penonton"
+            },
+            "sub_indikator": [
+              {
+                "id": "gt-gerak-bebas",
+                "label": "Bergerak bebas mengikuti musik",
+                "template": "seperti bergerak bebas dan kreatif mengikuti alunan musik"
+              },
+              {
+                "id": "gt-tari-sederhana",
+                "label": "Menirukan gerakan tari sederhana",
+                "template": "serta menirukan gerakan tari sederhana dengan luwes dan menyenangkan"
+              },
+              {
+                "id": "gt-tari-daerah",
+                "label": "Mengenal dan menirukan gerakan tari daerah Indonesia",
+                "template": "mengenal dan menirukan gerakan tari daerah Indonesia seperti tari Saman, tari Jaipong, atau tari Poco-poco"
+              },
+              {
+                "id": "gt-tari-kreasi",
+                "label": "Menciptakan gerakan tari kreasi sendiri bersama teman",
+                "template": "serta menciptakan gerakan tari kreasi bersama teman dengan penuh kreativitas dan kerjasama"
+              }
+            ]
+          },
+          {
+            "id": "seni-drama-peran",
+            "label": "Berpartisipasi dalam bermain peran dan drama kreatif",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses mengembangkan keberanian dan kepercayaan diri untuk berpartisipasi dalam kegiatan bermain peran dan drama",
+              "MB": "mulai berani berpartisipasi dalam kegiatan bermain peran sederhana dengan dorongan dan bimbingan dari guru",
+              "BSH": "senang dan antusias berpartisipasi dalam kegiatan bermain peran dan drama kreatif",
+              "BSB": "sangat antusias dan berbakat dalam kegiatan bermain peran dan drama kreatif, mampu menghayati peran yang dimainkan dengan sangat ekspresif, dan tampil di depan teman-temannya dengan percaya diri dan penuh imajinasi"
+            },
+            "sub_indikator": [
+              {
+                "id": "dp-bermain-peran",
+                "label": "Bermain peran profesi atau kehidupan sehari-hari",
+                "template": "seperti bermain peran profesi atau situasi kehidupan sehari-hari dengan penuh imajinasi"
+              },
+              {
+                "id": "dp-tampil-bercerita",
+                "label": "Berani tampil bercerita di depan teman",
+                "template": "serta berani tampil bercerita atau mendongeng di depan teman-temannya dengan percaya diri"
+              },
+              {
+                "id": "dp-wayang",
+                "label": "Mengenal dan memainkan wayang atau boneka tangan dalam cerita",
+                "template": "serta mengenal dan memainkan wayang atau boneka tangan sebagai media bercerita yang mencerminkan kekayaan budaya Indonesia"
+              }
+            ]
+          },
+          {
+            "id": "apresiasi-seni",
+            "label": "Mengapresiasi karya seni dan budaya",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses belajar mengapresiasi dan menghargai karya seni yang dibuat orang lain",
+              "MB": "mulai mampu mengapresiasi karya seni teman dengan bimbingan guru untuk memberikan komentar yang positif dan membangun",
+              "BSH": "mampu mengapresiasi dan menghargai karya seni milik teman maupun karya seni dan budaya daerah yang diperkenalkan kepadanya",
+              "BSB": "mampu mengapresiasi karya seni dengan sangat hangat dan tulus, memberikan komentar positif yang spesifik tentang karya teman, serta dengan antusias mengenal dan mencintai berbagai kekayaan seni dan budaya Nusantara"
+            },
+            "sub_indikator": [
+              {
+                "id": "as-karya-teman",
+                "label": "Memberikan apresiasi yang positif terhadap karya seni teman",
+                "template": "seperti memberikan apresiasi yang tulus dan positif terhadap karya seni teman"
+              },
+              {
+                "id": "as-seni-tradisional",
+                "label": "Mengenal dan mengapresiasi seni tradisional Indonesia (batik, wayang, tari daerah)",
+                "template": "serta mengenal dan mengapresiasi berbagai karya seni tradisional Indonesia seperti batik, wayang, dan tarian daerah"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

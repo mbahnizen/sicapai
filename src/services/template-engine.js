@@ -5,23 +5,21 @@
  * This runs entirely on the client — no backend call needed.
  */
 
-import kurikulumData from '../data/kurikulum.json';
+import agamaData from '../data/kurikulum-agama.json';
+import jatiDiriData from '../data/kurikulum-jati-diri.json';
+import literasiData from '../data/kurikulum-literasi-steam.json';
 import kokurikulerData from '../data/kokurikuler.json';
+import nilaiPlusData from '../data/nilai-plus.json';
+import saranData from '../data/saran.json';
+
+const kurikulumElements = [agamaData.elemen, jatiDiriData.elemen, literasiData.elemen];
 
 /**
  * Get all curriculum elements
- * @returns {Array} elemen array from kurikulum data
+ * @returns {Array} array of elemen objects
  */
 export function getKurikulumData() {
-  return kurikulumData.elemen;
-}
-
-/**
- * Get metadata
- * @returns {object} _meta object
- */
-export function getKurikulumMeta() {
-  return kurikulumData._meta;
+  return kurikulumElements;
 }
 
 /**
@@ -29,18 +27,14 @@ export function getKurikulumMeta() {
  *
  * @param {string} studentName - Nama anak (e.g., "Aisyah")
  * @param {object} selectedIndicators - Map of indicator selections
- *   Format: { "indikator-id": true | ["sub-id-1", "sub-id-2"] }
- *   - true = indicator selected (no sub-indicators)
- *   - array of sub-indicator IDs = indicator selected with specific sub-indicators
+ *   Format v2: { "indikator-id": { level: "BSH", subs: ["sub-id-1"] } }
  * @param {string} [religion] - Agama anak untuk filter gerakan-ibadah
  * @returns {object} Map of elemen ID → narrative paragraph
- *   e.g., { "agama-budi-pekerti": "Ananda Aisyah sudah mampu...", ... }
  */
 export function generateTemplate(studentName, selectedIndicators, religion = null) {
   const result = {};
-  const elements = kurikulumData.elemen;
 
-  for (const elemen of elements) {
+  for (const elemen of kurikulumElements) {
     const subParas = [];
 
     for (const subElemen of elemen.sub_elemen) {
@@ -50,17 +44,19 @@ export function generateTemplate(studentName, selectedIndicators, religion = nul
         const selection = selectedIndicators[indikator.id];
         if (!selection) continue;
 
-        let sentence = '';
+        const level = selection.level || 'BSH';
+        const template = indikator.level_templates?.[level];
+        if (!template) continue;
 
-        if (!indikator.has_sub || selection === true) {
-          sentence = indikator.template;
-        } else if (Array.isArray(selection) && selection.length > 0) {
+        let sentence = template;
+
+        // Sub-indicators only rendered for BSH or BSB
+        if (indikator.has_sub && ['BSH', 'BSB'].includes(level) && selection.subs?.length > 0) {
           const selectedSubs = indikator.sub_indikator.filter((sub) =>
-            selection.includes(sub.id)
+            selection.subs.includes(sub.id)
           );
           if (selectedSubs.length > 0) {
-            const subTemplates = selectedSubs.map((sub) => sub.template);
-            sentence = indikator.template + ', ' + subTemplates.join(', ');
+            sentence = template + ', ' + selectedSubs.map((sub) => sub.template).join(', ');
           }
         }
 
@@ -82,10 +78,6 @@ export function generateTemplate(studentName, selectedIndicators, religion = nul
 
 /**
  * Build a cohesive paragraph from an array of sentence fragments
- *
- * @param {string} studentName - Nama anak
- * @param {string[]} sentences - Array of template sentence fragments
- * @returns {string} Complete narrative paragraph
  */
 function buildParagraph(studentName, sentences) {
   if (sentences.length === 0) return '';
@@ -100,7 +92,6 @@ function buildParagraph(studentName, sentences) {
     return prefix + sentences[0] + '. Selain itu, Ananda juga ' + sentences[1] + '.';
   }
 
-  // 3+ sentences: group them naturally
   let paragraph = prefix + sentences[0] + '.';
 
   const connectors = [
@@ -126,9 +117,7 @@ function buildParagraph(studentName, sentences) {
  * @returns {Array} Flat array of elements with nested structure for UI
  */
 export function getChecklistStructure(religion = null) {
-  const elements = kurikulumData.elemen;
-
-  return elements.map((elemen) => ({
+  return kurikulumElements.map((elemen) => ({
     id: elemen.id,
     nama: elemen.nama,
     deskripsi: elemen.deskripsi,
@@ -146,6 +135,7 @@ export function getChecklistStructure(religion = null) {
             katolik: 'gi-kebaktian',
             hindu: 'gi-sembahyang-hindu',
             buddha: 'gi-sembahyang-buddha',
+            konghucu: 'gi-sembahyang-konghucu',
           };
           const matchId = religionMap[religion.toLowerCase()];
           if (matchId) {
@@ -153,7 +143,7 @@ export function getChecklistStructure(religion = null) {
           }
         }
 
-        // Determine if radio button should be used (mutually exclusive)
+        // Mutually exclusive sub-indicators (ang-1-10 / ang-1-20)
         const isMutuallyExclusive =
           ind.id === 'mengenal-angka' &&
           subIndikator.some((s) => s.id === 'ang-1-10' || s.id === 'ang-1-20');
@@ -163,6 +153,7 @@ export function getChecklistStructure(religion = null) {
           label: ind.label,
           hasSub: ind.has_sub,
           isMutuallyExclusive,
+          levelTemplates: ind.level_templates || {},
           subIndikator: subIndikator.map((s) => ({
             id: s.id,
             label: s.label,
@@ -175,15 +166,14 @@ export function getChecklistStructure(religion = null) {
 
 /**
  * Count selected indicators
- * @param {object} selectedIndicators - The selection map
+ * @param {object} selectedIndicators - The selection map (v2 format)
  * @returns {{ total: number, byElement: object }}
  */
 export function countSelected(selectedIndicators) {
   const byElement = {};
   let total = 0;
 
-  const elements = kurikulumData.elemen;
-  for (const elemen of elements) {
+  for (const elemen of kurikulumElements) {
     let count = 0;
     for (const subElemen of elemen.sub_elemen) {
       for (const indikator of subElemen.indikator) {
@@ -199,6 +189,70 @@ export function countSelected(selectedIndicators) {
   return { total, byElement };
 }
 
+// ---- Nilai Plus Functions ----
+
+/**
+ * Get nilai-plus categories for UI
+ * @returns {Array} kategori array
+ */
+export function getNilaiPlusData() {
+  return nilaiPlusData.kategori;
+}
+
+/**
+ * Generate nilai-plus narrative from selected items
+ * @param {string} studentName
+ * @param {object} nilaiPlusSelected - { "np-bantu-guru-beres": true, ... }
+ * @returns {string} Narrative paragraph or ''
+ */
+export function generateNilaiPlusNarrative(studentName, nilaiPlusSelected) {
+  if (!nilaiPlusSelected || Object.keys(nilaiPlusSelected).length === 0) return '';
+
+  const sentences = [];
+  for (const kategori of nilaiPlusData.kategori) {
+    for (const item of kategori.item) {
+      if (nilaiPlusSelected[item.id]) {
+        sentences.push(item.template);
+      }
+    }
+  }
+
+  if (sentences.length === 0) return '';
+  return sentences.map((s) => `Ananda ${studentName} ${s}.`).join('\n');
+}
+
+// ---- Saran Functions ----
+
+/**
+ * Get saran categories for UI
+ * @returns {Array} kategori array
+ */
+export function getSaranData() {
+  return saranData.kategori;
+}
+
+/**
+ * Generate saran narrative from selected items
+ * @param {string} studentName
+ * @param {object} saranSelected - { "saran-doa-harian-rutin": true, ... }
+ * @returns {string} Narrative paragraph or ''
+ */
+export function generateSaranNarrative(studentName, saranSelected) {
+  if (!saranSelected || Object.keys(saranSelected).length === 0) return '';
+
+  const sentences = [];
+  for (const kategori of saranData.kategori) {
+    for (const item of kategori.item) {
+      if (saranSelected[item.id]) {
+        sentences.push(item.template);
+      }
+    }
+  }
+
+  if (sentences.length === 0) return '';
+  return sentences.map((s) => `Kami harapkan ${studentName} ${s}.`).join('\n');
+}
+
 // ---- Kokurikuler Functions ----
 
 /**
@@ -211,7 +265,6 @@ export function getKokurikulerData() {
 
 /**
  * Generate combined kokurikuler narrative from selected indicators.
- * Unlike intrakurikuler (3 separate paragraphs), this produces 1 merged paragraph.
  *
  * @param {string} studentName - Nama panggilan anak
  * @param {object} selectedIndicators - Map { "kk-ibadah-mandiri": true, ... }
@@ -237,7 +290,7 @@ export function generateKokurikulerNarrative(studentName, selectedIndicators) {
   if (dimensiSentences.length === 0) return '';
 
   const prefix = `Ananda ${studentName} `;
-  return dimensiSentences.map(s => prefix + s + '.').join('\n\n');
+  return dimensiSentences.map((s) => prefix + s + '.').join('\n\n');
 }
 
 /**

@@ -1,0 +1,418 @@
+{
+  "_meta": {
+    "versi": "2.0.0",
+    "elemen_id": "agama-budi-pekerti",
+    "elemen_nama": "Nilai Agama dan Budi Pekerti",
+    "kurikulum": "Kurikulum Merdeka - Fase Fondasi",
+    "referensi": [
+      "Permendikdasmen No. 10 Tahun 2025 tentang Standar Kompetensi Lulusan Pendidikan Anak Usia Dini",
+      "Permendikbudristek No. 5 Tahun 2022 tentang Standar Kompetensi Lulusan pada PAUD, Jenjang Pendidikan Dasar, dan Jenjang Pendidikan Menengah",
+      "Keputusan Kepala BSKAP No. 033/H/KR/2022 tentang Capaian Pembelajaran PAUD Fase Fondasi",
+      "Panduan Pembelajaran dan Asesmen PAUD 2022 (Kemendikbudristek)",
+      "Panduan Profil Lulusan dan Deep Learning PAUD 2025"
+    ],
+    "petunjuk_level": {
+      "BB": "Belum Berkembang — anak belum menunjukkan capaian ini; gunakan template ini saat anak perlu banyak dukungan penuh",
+      "MB": "Mulai Berkembang — anak mulai menunjukkan capaian dengan bimbingan; template mencerminkan proses yang sedang berkembang",
+      "BSH": "Berkembang Sesuai Harapan — anak sudah mampu secara mandiri sesuai harapan; ini level default (kompatibel dengan v1)",
+      "BSB": "Berkembang Sangat Baik — anak melampaui harapan dan mampu menjadi model bagi teman"
+    },
+    "petunjuk_sub_indikator": "Sub-indikator hanya ditampilkan saat level BSH atau BSB. Pada level BB dan MB, hanya level_template yang digunakan.",
+    "petunjuk_template": "Gabungkan level_template indikator + sub_indikator(s) untuk membentuk satu kalimat narasi. Awali dengan nama anak. Sub_indikator pertama pakai 'seperti', selanjutnya tanpa kata sambung atau dengan 'serta'/'dan'. Akhiri kalimat dengan titik.",
+    "diperbarui": "2026"
+  },
+  "elemen": {
+    "id": "agama-budi-pekerti",
+    "nama": "Nilai Agama dan Budi Pekerti",
+    "deskripsi": "Mencakup kemampuan anak mengenal dan mempraktikkan ajaran agama dan kepercayaan, mensyukuri ciptaan Tuhan Yang Maha Esa, serta menunjukkan perilaku budi pekerti dan akhlak mulia dalam kehidupan sehari-hari.",
+    "sub_elemen": [
+      {
+        "id": "ajaran-agama",
+        "nama": "Mengenal dan Mempraktikkan Ajaran Agama serta Kepercayaan",
+        "indikator": [
+          {
+            "id": "doa-harian",
+            "label": "Mengenal dan melafalkan doa harian",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "belum terlihat secara konsisten melafalkan doa harian secara mandiri",
+              "MB": "mulai dapat melafalkan beberapa doa harian, meski masih memerlukan bimbingan guru",
+              "BSH": "sudah mampu melafalkan beberapa doa harian dengan baik",
+              "BSB": "dengan sangat fasih melafalkan berbagai doa harian dan dengan senang hati membantu teman-temannya mengingat doa"
+            },
+            "sub_indikator": [
+              {
+                "id": "doa-makan",
+                "label": "Doa sebelum dan sesudah makan",
+                "template": "seperti doa sebelum dan sesudah makan"
+              },
+              {
+                "id": "doa-tidur",
+                "label": "Doa sebelum tidur dan bangun tidur",
+                "template": "doa sebelum tidur dan bangun tidur"
+              },
+              {
+                "id": "doa-belajar",
+                "label": "Doa sebelum dan sesudah belajar",
+                "template": "doa sebelum dan sesudah belajar"
+              },
+              {
+                "id": "doa-kamar-mandi",
+                "label": "Doa masuk dan keluar kamar mandi",
+                "template": "doa masuk dan keluar kamar mandi"
+              },
+              {
+                "id": "doa-kendaraan",
+                "label": "Doa naik kendaraan",
+                "template": "doa naik kendaraan"
+              },
+              {
+                "id": "doa-orang-tua",
+                "label": "Doa untuk kedua orang tua",
+                "template": "serta doa untuk kedua orang tua"
+              },
+              {
+                "id": "doa-masuk-rumah",
+                "label": "Doa masuk dan keluar rumah",
+                "template": "doa masuk dan keluar rumah"
+              },
+              {
+                "id": "doa-kesembuhan",
+                "label": "Doa untuk kesehatan dan kesembuhan",
+                "template": "serta doa untuk kesehatan dan kesembuhan orang-orang tersayang"
+              }
+            ]
+          },
+          {
+            "id": "gerakan-ibadah",
+            "label": "Mengenal dan menirukan gerakan ibadah",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "belum terlihat menirukan gerakan ibadah sesuai agamanya secara mandiri",
+              "MB": "mulai mengenal dan mencoba menirukan beberapa gerakan ibadah sesuai agamanya dengan bimbingan guru",
+              "BSH": "mengenal dan mampu menirukan gerakan ibadah sesuai agamanya",
+              "BSB": "dengan sangat baik menguasai gerakan ibadah sesuai agamanya dan mampu membimbing teman dalam menirukan gerakan tersebut"
+            },
+            "sub_indikator": [
+              {
+                "id": "gi-sholat",
+                "label": "Gerakan sholat — Islam",
+                "template": "seperti gerakan berdiri, rukuk, dan sujud dalam sholat"
+              },
+              {
+                "id": "gi-kebaktian",
+                "label": "Sikap doa kebaktian — Kristen / Katolik",
+                "template": "seperti sikap tangan saat berdoa dan menyanyikan pujian rohani"
+              },
+              {
+                "id": "gi-sembahyang-hindu",
+                "label": "Gerakan sembahyang — Hindu",
+                "template": "seperti sikap anjali dan gerakan dalam persembahyangan"
+              },
+              {
+                "id": "gi-sembahyang-buddha",
+                "label": "Gerakan doa — Buddha",
+                "template": "seperti sikap tangan gasho dan duduk hening saat berdoa"
+              },
+              {
+                "id": "gi-sembahyang-konghucu",
+                "label": "Gerakan sembahyang — Konghucu",
+                "template": "seperti sikap pai dan posisi berdoa dalam upacara sembahyang Konghucu"
+              }
+            ]
+          },
+          {
+            "id": "kitab-suci",
+            "label": "Mengenal kitab suci agamanya",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "belum terlihat mengenal atau memperlakukan kitab suci agamanya secara khusus",
+              "MB": "mulai mengenal kitab suci agamanya dan belajar memperlakukannya dengan rasa hormat",
+              "BSH": "mengenal kitab suci agamanya dan memperlakukannya dengan penuh rasa hormat",
+              "BSB": "sangat mengenal kitab suci agamanya, memperlakukannya dengan penuh hormat dan kebanggaan, serta dengan antusias menceritakannya kepada teman"
+            }
+          },
+          {
+            "id": "tempat-ibadah",
+            "label": "Menyebutkan dan mengenal tempat ibadah",
+            "has_sub": false,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "belum terlihat menyebutkan atau mengenal fungsi tempat ibadah agamanya secara mandiri",
+              "MB": "mulai dapat menyebutkan nama tempat ibadah agamanya meski masih memerlukan bantuan dalam menjelaskan fungsinya",
+              "BSH": "dapat menyebutkan dan mengenal fungsi tempat ibadah agamanya dengan benar",
+              "BSB": "dengan sangat percaya diri dapat menyebutkan, mengenali, dan menjelaskan fungsi tempat ibadah berbagai agama yang ada di Indonesia dengan sikap penuh rasa hormat"
+            }
+          },
+          {
+            "id": "hari-besar-agama",
+            "label": "Mengenal hari besar keagamaan",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "belum terlihat mengenal hari-hari besar keagamaan secara mandiri",
+              "MB": "mulai mengenal beberapa hari besar keagamaan dengan bimbingan guru",
+              "BSH": "mulai mengenal hari-hari besar keagamaan",
+              "BSB": "dengan penuh antusias mengenal dan mampu menjelaskan makna dari berbagai hari besar keagamaan serta menyikapinya dengan rasa hormat terhadap semua agama"
+            },
+            "sub_indikator": [
+              {
+                "id": "hb-idul-fitri",
+                "label": "Hari Raya Idul Fitri",
+                "template": "seperti Hari Raya Idul Fitri"
+              },
+              {
+                "id": "hb-idul-adha",
+                "label": "Hari Raya Idul Adha",
+                "template": "Idul Adha"
+              },
+              {
+                "id": "hb-natal",
+                "label": "Hari Natal",
+                "template": "Hari Natal"
+              },
+              {
+                "id": "hb-nyepi",
+                "label": "Hari Raya Nyepi",
+                "template": "Hari Raya Nyepi"
+              },
+              {
+                "id": "hb-waisak",
+                "label": "Hari Raya Waisak",
+                "template": "Hari Raya Waisak"
+              },
+              {
+                "id": "hb-imlek",
+                "label": "Tahun Baru Imlek — Konghucu",
+                "template": "Tahun Baru Imlek"
+              },
+              {
+                "id": "hb-kenaikan-isa",
+                "label": "Kenaikan Isa Almasih — Kristen / Katolik",
+                "template": "serta Hari Kenaikan Isa Almasih"
+              }
+            ]
+          },
+          {
+            "id": "sifat-tuhan",
+            "label": "Mengenal sifat-sifat Tuhan sesuai agamanya",
+            "has_sub": false,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "belum terlihat mengenali atau membicarakan sifat-sifat Tuhan sesuai ajaran agamanya",
+              "MB": "mulai memahami satu atau dua sifat Tuhan sesuai ajaran agamanya dengan bimbingan guru",
+              "BSH": "mulai memahami beberapa sifat dan kebesaran Tuhan sesuai dengan ajaran agama yang diyakininya",
+              "BSB": "dengan penuh keyakinan mampu mengungkapkan pemahamannya tentang sifat-sifat dan kebesaran Tuhan serta sering mengaitkannya dengan peristiwa dan keindahan yang dijumpainya sehari-hari"
+            }
+          }
+        ]
+      },
+      {
+        "id": "syukur-ciptaan",
+        "nama": "Mensyukuri, Menjaga, dan Melestarikan Ciptaan Tuhan",
+        "indikator": [
+          {
+            "id": "rasa-syukur",
+            "label": "Mengucapkan rasa syukur atas nikmat Tuhan",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "belum terlihat secara konsisten mengungkapkan rasa syukur atas nikmat yang diterimanya",
+              "MB": "mulai terbiasa mengucapkan rasa syukur atas nikmat Tuhan dengan dorongan dan bimbingan guru",
+              "BSH": "terbiasa mengucapkan rasa syukur atas nikmat dan karunia yang diterimanya dari Tuhan",
+              "BSB": "dengan tulus dan spontan senantiasa mengungkapkan rasa syukur atas setiap nikmat Tuhan dan dengan hangat mengajak teman-temannya untuk bersyukur bersama"
+            },
+            "sub_indikator": [
+              {
+                "id": "syukur-ucapan",
+                "label": "Mengucapkan kata syukur secara spontan",
+                "template": "seperti secara spontan mengucapkan kata syukur saat mendapat kebaikan atau keberuntungan"
+              },
+              {
+                "id": "syukur-berdoa",
+                "label": "Berdoa sebelum dan sesudah kegiatan",
+                "template": "serta selalu memulai dan mengakhiri kegiatan dengan berdoa"
+              },
+              {
+                "id": "syukur-merawat-pemberian",
+                "label": "Merawat barang pemberian dengan penuh tanggung jawab",
+                "template": "serta menjaga dan merawat barang-barang pemberian dengan penuh tanggung jawab sebagai wujud rasa syukur"
+              }
+            ]
+          },
+          {
+            "id": "merawat-makhluk-hidup",
+            "label": "Ikut merawat makhluk hidup sebagai ciptaan Tuhan",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "belum terlihat secara aktif terlibat dalam kegiatan merawat makhluk hidup di sekitarnya",
+              "MB": "mulai mau ikut serta merawat makhluk hidup di sekitarnya dengan arahan dan bimbingan guru",
+              "BSH": "menunjukkan kepedulian dengan aktif ikut merawat makhluk hidup di sekitarnya sebagai wujud syukur atas ciptaan Tuhan",
+              "BSB": "dengan penuh inisiatif dan semangat merawat makhluk hidup di sekitarnya serta dengan hangat mengajak teman-temannya untuk turut menjaga dan menyayangi ciptaan Tuhan"
+            },
+            "sub_indikator": [
+              {
+                "id": "mml-tanaman",
+                "label": "Merawat tanaman",
+                "template": "seperti menyiram dan merawat tanaman"
+              },
+              {
+                "id": "mml-hewan",
+                "label": "Memberi makan hewan peliharaan",
+                "template": "serta memberi makan hewan peliharaan dengan penuh kasih sayang"
+              },
+              {
+                "id": "mml-tidak-menyakiti",
+                "label": "Tidak menyakiti hewan atau merusak tanaman",
+                "template": "serta menjauhi perbuatan yang dapat menyakiti hewan atau merusak tanaman"
+              },
+              {
+                "id": "mml-berkebun",
+                "label": "Ikut kegiatan berkebun sederhana",
+                "template": "serta ikut serta dalam kegiatan berkebun sederhana seperti menanam biji atau stek tanaman"
+              }
+            ]
+          },
+          {
+            "id": "menjaga-lingkungan",
+            "label": "Menjaga kebersihan dan kelestarian lingkungan",
+            "has_sub": false,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "belum terlihat secara konsisten menjaga kebersihan dan kelestarian lingkungan secara mandiri",
+              "MB": "mulai menunjukkan kepedulian terhadap kebersihan lingkungan dengan bimbingan dan contoh dari guru",
+              "BSH": "aktif menjaga kebersihan dan kelestarian lingkungan sekitar sebagai bentuk tanggung jawab terhadap amanah ciptaan Tuhan",
+              "BSB": "dengan penuh kesadaran dan rasa tanggung jawab aktif menjaga kebersihan lingkungan sekitar dan dengan tulus mengajak orang di sekitarnya untuk turut melestarikan ciptaan Tuhan"
+            }
+          },
+          {
+            "id": "kagum-alam",
+            "label": "Mengungkapkan kekaguman terhadap keindahan alam",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "belum terlihat mengungkapkan rasa kagum terhadap keindahan alam secara spontan",
+              "MB": "mulai mampu mengungkapkan rasa kagum terhadap keindahan alam dengan dorongan pertanyaan dari guru",
+              "BSH": "mampu mengungkapkan rasa kagum dan takjub terhadap keindahan alam sebagai cerminan kebesaran Tuhan",
+              "BSB": "dengan kekayaan ekspresi dan bahasa yang indah mampu mengungkapkan rasa syukur dan kekagumannya atas keindahan alam ciptaan Tuhan, serta menginspirasi teman-temannya untuk ikut merasakannya"
+            }
+          }
+        ]
+      },
+      {
+        "id": "budi-pekerti",
+        "nama": "Menunjukkan Perilaku Budi Pekerti dan Akhlak Mulia",
+        "indikator": [
+          {
+            "id": "sopan-santun",
+            "label": "Menunjukkan perilaku sopan dan santun",
+            "has_sub": true,
+            "recommended_semester": 1,
+            "level_templates": {
+              "BB": "belum terlihat secara konsisten menunjukkan perilaku sopan dan santun dalam kesehariannya",
+              "MB": "mulai menunjukkan perilaku sopan dan santun dengan pengingat dan bimbingan dari guru",
+              "BSH": "menunjukkan perilaku sopan dan santun yang membanggakan dalam kesehariannya",
+              "BSB": "secara konsisten menunjukkan perilaku sopan dan santun yang luar biasa dalam setiap situasi dan kerap menjadi teladan bagi teman-temannya"
+            },
+            "sub_indikator": [
+              {
+                "id": "ss-salam",
+                "label": "Mengucapkan salam saat bertemu atau berpisah",
+                "template": "seperti selalu mengucapkan salam saat bertemu atau berpisah dengan guru dan teman"
+              },
+              {
+                "id": "ss-tolong",
+                "label": "Mengucapkan 'tolong' saat meminta bantuan",
+                "template": "mengucapkan 'tolong' setiap kali memerlukan bantuan orang lain"
+              },
+              {
+                "id": "ss-terimakasih",
+                "label": "Mengucapkan 'terima kasih'",
+                "template": "mengucapkan 'terima kasih' saat menerima pertolongan atau pemberian"
+              },
+              {
+                "id": "ss-maaf",
+                "label": "Mengucapkan 'maaf' saat berbuat salah",
+                "template": "serta dengan tulus mengucapkan 'maaf' saat berbuat salah"
+              },
+              {
+                "id": "ss-berbicara-sopan",
+                "label": "Berbicara dengan nada dan pilihan kata yang sopan",
+                "template": "serta senantiasa berbicara dengan nada yang lembut dan pilihan kata yang santun kepada semua orang"
+              }
+            ]
+          },
+          {
+            "id": "jujur",
+            "label": "Menunjukkan sikap jujur",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses menumbuhkan kebiasaan berkata dan berbuat jujur dalam keseharian",
+              "MB": "mulai menunjukkan sikap jujur dalam perkataan dan perbuatan dengan bimbingan guru",
+              "BSH": "selalu bersikap jujur baik dalam perkataan maupun perbuatan, dan tidak mau berbohong",
+              "BSB": "secara konsisten dan berani menunjukkan kejujuran dalam setiap perkataan dan perbuatannya, bahkan dalam situasi yang tidak mudah sekalipun"
+            }
+          },
+          {
+            "id": "empati-peduli",
+            "label": "Menunjukkan rasa empati dan kepedulian terhadap sesama",
+            "has_sub": true,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih dalam proses menumbuhkan rasa empati dan kepedulian terhadap perasaan orang lain",
+              "MB": "mulai menunjukkan rasa empati dan kepedulian terhadap teman dengan dorongan dan contoh dari guru",
+              "BSH": "memiliki rasa empati yang baik dan peduli terhadap perasaan serta kebutuhan orang lain",
+              "BSB": "memiliki rasa empati yang sangat dalam dan secara aktif serta tulus menunjukkan kepedulian kepada teman yang membutuhkan, bahkan tanpa perlu diminta atau diingatkan"
+            },
+            "sub_indikator": [
+              {
+                "id": "ep-berbagi",
+                "label": "Mau berbagi dengan teman",
+                "template": "seperti dengan sukarela berbagi mainan atau makanan bersama teman"
+              },
+              {
+                "id": "ep-menghibur",
+                "label": "Menghibur teman yang sedih",
+                "template": "serta berupaya menghibur atau menenangkan teman yang sedang bersedih"
+              },
+              {
+                "id": "ep-membantu-teman",
+                "label": "Menawarkan bantuan kepada teman yang kesulitan",
+                "template": "serta dengan inisiatif menawarkan bantuan kepada teman yang terlihat mengalami kesulitan"
+              }
+            ]
+          },
+          {
+            "id": "disiplin-tanggung-jawab",
+            "label": "Menunjukkan sikap disiplin dan tanggung jawab",
+            "has_sub": false,
+            "recommended_semester": null,
+            "level_templates": {
+              "BB": "masih memerlukan dukungan penuh untuk mengikuti aturan dan menyelesaikan tanggung jawabnya secara konsisten",
+              "MB": "mulai mampu bersikap disiplin mengikuti aturan dan menyelesaikan tanggung jawabnya dengan bimbingan guru",
+              "BSH": "mampu bersikap disiplin mengikuti aturan yang berlaku dan bertanggung jawab terhadap tugas serta barang miliknya",
+              "BSB": "secara konsisten menunjukkan kedisiplinan dan tanggung jawab yang tinggi dalam setiap aspek kegiatan, dan menjadi contoh positif bagi teman-temannya dalam hal keteraturan serta tanggung jawab"
+            }
+          },
+          {
+            "id": "menghargai-perbedaan",
+            "label": "Menghargai perbedaan teman",
+            "has_sub": false,
+            "recommended_semester": 2,
+            "level_templates": {
+              "BB": "masih dalam proses belajar menghargai perbedaan di antara teman-temannya",
+              "MB": "mulai menunjukkan sikap menghargai perbedaan teman dengan bimbingan dan contoh dari guru",
+              "BSH": "tumbuh dengan sikap yang indah dalam menghargai perbedaan, baik perbedaan suku, agama, budaya, maupun kemampuan teman-temannya",
+              "BSB": "dengan kedewasaan dan rasa hormat yang luar biasa merayakan keberagaman di antara teman-temannya dan secara aktif mencegah perilaku yang merendahkan atau menyakiti perasaan orang lain"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
