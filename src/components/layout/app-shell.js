@@ -2540,8 +2540,6 @@ function addAppShellStyles(container) {
       transition: all var(--transition-fast);
       flex-shrink: 0;
     }
-    .student-item-row:has(.student-item.active) .student-edit-btn,
-    .student-item-row:has(.student-item.active) .student-delete-btn { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.15); }
     .student-edit-btn:hover {
       background: var(--primary-light);
       border-color: var(--primary);
