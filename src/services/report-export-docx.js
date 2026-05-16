@@ -22,7 +22,9 @@ const SECTION_META = {
   'agama-budi-pekerti': { letter: 'A', title: 'Nilai Agama dan Budi Pekerti' },
   'jati-diri':          { letter: 'B', title: 'Jati Diri' },
   'literasi-steam':     { letter: 'C', title: 'Dasar-Dasar Literasi dan STEAM' },
-  'kokurikuler':        { letter: 'D', title: 'Projek Penguatan Profil Pelajar Pancasila (Kokurikuler)' },
+  'kokurikuler':        { letter: 'D', title: 'Profil Lulusan — 8 Dimensi (Kokurikuler)' },
+  'nilai-plus':         { letter: 'E', title: 'Catatan Istimewa' },
+  'saran':              { letter: 'F', title: 'Saran untuk Orang Tua' },
 };
 
 function formatDate(finalizedAt) {
@@ -108,7 +110,7 @@ export async function downloadReportAsDocx(reportData, institutionName = '') {
       );
 
       // Split on double newlines (template engine separates sub-elements with \n\n)
-      const paragraphs = text.split(/\n\n+/).map(p => p.trim()).filter(Boolean);
+      const paragraphs = text.split(/\n+/).map(p => p.trim()).filter(Boolean);
       paragraphs.forEach((para, i) => {
         sectionChildren.push(
           new Paragraph({

@@ -19,6 +19,8 @@ const HEADERS = [
   'Narasi_Jati_Diri',
   'Narasi_STEAM',
   'Narasi_Kokurikuler',
+  'Narasi_Nilai_Plus',
+  'Narasi_Saran',
   'Nama_Instansi',
   'Tanggal_Laporan',
 ];
@@ -50,6 +52,8 @@ function toRow(report, institutionName) {
     sanitizeXlsxCell(ai['jati-diri']           || tmpl['jati-diri']           || ''),
     sanitizeXlsxCell(ai['literasi-steam']      || tmpl['literasi-steam']      || ''),
     sanitizeXlsxCell(ai['kokurikuler']         || tmpl['kokurikuler']         || ''),
+    sanitizeXlsxCell(tmpl['nilai-plus']        || ''),
+    sanitizeXlsxCell(tmpl['saran']             || ''),
     institutionName,
     parseDate(report.finalizedAt),
   ];
@@ -69,6 +73,9 @@ function buildSheet(rows) {
     { wch: 70 }, // Narasi_Agama
     { wch: 70 }, // Narasi_Jati_Diri
     { wch: 70 }, // Narasi_STEAM
+    { wch: 70 }, // Narasi_Kokurikuler
+    { wch: 70 }, // Narasi_Nilai_Plus
+    { wch: 70 }, // Narasi_Saran
     { wch: 28 }, // Nama_Instansi
     { wch: 20 }, // Tanggal_Laporan
   ];

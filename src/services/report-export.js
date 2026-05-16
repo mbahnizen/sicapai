@@ -8,7 +8,9 @@ const SECTION_META = {
   'agama-budi-pekerti': { letter: 'A', title: 'Nilai Agama dan Budi Pekerti' },
   'jati-diri':          { letter: 'B', title: 'Jati Diri' },
   'literasi-steam':     { letter: 'C', title: 'Dasar-Dasar Literasi dan STEAM' },
-  'kokurikuler':        { letter: 'D', title: 'Projek Penguatan Profil Pelajar Pancasila (Kokurikuler)' },
+  'kokurikuler':        { letter: 'D', title: 'Profil Lulusan — 8 Dimensi (Kokurikuler)' },
+  'nilai-plus':         { letter: 'E', title: 'Catatan Istimewa' },
+  'saran':              { letter: 'F', title: 'Saran untuk Orang Tua' },
 };
 
 /**
@@ -52,15 +54,17 @@ export function printReport(reportData, institutionName = '') {
   }
 
   // Build narrative sections (prefer AI, fallback to template)
+  const NO_INDENT_SECTIONS = new Set(['nilai-plus', 'saran']);
   const sectionsHTML = Object.keys(SECTION_META)
     .filter(id => templateNarrative[id] || aiNarrative?.[id])
     .map(id => {
       const meta = SECTION_META[id];
       const text = aiNarrative?.[id] || templateNarrative[id] || '';
+      const bodyStyle = NO_INDENT_SECTIONS.has(id) ? 'text-indent:0' : '';
       return `
         <div class="section">
           <h3 class="section-title">${meta.letter}. ${meta.title.toUpperCase()}</h3>
-          <p class="section-body">${escapeHTML(text)}</p>
+          <p class="section-body" style="${bodyStyle}">${escapeHTML(text)}</p>
         </div>
       `;
     }).join('');
