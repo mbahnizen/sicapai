@@ -4,9 +4,9 @@
 
 import { showToast } from '../shared/toast.js';
 import { escapeHTML, escapeAttr } from '../../utils/sanitize.js';
-import { renderChecklist, renderKokurikulerChecklist } from '../report/checklist.js';
+import { renderChecklist, renderKokurikulerChecklist, renderNilaiPlusChecklist, renderSaranChecklist } from '../report/checklist.js';
 import { renderPreview } from '../report/preview.js';
-import { generateTemplate, countSelected, generateKokurikulerNarrative } from '../../services/template-engine.js';
+import { generateTemplate, countSelected, generateKokurikulerNarrative, generateNilaiPlusNarrative, generateSaranNarrative } from '../../services/template-engine.js';
 import { api } from '../../services/api.js';
 import { printReport } from '../../services/report-export.js';
 import { exportInstitutionToXlsx } from '../../services/report-xlsx.js';
@@ -24,6 +24,8 @@ function saveProgress(state) {
     aiResult: state.aiResult || {},
     kokurikulerSelected: state.kokurikulerSelected || {},
     aiKokurikuler: state.aiKokurikuler || null,
+    nilaiPlusSelected: state.nilaiPlusSelected || {},
+    saranSelected: state.saranSelected || {},
     semester: document.querySelector('#report-semester')?.value || '1',
     year: document.querySelector('#report-year')?.value || '',
     savedAt: Date.now(),
@@ -95,6 +97,8 @@ export async function renderAppShell(container, user, authService) {
     kokurikulerSelected: {},
     kokurikulerNarrative: '',  // combined template paragraph from all checked dimensi
     aiKokurikuler: null,       // AI-enhanced version of kokurikulerNarrative
+    nilaiPlusSelected: {},     // { "np-bantu-guru-beres": true, ... }
+    saranSelected: {},         // { "saran-doa-harian-rutin": true, ... }
     quota: { weeklyUsed: 0, limit: 20 },
     theme: localStorage.getItem('sicapai-theme') || 'light',
     finalizedStudents: new Set(), // Track students with finalized reports (local session)
@@ -557,6 +561,8 @@ function renderStudentList(state, container) {
       state.kokurikulerSelected = {};
       state.kokurikulerNarrative = '';
       state.aiKokurikuler = null;
+      state.nilaiPlusSelected = {};
+      state.saranSelected = {};
 
       // Update active state
       listEl.querySelectorAll('.student-item').forEach((el) => el.classList.remove('active'));
@@ -681,6 +687,8 @@ function renderStudentList(state, container) {
           state.kokurikulerSelected = {};
           state.kokurikulerNarrative = '';
           state.aiKokurikuler = null;
+          state.nilaiPlusSelected = {};
+          state.saranSelected = {};
           state.aiHistory = {};
           const mainContent = container.querySelector('#main-content');
           if (mainContent) {
@@ -773,8 +781,10 @@ async function syncProgressFromServer(state, container, student) {
     state.aiResult = serverData.aiResult || {};
     state.kokurikulerSelected = serverData.kokurikulerSelected ?? local?.kokurikulerSelected ?? {};
     state.aiKokurikuler = serverData.aiKokurikuler !== undefined ? serverData.aiKokurikuler : (local?.aiKokurikuler ?? null);
+    state.nilaiPlusSelected = serverData.nilaiPlusSelected ?? local?.nilaiPlusSelected ?? {};
+    state.saranSelected = serverData.saranSelected ?? local?.saranSelected ?? {};
     seedAiHistory(state);
-    const mergedData = { ...serverData, kokurikulerSelected: state.kokurikulerSelected, aiKokurikuler: state.aiKokurikuler };
+    const mergedData = { ...serverData, kokurikulerSelected: state.kokurikulerSelected, aiKokurikuler: state.aiKokurikuler, nilaiPlusSelected: state.nilaiPlusSelected, saranSelected: state.saranSelected };
     localStorage.setItem(getProgressKey(student), JSON.stringify(mergedData));
 
     // Re-render if this student is still selected
@@ -800,6 +810,8 @@ function renderMainPanel(state, container) {
   state.kokurikulerSelected = {};
   state.kokurikulerNarrative = '';
   state.aiKokurikuler = null;
+  state.nilaiPlusSelected = {};
+  state.saranSelected = {};
 
   // Restore saved progress for this student
   const savedProgress = loadProgress(state.selectedStudent);
@@ -808,6 +820,8 @@ function renderMainPanel(state, container) {
     state.aiResult = savedProgress.aiResult || {};
     state.kokurikulerSelected = savedProgress.kokurikulerSelected || {};
     state.aiKokurikuler = savedProgress.aiKokurikuler || null;
+    state.nilaiPlusSelected = savedProgress.nilaiPlusSelected || {};
+    state.saranSelected = savedProgress.saranSelected || {};
     seedAiHistory(state);
   }
 
@@ -970,6 +984,8 @@ function renderMainPanel(state, container) {
     state.kokurikulerSelected = {};
     state.kokurikulerNarrative = '';
     state.aiKokurikuler = null;
+    state.nilaiPlusSelected = {};
+    state.saranSelected = {};
     const listEl = container.querySelector('#student-list');
     listEl.querySelectorAll('.student-item').forEach(el => el.classList.remove('active'));
     listEl.querySelector(`.student-item[data-id="${next.id}"]`)?.classList.add('active');
@@ -997,11 +1013,16 @@ function renderMainPanel(state, container) {
     if (btnEl) { btnEl.disabled = true; btnEl.textContent = 'Menyimpan...'; }
 
     try {
-      // Merge kokurikuler narrative into template/ai results for unified storage
+      // Merge all section narratives for unified storage
       const mergedTemplate = { ...state.templateResult };
       const mergedAI = { ...(state.aiResult || {}) };
       if (state.kokurikulerNarrative) mergedTemplate.kokurikuler = state.kokurikulerNarrative;
       if (state.aiKokurikuler) mergedAI.kokurikuler = state.aiKokurikuler;
+      const _nickFin = state.selectedStudent.nickname || state.selectedStudent.name;
+      const _npNarFin = generateNilaiPlusNarrative(_nickFin, state.nilaiPlusSelected);
+      if (_npNarFin) mergedTemplate['nilai-plus'] = _npNarFin;
+      const _saranNarFin = generateSaranNarrative(_nickFin, state.saranSelected);
+      if (_saranNarFin) mergedTemplate['saran'] = _saranNarFin;
 
       const savedReport = await api.saveReport({
         studentId: state.selectedStudent.id,
@@ -1010,6 +1031,8 @@ function renderMainPanel(state, container) {
         academicYear: year,
         selectedIndicators: state.selectedIndicators,
         kokurikulerSelected: state.kokurikulerSelected || {},
+        nilaiPlusSelected: state.nilaiPlusSelected || {},
+        saranSelected: state.saranSelected || {},
         templateNarrative: mergedTemplate,
         aiNarrative: mergedAI || null,
         studentName: state.selectedStudent.name,
@@ -1029,6 +1052,8 @@ function renderMainPanel(state, container) {
       if (state.kokurikulerNarrative) _achTemplate.kokurikuler = state.kokurikulerNarrative;
       const _achAI = { ...(state.aiResult || {}) };
       if (state.aiKokurikuler) _achAI.kokurikuler = state.aiKokurikuler;
+      if (_npNarFin) _achTemplate['nilai-plus'] = _npNarFin;
+      if (_saranNarFin) _achTemplate['saran'] = _saranNarFin;
       renderAchievementState(mainContent.querySelector('#preview-panel'), {
         studentName: state.selectedStudent.name,
         semester: semLabel,
@@ -1227,6 +1252,8 @@ function renderMainPanel(state, container) {
       state.kokurikulerSelected = {};
       state.kokurikulerNarrative = '';
       state.aiKokurikuler = null;
+      state.nilaiPlusSelected = {};
+      state.saranSelected = {};
       renderMainPanel(state, container);
       showToast('Progress berhasil direset.', 'success');
     } catch (err) {
@@ -1245,11 +1272,15 @@ function renderMainPanel(state, container) {
 
   // --- Helper: render preview with all callbacks ---
   const renderPreviewWithCallbacks = () => {
-    // Merge kokurikuler narrative into template/AI for unified preview
     const mergedTemplate = { ...state.templateResult };
     const mergedAI = { ...(state.aiResult || {}) };
     if (state.kokurikulerNarrative) mergedTemplate.kokurikuler = state.kokurikulerNarrative;
     if (state.aiKokurikuler) mergedAI.kokurikuler = state.aiKokurikuler;
+    const studentNick = state.selectedStudent.nickname || state.selectedStudent.name;
+    const npNarrative = generateNilaiPlusNarrative(studentNick, state.nilaiPlusSelected);
+    if (npNarrative) mergedTemplate['nilai-plus'] = npNarrative;
+    const saranNarrative = generateSaranNarrative(studentNick, state.saranSelected);
+    if (saranNarrative) mergedTemplate['saran'] = saranNarrative;
 
     renderPreview(
       mainContent.querySelector('#preview-panel'),
@@ -1273,7 +1304,10 @@ function renderMainPanel(state, container) {
         const sel = countSelected(indicators);
         const resetBtn = mainContent.querySelector('#btn-reset-progress');
         if (resetBtn) resetBtn.disabled = sel.total === 0;
-        if (sel.total === 0 && !state.kokurikulerNarrative) {
+        const hasOtherContent = state.kokurikulerNarrative ||
+          Object.keys(state.nilaiPlusSelected).length > 0 ||
+          Object.keys(state.saranSelected).length > 0;
+        if (sel.total === 0 && !hasOtherContent) {
           state.templateResult = {};
           state.aiResult = {};
           renderPreview(mainContent.querySelector('#preview-panel'), null, null);
@@ -1361,6 +1395,42 @@ function renderMainPanel(state, container) {
     }
   );
 
+  // Nilai Plus checklist — appended below kokurikuler
+  const scrollPreviewToSection = (sectionId) => {
+    if (window.innerWidth <= 1024) return;
+    requestAnimationFrame(() => {
+      mainContent.querySelector(`#preview-panel #section-${sectionId}`)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  };
+
+  renderNilaiPlusChecklist(
+    mainContent.querySelector('#checklist-panel'),
+    state.nilaiPlusSelected,
+    (npSel) => {
+      state.nilaiPlusSelected = npSel;
+      renderPreviewWithCallbacks();
+      scrollPreviewToSection('nilai-plus');
+      saveProgress(state);
+      const saveStatus = mainContent.querySelector('#save-status');
+      if (saveStatus) saveStatus.textContent = '✓ Tersimpan ' + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    }
+  );
+
+  // Saran checklist — appended below nilai-plus
+  renderSaranChecklist(
+    mainContent.querySelector('#checklist-panel'),
+    state.saranSelected,
+    (saranSel) => {
+      state.saranSelected = saranSel;
+      renderPreviewWithCallbacks();
+      scrollPreviewToSection('saran');
+      saveProgress(state);
+      const saveStatus = mainContent.querySelector('#save-status');
+      if (saveStatus) saveStatus.textContent = '✓ Tersimpan ' + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    }
+  );
+
   // Rebuild kokurikuler narrative from restored state
   if (Object.keys(state.kokurikulerSelected).length > 0) {
     state.kokurikulerNarrative = generateKokurikulerNarrative(
@@ -1370,7 +1440,9 @@ function renderMainPanel(state, container) {
   }
 
   // Initial preview render (uses restored state if available)
-  if (Object.keys(state.templateResult).length > 0 || state.kokurikulerNarrative) {
+  const hasAnyContent = Object.keys(state.templateResult).length > 0 || state.kokurikulerNarrative ||
+    Object.keys(state.nilaiPlusSelected).length > 0 || Object.keys(state.saranSelected).length > 0;
+  if (hasAnyContent) {
     renderPreviewWithCallbacks();
   } else {
     renderPreview(
@@ -1796,6 +1868,8 @@ function openCopyCapaianModal(state) {
       const data = {
         selectedIndicators: { ...state.selectedIndicators },
         kokurikulerSelected: { ...state.kokurikulerSelected },
+        nilaiPlusSelected: { ...state.nilaiPlusSelected },
+        saranSelected: { ...state.saranSelected },
         aiResult: {},
         aiKokurikuler: null,
         semester,
@@ -2458,20 +2532,19 @@ function addAppShellStyles(container) {
       width: 28px;
       height: 28px;
       border-radius: var(--radius-sm);
-      border: none;
-      background: none;
-      color: var(--text-tertiary);
+      border: 1px solid var(--border-light);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
       cursor: pointer;
-      opacity: 0;
+      opacity: 1;
       transition: all var(--transition-fast);
       flex-shrink: 0;
     }
-    .student-item-row:hover .student-edit-btn,
-    .student-item-row:hover .student-delete-btn { opacity: 1; }
     .student-item-row:has(.student-item.active) .student-edit-btn,
-    .student-item-row:has(.student-item.active) .student-delete-btn { opacity: 1; color: rgba(255,255,255,0.6); }
+    .student-item-row:has(.student-item.active) .student-delete-btn { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.15); }
     .student-edit-btn:hover {
-      background: var(--bg-card-hover);
+      background: var(--primary-light);
+      border-color: var(--primary);
       color: var(--primary);
     }
     .student-delete-btn {
@@ -2481,16 +2554,17 @@ function addAppShellStyles(container) {
       width: 28px;
       height: 28px;
       border-radius: var(--radius-sm);
-      border: none;
-      background: none;
-      color: var(--text-tertiary);
+      border: 1px solid var(--border-light);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
       cursor: pointer;
-      opacity: 0;
+      opacity: 1;
       transition: all var(--transition-fast);
       flex-shrink: 0;
     }
     .student-delete-btn:hover {
       background: rgba(220,38,38,0.08);
+      border-color: var(--error, #DC2626);
       color: var(--error, #DC2626);
     }
 
