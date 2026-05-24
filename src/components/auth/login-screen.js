@@ -4,7 +4,7 @@
 
 import { showToast } from '../shared/toast.js';
 
-export function renderLoginScreen(container, authService) {
+export function renderLoginScreen(container, authService, redirectError = null) {
   container.innerHTML = `
     <div class="login-screen">
 
@@ -508,12 +508,17 @@ export function renderLoginScreen(container, authService) {
   `;
   container.appendChild(style);
 
+  if (redirectError) {
+    showToast(redirectError, 'error');
+  }
+
   container.querySelector('#btn-google-login').addEventListener('click', async (e) => {
     const btn = e.currentTarget;
     const originalHTML = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = '<span>Menghubungkan&hellip;</span>';
-
+    // signInWithRedirect navigates the page away on success — no restore needed.
+    // On error (rare init failure), restore so user can retry.
     try {
       await authService.signInWithGoogle();
     } catch (err) {
@@ -523,8 +528,4 @@ export function renderLoginScreen(container, authService) {
     }
   });
 
-  const CLIENT_ID = '667682428659-b137ifvd6hfhlt3tuu8p25tk3stdq9jl.apps.googleusercontent.com';
-  if (typeof authService.initOneTap === 'function') {
-    setTimeout(() => authService.initOneTap(CLIENT_ID), 500);
-  }
 }

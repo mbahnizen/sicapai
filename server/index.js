@@ -6,6 +6,7 @@ import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { request as httpsRequest } from 'node:https';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 
@@ -23,13 +24,32 @@ const PORT = process.env.PORT || 3000;
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+// ---- Firebase Auth Proxy ----
+// Must be registered BEFORE helmet so the proxied Firebase auth handler
+// pages are not subject to our CSP headers. Firebase's /__/auth/handler
+// contains inline scripts that would otherwise be blocked by script-src.
+app.use('/__/auth', (req, res) => {
+  const proxyReq = httpsRequest({
+    hostname: 'sicapai-paud-a293b.firebaseapp.com',
+    port: 443,
+    path: '/__/auth' + req.url,
+    method: req.method,
+    headers: { host: 'sicapai-paud-a293b.firebaseapp.com' },
+  }, (proxyRes) => {
+    res.writeHead(proxyRes.statusCode, proxyRes.headers);
+    proxyRes.pipe(res, { end: true });
+  });
+  proxyReq.on('error', () => res.status(502).end());
+  req.pipe(proxyReq, { end: true });
+});
+
 // ---- Security & Rate Limiting ----
 app.use(helmet({
   contentSecurityPolicy: isProduction ? {
     reportOnly: false,
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://accounts.google.com"],
+      scriptSrc: ["'self'", "https://apis.google.com"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://accounts.google.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:", "https://*.googleusercontent.com"],
@@ -38,8 +58,9 @@ app.use(helmet({
         "https://identitytoolkit.googleapis.com",
         "https://securetoken.googleapis.com",
         "https://accounts.google.com",
+        "https://apis.google.com",
       ],
-      frameSrc: ["https://accounts.google.com"],
+      frameSrc: ["'self'", "https://accounts.google.com", "https://sicapai-paud-a293b.firebaseapp.com"],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
     },

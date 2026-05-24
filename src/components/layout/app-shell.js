@@ -224,7 +224,9 @@ function setupUserDropdown(container) {
   const trigger = container.querySelector('#user-menu-trigger');
   const menu = container.querySelector('#user-dropdown-menu');
 
-  // Portal: move to body so no parent overflow/transform/zoom can clip it
+  // Portal: move to body so no parent overflow/transform/zoom can clip it.
+  // data-portal marks it for cleanup when the app re-renders (see main.js).
+  menu.dataset.portal = '';
   document.body.appendChild(menu);
   menu.style.cssText = `
     position:fixed;
