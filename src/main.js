@@ -25,9 +25,12 @@ class App {
   }
 
   init() {
-    // Listen for auth state changes
-    // Firebase may fire this MULTIPLE times (null → user, token refresh, etc.)
-    // Each fire increments renderVersion; stale renders bail out safely.
+    // Process redirect result from signInWithRedirect (no-op if not a redirect flow).
+    // Must be called before onAuthStateChanged so any error is available for the login screen.
+    this.authService.getRedirectResult().catch((err) => {
+      this._redirectError = err.message;
+    });
+
     this.authService.onAuthStateChanged((user) => {
       this.currentUser = user;
       this.render();
@@ -47,6 +50,10 @@ class App {
     const myVersion = ++this._renderVersion;
     this.initialized = true;
 
+    // Remove any portaled elements (e.g. user dropdown menu) left in document.body
+    // from the previous render before rebuilding.
+    document.querySelectorAll('[data-portal]').forEach(el => el.remove());
+
     // Clear #app completely and rebuild
     this.appContainer.innerHTML = '';
 
@@ -54,7 +61,8 @@ class App {
       if (this.currentUser) {
         await renderAppShell(this.appContainer, this.currentUser, this.authService);
       } else {
-        renderLoginScreen(this.appContainer, this.authService);
+        renderLoginScreen(this.appContainer, this.authService, this._redirectError);
+        this._redirectError = null;
       }
 
       // After await: check if a NEWER render has started while we were waiting.
