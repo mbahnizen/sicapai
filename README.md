@@ -7,7 +7,7 @@
 
   [![Deploy ke Cloud Run](https://github.com/mbahnizen/sicapai/actions/workflows/deploy.yml/badge.svg)](https://github.com/mbahnizen/sicapai/actions/workflows/deploy.yml)
   [![Lisensi: MIT](https://img.shields.io/badge/Lisensi-MIT-blue.svg)](LICENSE)
-  [![Node.js 22](https://img.shields.io/badge/Node.js-22-green.svg)](https://nodejs.org)
+  [![Node.js 24](https://img.shields.io/badge/Node.js-24-green.svg)](https://nodejs.org)
 
 </div>
 
@@ -54,7 +54,7 @@ Guru PAUD/TK di Indonesia menghabiskan berjam-jam menulis narasi rapor secara ma
 
 ### Prasyarat
 
-- Node.js 22+
+- Node.js 24+
 - Akun Firebase dengan Firestore aktif
 - Gemini API key (gratis di [Google AI Studio](https://aistudio.google.com))
 
