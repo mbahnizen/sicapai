@@ -1,13 +1,13 @@
 const _hostname = typeof window !== 'undefined' ? window.location.hostname : '';
 const authDomain = _hostname.endsWith('.run.app')
   ? _hostname
-  : 'sicapai-paud-a293b.firebaseapp.com';
+  : import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
 
 export const firebaseConfig = {
-  apiKey: 'AIzaSyBL5FR6BzuK3FZ7gVAu9jUbx2PyX-Sy6ek',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain,
-  projectId: 'sicapai-paud',
-  storageBucket: 'sicapai-paud.firebasestorage.app',
-  appId: '1:555383432296:web:a0b1d285f6cd62efee87dd',
-  messagingSenderId: '555383432296',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
 };
