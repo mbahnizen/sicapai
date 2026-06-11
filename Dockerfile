@@ -1,5 +1,5 @@
 # ─── Stage 1: Build frontend (Vite) ──────────────────────────────────────────
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
@@ -10,7 +10,7 @@ RUN npm run build
 
 
 # ─── Stage 2: Production image ────────────────────────────────────────────────
-FROM node:22-alpine AS production
+FROM node:24-alpine AS production
 WORKDIR /app
 
 COPY package*.json ./
