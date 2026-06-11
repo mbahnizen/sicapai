@@ -69,6 +69,7 @@ export const api = {
   // ---- Students ----
   getStudents: (institutionId) => apiRequest(`/institutions/${institutionId}/students`),
   createStudent: (data) => apiRequest('/students', { method: 'POST', body: data }),
+  createStudentsBatch: (institutionId, students) => apiRequest('/students/batch', { method: 'POST', body: { institutionId, students } }),
   updateStudent: (id, data) => apiRequest(`/students/${id}`, { method: 'PUT', body: data }),
   deleteStudent: (id) => apiRequest(`/students/${id}`, { method: 'DELETE' }),
 

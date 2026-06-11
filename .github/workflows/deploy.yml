@@ -1,0 +1,35 @@
+name: Deploy ke Cloud Run
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write   # diperlukan untuk Workload Identity Federation
+
+    steps:
+      - name: Checkout kode
+        uses: actions/checkout@v4
+
+      - name: Autentikasi ke Google Cloud (WIF)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build & Deploy ke Cloud Run
+        run: |
+          gcloud run deploy sicapai \
+            --source . \
+            --region asia-southeast2 \
+            --project sicapai-paud \
+            --quiet

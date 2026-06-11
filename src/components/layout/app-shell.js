@@ -161,7 +161,10 @@ export async function renderAppShell(container, user, authService) {
         <aside class="app-sidebar" id="app-sidebar" data-state="loading">
           <div class="sidebar-header">
             <h3 class="sidebar-title">👧 Daftar Siswa</h3>
-            <button class="btn btn-sm btn-primary" id="btn-add-student" disabled>+ Tambah</button>
+            <div style="display:flex;gap:var(--space-1)">
+              <button class="btn btn-sm btn-ghost" id="btn-bulk-add-student" disabled title="Tambah banyak siswa sekaligus">Massal</button>
+              <button class="btn btn-sm btn-primary" id="btn-add-student" disabled>+ Tambah</button>
+            </div>
           </div>
           <div class="sidebar-body" id="student-list">
             <div class="sidebar-loading">
@@ -324,11 +327,18 @@ function setupWorkspaceSwitcher(container, state) {
 function setupAddStudent(container, state) {
   container.querySelector('#btn-add-student').addEventListener('click', () => {
     if (!state.currentInstitution) {
-      // Instead of error toast, guide user to create institution
       promptCreateInstitution(state, container);
       return;
     }
     showAddStudentForm(state, container);
+  });
+
+  container.querySelector('#btn-bulk-add-student').addEventListener('click', () => {
+    if (!state.currentInstitution) {
+      promptCreateInstitution(state, container);
+      return;
+    }
+    showBulkAddStudentForm(state, container);
   });
 }
 
@@ -455,6 +465,7 @@ function updateWorkspaceDisplay(state, container) {
   if (state.currentInstitution) {
     nameEl.textContent = state.currentInstitution.name;
     container.querySelector('#btn-add-student').disabled = false;
+    container.querySelector('#btn-bulk-add-student').disabled = false;
     if (exportBtn) exportBtn.style.display = '';
   } else {
     nameEl.textContent = 'Pilih Instansi...';
@@ -2293,6 +2304,287 @@ function showAddStudentForm(state, container, offlineMode = false) {
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Simpan Siswa';
+        showToast(err.message, 'error');
+      }
+    });
+  });
+}
+
+// ---- Bulk Add Students ----
+function showBulkAddStudentForm(state, container) {
+  import('../shared/modal.js').then(({ showModal }) => {
+    if (!document.querySelector('#bulk-add-styles')) {
+      const s = document.createElement('style');
+      s.id = 'bulk-add-styles';
+      s.textContent = `
+        .bulk-hint{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);font-size:var(--font-size-xs);color:var(--text-secondary);margin-bottom:var(--space-4);line-height:1.6}
+        .bulk-hint strong{color:var(--text-primary)}
+        .bulk-hint em{font-style:normal;background:var(--bg-primary);border:1px solid var(--border-light);border-radius:3px;padding:1px 4px;font-size:.75rem;font-family:monospace}
+        .bulk-table-wrap{overflow-x:auto;margin-bottom:var(--space-3);border:1px solid var(--border-light);border-radius:var(--radius-md);max-height:360px;overflow-y:auto}
+        .bulk-table{width:100%;border-collapse:collapse;font-size:var(--font-size-sm)}
+        .bulk-table th{background:var(--bg-secondary);padding:var(--space-2) var(--space-3);text-align:left;font-size:var(--font-size-xs);font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border-light);white-space:nowrap;position:sticky;top:0;z-index:1}
+        .bulk-table td{padding:var(--space-1) var(--space-2);border-bottom:1px solid var(--border-light)}
+        .bulk-table tr:last-child td{border-bottom:none}
+        .bulk-table .form-input,.bulk-table .form-select{font-size:var(--font-size-sm);padding:6px var(--space-3);height:auto}
+        .bulk-table .form-input{min-width:140px}
+        .bulk-table .form-select{min-width:100px}
+        .bulk-table .input-error{border-color:var(--danger,#e53e3e)!important;background:#fff8f8}
+        .bulk-row-del{background:none;border:none;cursor:pointer;color:var(--text-tertiary);padding:4px 6px;border-radius:var(--radius-sm);line-height:1;font-size:1.1rem;transition:color .15s}
+        .bulk-row-del:hover{color:var(--danger,#e53e3e)}
+        .bulk-footer{display:flex;align-items:center;justify-content:space-between;padding-top:var(--space-4);border-top:1px solid var(--border-light);margin-top:var(--space-2)}
+        .bulk-count{font-size:var(--font-size-sm);color:var(--text-secondary)}
+        .bulk-paste-flash{outline:2px solid var(--primary)!important;border-radius:var(--radius-md)}
+      `;
+      document.head.appendChild(s);
+    }
+
+    const RELIGIONS = ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu'];
+
+    function religionOptions(selected) {
+      return RELIGIONS.map(r => `<option value="${r}"${r === selected ? ' selected' : ''}>${r}</option>`).join('');
+    }
+
+    function createRowEl(data, countEl, saveBtn, tbody) {
+      const { name = '', nickname = '', gender = 'P', ageGroup = 'A', religion = 'Islam' } = data || {};
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input class="form-input bulk-name" type="text" placeholder="Nama lengkap" value="${escapeHTML(name)}" /></td>
+        <td><input class="form-input bulk-nickname" type="text" placeholder="Nama panggilan" value="${escapeHTML(nickname)}" /></td>
+        <td><select class="form-select bulk-gender">
+          <option value="P"${gender === 'P' ? ' selected' : ''}>Perempuan</option>
+          <option value="L"${gender === 'L' ? ' selected' : ''}>Laki-laki</option>
+        </select></td>
+        <td><select class="form-select bulk-agegroup">
+          <option value="A"${ageGroup === 'A' ? ' selected' : ''}>Kelompok A</option>
+          <option value="B"${ageGroup === 'B' ? ' selected' : ''}>Kelompok B</option>
+        </select></td>
+        <td><select class="form-select bulk-religion">${religionOptions(religion)}</select></td>
+        <td><button class="bulk-row-del" type="button" title="Hapus baris">&times;</button></td>
+      `;
+      tr.querySelector('.bulk-row-del').addEventListener('click', () => {
+        tr.remove();
+        updateCount(tbody, countEl, saveBtn);
+        if (!tbody.querySelectorAll('tr').length) addRow(tbody, null, countEl, saveBtn);
+      });
+      tr.querySelectorAll('input,select').forEach(el => {
+        el.addEventListener('input', () => {
+          el.classList.remove('input-error');
+          updateCount(tbody, countEl, saveBtn);
+        });
+      });
+      return tr;
+    }
+
+    function getLastRowDefaults(tbody) {
+      const rows = tbody.querySelectorAll('tr');
+      if (!rows.length) return {};
+      const last = rows[rows.length - 1];
+      return {
+        gender: last.querySelector('.bulk-gender').value,
+        ageGroup: last.querySelector('.bulk-agegroup').value,
+        religion: last.querySelector('.bulk-religion').value,
+      };
+    }
+
+    function updateCount(tbody, countEl, saveBtn) {
+      const filled = [...tbody.querySelectorAll('tr')].filter(r => r.querySelector('.bulk-name').value.trim()).length;
+      countEl.textContent = `${filled} siswa`;
+      saveBtn.textContent = filled > 0 ? `Simpan Semua (${filled} siswa)` : 'Simpan Semua';
+    }
+
+    function addRow(tbody, data, countEl, saveBtn) {
+      const merged = { ...getLastRowDefaults(tbody), ...(data || {}) };
+      const tr = createRowEl(merged, countEl, saveBtn, tbody);
+      tbody.appendChild(tr);
+      updateCount(tbody, countEl, saveBtn);
+      return tr;
+    }
+
+    function parseGender(raw) {
+      const v = (raw || '').toLowerCase().trim();
+      return (v === 'l' || v.startsWith('laki')) ? 'L' : 'P';
+    }
+
+    function parseAgeGroup(raw) {
+      const v = (raw || '').trim().toUpperCase();
+      return (v === 'B' || v === 'KELOMPOK B' || v === 'KB') ? 'B' : 'A';
+    }
+
+    function parseReligion(raw) {
+      const v = (raw || '').toLowerCase().trim();
+      return RELIGIONS.find(r => r.toLowerCase() === v) || 'Islam';
+    }
+
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `
+      <div class="bulk-hint">
+        <strong>Tip paste dari Excel / Google Sheets:</strong> Susun kolom spreadsheet:
+        <em>Nama Lengkap</em> <em>Nama Panggilan</em> <em>Jenis Kelamin</em> <em>Kelompok</em> <em>Agama</em>,
+        lalu klik di area tabel di bawah dan tekan <strong>Ctrl+V</strong>.
+      </div>
+      <div class="bulk-table-wrap" id="bulk-table-wrap" tabindex="0">
+        <table class="bulk-table">
+          <thead><tr>
+            <th>Nama Lengkap</th><th>Nama Panggilan</th>
+            <th>Jenis Kelamin</th><th>Kelompok</th><th>Agama</th><th></th>
+          </tr></thead>
+          <tbody id="bulk-tbody"></tbody>
+        </table>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btn-bulk-add-row" style="margin-bottom:var(--space-3)">+ Tambah Baris</button>
+      <div class="bulk-footer">
+        <span class="bulk-count" id="bulk-count">0 siswa</span>
+        <button class="btn btn-primary" id="btn-bulk-save">Simpan Semua</button>
+      </div>
+    `;
+
+    const modal = showModal({ title: '👥 Tambah Siswa Massal', content: wrap });
+
+    // Widen the modal for the table
+    const modalEl = modal.element.querySelector('.modal');
+    if (modalEl) modalEl.style.maxWidth = '760px';
+
+    const tbody = wrap.querySelector('#bulk-tbody');
+    const countEl = wrap.querySelector('#bulk-count');
+    const saveBtn = wrap.querySelector('#btn-bulk-save');
+
+    // Start with 5 empty rows
+    for (let i = 0; i < 5; i++) addRow(tbody, null, countEl, saveBtn);
+
+    wrap.querySelector('#btn-bulk-add-row').addEventListener('click', () => {
+      const tr = addRow(tbody, null, countEl, saveBtn);
+      tr.querySelector('.bulk-name').focus();
+      // Scroll table to bottom
+      const tableWrap = wrap.querySelector('#bulk-table-wrap');
+      tableWrap.scrollTop = tableWrap.scrollHeight;
+    });
+
+    // Paste handler — intercepts TSV from Excel / Google Sheets
+    wrap.addEventListener('paste', (e) => {
+      const text = (e.clipboardData || window.clipboardData).getData('text');
+      if (!text.includes('\t')) return; // not TSV, let default happen
+
+      e.preventDefault();
+
+      const lines = text.split(/\r?\n/).map(l => l.trimEnd()).filter(l => l);
+      if (!lines.length) return;
+
+      // Skip header row if cells look like column labels
+      const HEADER_WORDS = ['nama', 'panggilan', 'kelamin', 'jenis', 'kelompok', 'agama', 'gender', 'name', 'group'];
+      const firstCells = lines[0].split('\t').map(c => c.toLowerCase().trim());
+      const firstIsHeader = firstCells.some(c => HEADER_WORDS.includes(c));
+      const dataLines = firstIsHeader ? lines.slice(1) : lines;
+
+      if (!dataLines.length) return;
+
+      // Remove empty rows to make room for pasted data
+      [...tbody.querySelectorAll('tr')].forEach(tr => {
+        if (!tr.querySelector('.bulk-name').value.trim() && !tr.querySelector('.bulk-nickname').value.trim()) {
+          tr.remove();
+        }
+      });
+
+      dataLines.forEach(line => {
+        const cells = line.split('\t');
+        addRow(tbody, {
+          name: cells[0]?.trim() || '',
+          nickname: cells[1]?.trim() || '',
+          gender: parseGender(cells[2]),
+          ageGroup: parseAgeGroup(cells[3]),
+          religion: parseReligion(cells[4]),
+        }, countEl, saveBtn);
+      });
+
+      // Flash outline to confirm paste received
+      const tableWrap = wrap.querySelector('#bulk-table-wrap');
+      tableWrap.classList.add('bulk-paste-flash');
+      setTimeout(() => tableWrap.classList.remove('bulk-paste-flash'), 500);
+
+      showToast(`${dataLines.length} baris berhasil ditempel dari spreadsheet`, 'success');
+    });
+
+    // Save handler
+    saveBtn.addEventListener('click', async () => {
+      const rows = [...tbody.querySelectorAll('tr')];
+      const students = [];
+      let hasError = false;
+
+      rows.forEach(tr => {
+        const nameEl = tr.querySelector('.bulk-name');
+        const nicknameEl = tr.querySelector('.bulk-nickname');
+        const name = nameEl.value.trim();
+        const nickname = nicknameEl.value.trim();
+
+        if (!name && !nickname) return; // silently skip empty rows
+
+        if (!name) {
+          nameEl.classList.add('input-error');
+          hasError = true;
+          return;
+        }
+        if (!nickname) {
+          nicknameEl.classList.add('input-error');
+          hasError = true;
+          return;
+        }
+
+        students.push({
+          idempotencyKey: 'stu_' + Date.now().toString(36) + Math.random().toString(36).substr(2),
+          name,
+          nickname,
+          gender: tr.querySelector('.bulk-gender').value,
+          ageGroup: tr.querySelector('.bulk-agegroup').value,
+          religion: tr.querySelector('.bulk-religion').value,
+        });
+      });
+
+      if (hasError) {
+        showToast('Periksa baris yang ditandai merah', 'warning');
+        return;
+      }
+      if (!students.length) {
+        showToast('Belum ada siswa yang diisi', 'warning');
+        return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = `Menyimpan ${students.length} siswa...`;
+
+      try {
+        const wasEmpty = state.students.length === 0;
+        const { created, failed } = await api.createStudentsBatch(state.currentInstitution.id, students);
+
+        created.forEach(s => {
+          if (!state.students.find(ex => ex.id === s.id)) state.students.push(s);
+        });
+        state.students.sort((a, b) => a.name.localeCompare(b.name));
+        renderStudentList(state, container);
+        modal.close();
+
+        if (failed.length === 0) {
+          showToast(`${created.length} siswa berhasil ditambahkan! 🎉`, 'success');
+        } else {
+          showToast(`${created.length} berhasil, ${failed.length} gagal ditambahkan`, 'warning');
+        }
+
+        // Auto-select first student if institution was empty before
+        if (wasEmpty && created.length > 0) {
+          const first = created[0];
+          state.selectedStudent = first;
+          state.selectedIndicators = {};
+          state.templateResult = {};
+          state.aiResult = null;
+          state.aiHistory = {};
+          state.kokurikulerSelected = {};
+          state.kokurikulerNarrative = '';
+          state.aiKokurikuler = null;
+          const listEl = container.querySelector('#student-list');
+          listEl.querySelector(`.student-item[data-id="${first.id}"]`)?.classList.add('active');
+          renderMainPanel(state, container);
+        }
+      } catch (err) {
+        saveBtn.disabled = false;
+        saveBtn.textContent = students.length > 0 ? `Simpan Semua (${students.length} siswa)` : 'Simpan Semua';
         showToast(err.message, 'error');
       }
     });
