@@ -54,7 +54,15 @@ konteks-projek.md
 HANDOVER.md
 DEPLOY.md
 DEPLOY_CHECKLIST.md
+
+# ----------------------------------------------------------------------------
+# 5. MATERI MARKETING & EVENT (tidak relevan dengan kode)
+# ----------------------------------------------------------------------------
+*.zip
+SiCAPAI/
 JuaraVibeCoding.md
+linkedin-*.md
+submission-*.md
 
 # ----------------------------------------------------------------------------
 # 5. OS & IDE SETTINGS (TIDAK BERKEPENTINGAN)

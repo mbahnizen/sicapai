@@ -7,6 +7,51 @@ import { db, checkMembership } from '../middleware/auth.js';
 
 const router = Router();
 
+// POST /api/students/batch — create multiple students
+router.post('/batch', async (req, res) => {
+  try {
+    const { institutionId, students } = req.body;
+    if (!institutionId || !Array.isArray(students) || students.length === 0) {
+      return res.status(400).json({ message: 'institutionId dan daftar siswa wajib diisi' });
+    }
+    if (students.length > 100) {
+      return res.status(400).json({ message: 'Maksimal 100 siswa per batch' });
+    }
+
+    const isMember = await checkMembership(req.user.uid, institutionId);
+    if (!isMember) {
+      return res.status(403).json({ message: 'Akses ditolak: Anda bukan anggota instansi ini' });
+    }
+
+    const results = await Promise.allSettled(
+      students.map(async ({ idempotencyKey, name, nickname, gender, ageGroup, religion }) => {
+        if (!name) throw new Error('Nama wajib diisi');
+        const docRef = idempotencyKey
+          ? db.collection('students').doc(idempotencyKey)
+          : db.collection('students').doc();
+        await docRef.set({
+          name, nickname: nickname || null, gender, ageGroup, religion, institutionId,
+          createdBy: req.user.uid,
+          createdAt: new Date(),
+        }, { merge: true });
+        return { id: docRef.id, name, nickname: nickname || null, gender, ageGroup, religion, institutionId };
+      })
+    );
+
+    const created = [];
+    const failed = [];
+    results.forEach((r, i) => {
+      if (r.status === 'fulfilled') created.push(r.value);
+      else failed.push({ index: i, name: students[i]?.name, error: r.reason?.message });
+    });
+
+    res.status(201).json({ created, failed });
+  } catch (error) {
+    console.error('Batch create students error:', error);
+    res.status(500).json({ message: 'Gagal menambahkan siswa' });
+  }
+});
+
 // POST /api/students — create student
 router.post('/', async (req, res) => {
   try {
