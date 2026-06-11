@@ -1,0 +1,50 @@
+substitutions:
+  _VITE_FIREBASE_API_KEY: ''
+  _VITE_FIREBASE_AUTH_DOMAIN: ''
+  _VITE_FIREBASE_PROJECT_ID: ''
+  _VITE_FIREBASE_STORAGE_BUCKET: ''
+  _VITE_FIREBASE_APP_ID: ''
+  _VITE_FIREBASE_MESSAGING_SENDER_ID: ''
+
+steps:
+  # Step 1: Write Firebase config to .env so Vite bakes them into the bundle
+  - name: 'alpine'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - >-
+        echo "VITE_FIREBASE_API_KEY=$_VITE_FIREBASE_API_KEY" > .env &&
+        echo "VITE_FIREBASE_AUTH_DOMAIN=$_VITE_FIREBASE_AUTH_DOMAIN" >> .env &&
+        echo "VITE_FIREBASE_PROJECT_ID=$_VITE_FIREBASE_PROJECT_ID" >> .env &&
+        echo "VITE_FIREBASE_STORAGE_BUCKET=$_VITE_FIREBASE_STORAGE_BUCKET" >> .env &&
+        echo "VITE_FIREBASE_APP_ID=$_VITE_FIREBASE_APP_ID" >> .env &&
+        echo "VITE_FIREBASE_MESSAGING_SENDER_ID=$_VITE_FIREBASE_MESSAGING_SENDER_ID" >> .env
+
+  # Step 2: Build Docker image (COPY . . picks up the .env written above)
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - -t
+      - asia-southeast2-docker.pkg.dev/sicapai-paud/cloud-run-source-deploy/sicapai:$BUILD_ID
+      - .
+
+  # Step 3: Push to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - asia-southeast2-docker.pkg.dev/sicapai-paud/cloud-run-source-deploy/sicapai:$BUILD_ID
+
+  # Step 4: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args:
+      - gcloud
+      - run
+      - deploy
+      - sicapai
+      - --image=asia-southeast2-docker.pkg.dev/sicapai-paud/cloud-run-source-deploy/sicapai:$BUILD_ID
+      - --region=asia-southeast2
+      - --project=sicapai-paud
+      - --quiet
+
+images:
+  - asia-southeast2-docker.pkg.dev/sicapai-paud/cloud-run-source-deploy/sicapai:$BUILD_ID
