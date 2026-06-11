@@ -1,0 +1,23 @@
+# .gcloudignore — controls what gets uploaded to Cloud Build.
+# Intentionally mirrors .gitignore but WITHOUT .env:
+# .env is created by CI from GitHub Secrets and must be present
+# so Vite can bake VITE_* variables into the frontend bundle at build time.
+
+# Dependencies
+node_modules/
+
+# Build output (Docker stage 1 builds this fresh)
+dist/
+dist-ssr/
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
