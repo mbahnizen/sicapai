@@ -949,8 +949,7 @@ function renderMainPanel(state, container) {
         if (saveStatus) saveStatus.textContent = '✓ Tersimpan ' + new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
         renderPreviewWithCallbacks();
         showToast('Narasi berhasil diperindah! ✨', 'success');
-        const sectionEl = mainContent.querySelector('#section-kokurikuler');
-        if (sectionEl) sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        scrollToSection('kokurikuler');
       } catch (err) {
         showToast(err.message || 'Gagal generate AI. Coba lagi nanti.', 'error');
         throw err;
@@ -985,8 +984,7 @@ function renderMainPanel(state, container) {
       renderPreviewWithCallbacks();
       showToast('Narasi berhasil diperindah! ✨', 'success');
 
-      const sectionEl = mainContent.querySelector(`#section-${sectionId}`);
-      if (sectionEl) sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      scrollToSection(sectionId);
     } catch (err) {
       showToast(err.message || 'Gagal generate AI. Coba lagi nanti.', 'error');
       throw err;
@@ -1232,10 +1230,16 @@ function renderMainPanel(state, container) {
     }
   };
 
+  // Scroll only within .preview-body — never use scrollIntoView which propagates
+  // up to app-main and shifts the checklist panel out of view.
   const scrollToSection = (sectionId) => {
+    if (window.innerWidth <= 1024) return;
     requestAnimationFrame(() => {
+      const previewBody = mainContent.querySelector('.preview-body');
       const el = mainContent.querySelector(`#section-${sectionId}`);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (!previewBody || !el) return;
+      const top = previewBody.scrollTop + el.getBoundingClientRect().top - previewBody.getBoundingClientRect().top;
+      previewBody.scrollTo({ top, behavior: 'smooth' });
     });
   };
 
@@ -1372,9 +1376,16 @@ function renderMainPanel(state, container) {
                 if (prevTemplate[sectionId] !== state.templateResult[sectionId]) {
                   const el = mainContent.querySelector(`#section-${sectionId} .preview-narrative`);
                   if (!el) return;
-                  // Scroll first changed section into view inside .preview-body
                   if (!scrolledOnce) {
-                    el.closest('.preview-section')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    const previewBody = mainContent.querySelector('.preview-body');
+                    const section = el.closest('.preview-section');
+                    if (previewBody && section) {
+                      const bodyRect = previewBody.getBoundingClientRect();
+                      const secRect = section.getBoundingClientRect();
+                      if (secRect.bottom > bodyRect.bottom || secRect.top < bodyRect.top) {
+                        previewBody.scrollTo({ top: previewBody.scrollTop + (secRect.top - bodyRect.top), behavior: 'smooth' });
+                      }
+                    }
                     scrolledOnce = true;
                   }
                   el.classList.remove('narrative-changed');
@@ -1414,7 +1425,15 @@ function renderMainPanel(state, container) {
         requestAnimationFrame(() => {
           const el = mainContent.querySelector('#section-kokurikuler .preview-narrative');
           if (!el) return;
-          el.closest('.preview-section')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          const previewBody = mainContent.querySelector('.preview-body');
+          const section = el.closest('.preview-section');
+          if (previewBody && section) {
+            const bodyRect = previewBody.getBoundingClientRect();
+            const secRect = section.getBoundingClientRect();
+            if (secRect.bottom > bodyRect.bottom || secRect.top < bodyRect.top) {
+              previewBody.scrollTo({ top: previewBody.scrollTop + (secRect.top - bodyRect.top), behavior: 'smooth' });
+            }
+          }
           el.classList.remove('narrative-changed');
           void el.offsetWidth;
           el.classList.add('narrative-changed');
@@ -1429,11 +1448,7 @@ function renderMainPanel(state, container) {
 
   // Nilai Plus checklist — appended below kokurikuler
   const scrollPreviewToSection = (sectionId) => {
-    if (window.innerWidth <= 1024) return;
-    requestAnimationFrame(() => {
-      mainContent.querySelector(`#preview-panel #section-${sectionId}`)
-        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    scrollToSection(sectionId);
   };
 
   renderNilaiPlusChecklist(
