@@ -44,6 +44,7 @@ steps:
       - --image=asia-southeast2-docker.pkg.dev/sicapai-paud/cloud-run-source-deploy/sicapai:$BUILD_ID
       - --region=asia-southeast2
       - --project=sicapai-paud
+      - --allow-unauthenticated
       - --quiet
 
 images:
