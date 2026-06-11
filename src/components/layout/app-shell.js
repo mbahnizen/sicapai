@@ -2434,7 +2434,10 @@ function showBulkAddStudentForm(state, container) {
           <tbody id="bulk-tbody"></tbody>
         </table>
       </div>
-      <button class="btn btn-ghost btn-sm" id="btn-bulk-add-row" style="margin-bottom:var(--space-3)">+ Tambah Baris</button>
+      <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-3)">
+        <button class="btn btn-ghost btn-sm" id="btn-bulk-add-row">+ Tambah Baris</button>
+        <button class="btn btn-ghost btn-sm" id="btn-bulk-clear" style="color:var(--text-tertiary)">Bersihkan Semua</button>
+      </div>
       <div class="bulk-footer">
         <span class="bulk-count" id="bulk-count">0 siswa</span>
         <button class="btn btn-primary" id="btn-bulk-save">Simpan Semua</button>
@@ -2457,9 +2460,21 @@ function showBulkAddStudentForm(state, container) {
     wrap.querySelector('#btn-bulk-add-row').addEventListener('click', () => {
       const tr = addRow(tbody, null, countEl, saveBtn);
       tr.querySelector('.bulk-name').focus();
-      // Scroll table to bottom
       const tableWrap = wrap.querySelector('#bulk-table-wrap');
       tableWrap.scrollTop = tableWrap.scrollHeight;
+    });
+
+    wrap.querySelector('#btn-bulk-clear').addEventListener('click', () => {
+      tbody.querySelectorAll('tr').forEach(tr => {
+        tr.querySelector('.bulk-name').value = '';
+        tr.querySelector('.bulk-nickname').value = '';
+        tr.querySelector('.bulk-gender').value = 'P';
+        tr.querySelector('.bulk-agegroup').value = 'A';
+        tr.querySelector('.bulk-religion').value = 'Islam';
+        tr.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
+      });
+      updateCount(tbody, countEl, saveBtn);
+      wrap.querySelector('#bulk-table-wrap').scrollTop = 0;
     });
 
     // Paste handler — intercepts TSV from Excel / Google Sheets
