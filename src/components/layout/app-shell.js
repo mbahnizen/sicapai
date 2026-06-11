@@ -2325,7 +2325,7 @@ function showBulkAddStudentForm(state, container) {
         .bulk-table-wrap::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px}
         .bulk-table-wrap::-webkit-scrollbar-track{background:transparent}
         .bulk-table{width:100%;border-collapse:collapse;font-size:var(--font-size-sm)}
-        .bulk-table th{background:var(--bg-secondary);padding:var(--space-2) var(--space-3);text-align:left;font-size:var(--font-size-xs);font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border-light);white-space:nowrap;position:sticky;top:0;z-index:1}
+        .bulk-table th{background-color:var(--bg-body,#F0FDFA);padding:var(--space-2) var(--space-3);text-align:left;font-size:var(--font-size-xs);font-weight:600;color:var(--text-secondary);box-shadow:0 1px 0 var(--border-color,#C8F2EC);white-space:nowrap;position:sticky;top:0;z-index:1}
         .bulk-table td{padding:var(--space-1) var(--space-2);border-bottom:1px solid var(--border-light)}
         .bulk-table tr:last-child td{border-bottom:none}
         .bulk-table .form-input,.bulk-table .form-select{font-size:var(--font-size-sm);padding:6px var(--space-3);height:auto}
@@ -2489,9 +2489,11 @@ function showBulkAddStudentForm(state, container) {
 
       dataLines.forEach(line => {
         const cells = line.split('\t');
+        const name = cells[0]?.trim() || '';
+        const pastedNickname = cells[1]?.trim() || '';
         addRow(tbody, {
-          name: cells[0]?.trim() || '',
-          nickname: cells[1]?.trim() || '',
+          name,
+          nickname: pastedNickname || name.split(/\s+/)[0],
           gender: parseGender(cells[2]),
           ageGroup: parseAgeGroup(cells[3]),
           religion: parseReligion(cells[4]),
