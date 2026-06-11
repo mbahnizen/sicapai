@@ -2320,7 +2320,10 @@ function showBulkAddStudentForm(state, container) {
         .bulk-hint{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);font-size:var(--font-size-xs);color:var(--text-secondary);margin-bottom:var(--space-4);line-height:1.6}
         .bulk-hint strong{color:var(--text-primary)}
         .bulk-hint em{font-style:normal;background:var(--bg-primary);border:1px solid var(--border-light);border-radius:3px;padding:1px 4px;font-size:.75rem;font-family:monospace}
-        .bulk-table-wrap{overflow-x:auto;margin-bottom:var(--space-3);border:1px solid var(--border-light);border-radius:var(--radius-md);max-height:360px;overflow-y:auto}
+        .bulk-table-wrap{overflow-x:auto;overflow-y:auto;margin-bottom:var(--space-3);border:1px solid var(--border-light);border-radius:var(--radius-md);max-height:360px;scrollbar-width:thin;scrollbar-color:var(--border-light) transparent}
+        .bulk-table-wrap::-webkit-scrollbar{width:4px;height:4px}
+        .bulk-table-wrap::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:2px}
+        .bulk-table-wrap::-webkit-scrollbar-track{background:transparent}
         .bulk-table{width:100%;border-collapse:collapse;font-size:var(--font-size-sm)}
         .bulk-table th{background:var(--bg-secondary);padding:var(--space-2) var(--space-3);text-align:left;font-size:var(--font-size-xs);font-weight:600;color:var(--text-secondary);border-bottom:1px solid var(--border-light);white-space:nowrap;position:sticky;top:0;z-index:1}
         .bulk-table td{padding:var(--space-1) var(--space-2);border-bottom:1px solid var(--border-light)}
