@@ -1,78 +1,23 @@
-# ----------------------------------------------------------------------------
-# 1. DEPENDENCIES & BUILD OUTPUT
-# ----------------------------------------------------------------------------
+# Dependencies
 node_modules/
-dist/
-dist-ssr/
-build/
-coverage/
 
-# ----------------------------------------------------------------------------
-# 2. ENVIRONMENT & SECRETS (CRITICAL SECURITY)
-# ----------------------------------------------------------------------------
+# Environment variables
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
-*.local
+.env.*.local
 
-# Firebase Service Account Key (SANGAT RAHASIA)
-server/service-account.json
-*-adminsdk-*.json
+# Build output
+dist/
+dist-ssr/
 
-# ----------------------------------------------------------------------------
-# 3. LOGS & CACHE
-# ----------------------------------------------------------------------------
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.npm/
-
-# Firebase Cache
-.firebase/
-firebase-debug.log*
-firebase-export*
-
-# ----------------------------------------------------------------------------
-# 4. PERSONAL & WORKING DOCUMENTS (jangan commit)
-# ----------------------------------------------------------------------------
-# Dokumen perencanaan & implementasi sesi kerja
-implementation_plan.md
-*_implementation_plan.md
-*_plan.md
-
-# Audit keamanan — berisi daftar celah (sensitif walau sudah diperbaiki)
-security_audit*.md
-
-# Konteks & catatan pribadi proyek
-konteks-projek.md
-
-# Dokumen referensi pribadi lainnya
-HANDOVER.md
-DEPLOY.md
-DEPLOY_CHECKLIST.md
-
-# ----------------------------------------------------------------------------
-# 5. MATERI MARKETING & EVENT (tidak relevan dengan kode)
-# ----------------------------------------------------------------------------
-*.zip
-SiCAPAI/
-JuaraVibeCoding.md
-linkedin-*.md
-submission-*.md
-
-# ----------------------------------------------------------------------------
-# 5. OS & IDE SETTINGS (TIDAK BERKEPENTINGAN)
-# ----------------------------------------------------------------------------
-.DS_Store
-.DS_Store?
-._*
-Thumbs.db
-ehthumbs.db
-.idea/
-.vscode/
-.claude/
-*.swp
