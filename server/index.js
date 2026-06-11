@@ -28,13 +28,15 @@ const isProduction = process.env.NODE_ENV === 'production';
 // Must be registered BEFORE helmet so the proxied Firebase auth handler
 // pages are not subject to our CSP headers. Firebase's /__/auth/handler
 // contains inline scripts that would otherwise be blocked by script-src.
+const FIREBASE_AUTH_HOSTNAME = process.env.FIREBASE_AUTH_HOSTNAME || 'sicapai-paud-a293b.firebaseapp.com';
+
 app.use('/__/auth', (req, res) => {
   const proxyReq = httpsRequest({
-    hostname: 'sicapai-paud-a293b.firebaseapp.com',
+    hostname: FIREBASE_AUTH_HOSTNAME,
     port: 443,
     path: '/__/auth' + req.url,
     method: req.method,
-    headers: { host: 'sicapai-paud-a293b.firebaseapp.com' },
+    headers: { host: FIREBASE_AUTH_HOSTNAME },
   }, (proxyRes) => {
     res.writeHead(proxyRes.statusCode, proxyRes.headers);
     proxyRes.pipe(res, { end: true });
@@ -88,8 +90,8 @@ app.use('/api/quota', authMiddleware, quotaRoutes);
 app.use('/api/progress', authMiddleware, progressRoutes);
 
 // ---- Health Check ----
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', service: 'SiCAPAI API', timestamp: new Date().toISOString() });
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok' });
 });
 
 // ---- Serve Frontend (production) ----

@@ -9,6 +9,7 @@ export function showConfirmDialog({ title, message, confirmLabel = 'Ya, Hapus', 
   return new Promise((resolve) => {
     const backdrop = document.createElement('div');
     backdrop.className = 'modal-backdrop confirm-dialog-backdrop';
+    // title and message are NOT interpolated here — set via DOM below to prevent injection.
     backdrop.innerHTML = `
       <div class="modal confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="cd-title" aria-describedby="cd-message">
         <div class="confirm-dialog-icon ${danger ? 'confirm-dialog-icon--danger' : ''}">
@@ -18,20 +19,22 @@ export function showConfirmDialog({ title, message, confirmLabel = 'Ya, Hapus', 
             <line x1="12" y1="17" x2="12.01" y2="17"/>
           </svg>
         </div>
-        <h3 class="confirm-dialog-title" id="cd-title">${title}</h3>
-        <p class="confirm-dialog-message" id="cd-message">${message}</p>
+        <h3 class="confirm-dialog-title" id="cd-title"></h3>
+        <p class="confirm-dialog-message" id="cd-message"></p>
         <div class="confirm-dialog-actions">
-          <button class="btn confirm-dialog-cancel" id="cd-cancel">${cancelLabel}</button>
-          <button class="btn confirm-dialog-confirm ${danger ? 'confirm-dialog-confirm--danger' : ''}" id="cd-confirm">${confirmLabel}</button>
+          <button class="btn confirm-dialog-cancel" id="cd-cancel"></button>
+          <button class="btn confirm-dialog-confirm ${danger ? 'confirm-dialog-confirm--danger' : ''}" id="cd-confirm"></button>
         </div>
       </div>
     `;
 
-    // SECURITY: title is set via textContent to prevent injection regardless of caller input.
+    // title and button labels use textContent — safe against any input.
     backdrop.querySelector('#cd-title').textContent = title;
-    // SECURITY: `message` is rendered via innerHTML intentionally (unsafeHTML path).
-    // Callers that interpolate user data into `message` MUST escape it with escapeHTML().
-    // Currently 2 callers use HTML in message: finalize confirm (L927) and reset confirm (L1133).
+    backdrop.querySelector('#cd-cancel').textContent = cancelLabel;
+    backdrop.querySelector('#cd-confirm').textContent = confirmLabel;
+    // message uses innerHTML intentionally: callers pass trusted HTML (<br>, <strong>)
+    // with user-supplied strings already escaped via escapeHTML(). Do not pass raw user input here.
+    backdrop.querySelector('#cd-message').innerHTML = message;
 
     document.body.appendChild(backdrop);
 
@@ -61,17 +64,17 @@ export function showConfirmDialog({ title, message, confirmLabel = 'Ya, Hapus', 
 export function showModal({ title, content, onClose }) {
   const backdrop = document.createElement('div');
   backdrop.className = 'modal-backdrop';
+  // title is NOT interpolated here — set via textContent below.
   backdrop.innerHTML = `
     <div class="modal" role="dialog" aria-modal="true">
       <div class="modal-header">
-        <h2 class="modal-title">${title}</h2>
+        <h2 class="modal-title"></h2>
         <button class="modal-close" aria-label="Tutup" id="modal-close-btn">&times;</button>
       </div>
       <div class="modal-body" id="modal-body"></div>
     </div>
   `;
 
-  // SECURITY: title is set via textContent to prevent injection.
   backdrop.querySelector('.modal-title').textContent = title;
 
   const modalBody = backdrop.querySelector('#modal-body');
