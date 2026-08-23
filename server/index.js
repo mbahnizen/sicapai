@@ -113,8 +113,13 @@ app.use((err, req, res, _next) => {
 });
 
 // ---- Start ----
-app.listen(PORT, () => {
-  console.log(`🎓 SiCAPAI server running on port ${PORT}`);
-});
+// On Vercel this app is imported by api/index.js and invoked per request, so
+// binding a port would be wrong (and is not permitted). Everywhere else —
+// local dev, Docker, Cloud Run — listen as usual.
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🎓 SiCAPAI server running on port ${PORT}`);
+  });
+}
 
 export default app;
