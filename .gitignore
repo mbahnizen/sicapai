@@ -21,3 +21,9 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
+
+# Kredensial service account Firebase — jangan pernah masuk repo.
+# Entri ini sempat hilang saat .gitignore dirombak; berkasnya tidak pernah
+# ter-commit (sudah diperiksa), dan baris ini yang menjaganya tetap begitu.
+server/service-account.json
+service-account.json

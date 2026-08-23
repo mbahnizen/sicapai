@@ -41,6 +41,39 @@ Ambil dari `.env` lokal. **Jangan pernah commit nilai-nilai ini.**
 | `FIREBASE_SERVICE_ACCOUNT` | isi `server/service-account.json` sebagai **JSON satu baris** | Kode sudah mendukung ini (Opsi B di `.env.example`) — di Cloud Run pun begitu. |
 | `NODE_ENV` | `production` | Mengaktifkan CSP di helmet. |
 
+### Variabel build-time frontend (jangan dilewati)
+
+Enam variabel di bawah dibaca **Vite saat build**, bukan saat request. Kalau kosong,
+`src/config/firebase.js` menghasilkan config berisi `undefined`, build tetap "sukses",
+tapi aplikasi gagal inisialisasi Firebase di browser — halaman terbuka, login mati.
+Isi di Vercel untuk environment **Production** (dan Preview kalau dipakai) **sebelum**
+deploy pertama; kalau ditambahkan belakangan, wajib redeploy karena nilainya sudah
+ter-inline ke bundel.
+
+Ambil semuanya dari `.env` lokal:
+
+| Variable | Catatan |
+| :--- | :--- |
+| `VITE_FIREBASE_API_KEY` | |
+| `VITE_FIREBASE_AUTH_DOMAIN` | **Isi dengan `<nama-proyek>.vercel.app`**, lihat catatan di bawah. |
+| `VITE_FIREBASE_PROJECT_ID` | `sicapai-paud` |
+| `VITE_FIREBASE_STORAGE_BUCKET` | |
+| `VITE_FIREBASE_APP_ID` | |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | |
+
+> **Kenapa `VITE_FIREBASE_AUTH_DOMAIN` diisi domain Vercel, bukan `*.firebaseapp.com`?**
+> Kode memilih auth domain begini:
+>
+> ```js
+> const authDomain = _hostname.endsWith('.run.app') ? _hostname : import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
+> ```
+>
+> Di Cloud Run, cabang pertama membuat auth berjalan lewat domain aplikasi sendiri, dan
+> `server/index.js` mem-proxy `/__/auth/*` ke Firebase. Di Vercel hostname berakhiran
+> `.vercel.app`, jadi jatuh ke cabang kedua. Mengisi variabel ini dengan domain Vercel
+> mempertahankan alur yang sama persis — dan `vercel.json` sudah merutekan `/__/auth/*`
+> ke fungsi serverless, sehingga proxy-nya tetap terpakai. **Tidak ada perubahan kode.**
+
 > **Jangan** set `PORT` di Vercel — platformnya yang mengatur.
 > **Jangan** pakai `GOOGLE_APPLICATION_CREDENTIALS` (Opsi A) di Vercel; itu menunjuk ke berkas
 > yang tidak ikut ter-deploy. Pakai `FIREBASE_SERVICE_ACCOUNT`.
