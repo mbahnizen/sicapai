@@ -27,3 +27,12 @@ npm-debug.log*
 # ter-commit (sudah diperiksa), dan baris ini yang menjaganya tetap begitu.
 server/service-account.json
 service-account.json
+.vercel
+.env*
+
+# Firestore backups — contain student PII, never commit.
+backups/
+
+# Any service account key, whatever it is named.
+*service-account*.json
+*-sa.json
