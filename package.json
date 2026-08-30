@@ -9,7 +9,8 @@
     "dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "test": "vitest run"
   },
   "keywords": [
     "sicapai",
@@ -33,6 +34,7 @@
     "docx": "^9.6.1",
     "firebase": "^12.13.0",
     "vite": "^8.0.12",
+    "vitest": "^4.1.11",
     "xlsx": "^0.18.5"
   }
 }
