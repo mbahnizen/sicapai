@@ -21,3 +21,13 @@
 - **Connector auto-injection regex (`src/services/template-engine.js:62`):** `/^(seperti|serta|dan)\s/i` properly checks the first selected sub-indicator across all 44 `has_sub` indicators and only prepends `'seperti '` when a leading conjunction is missing.
 - **Modulo connector cycling in `buildParagraph` (`src/services/template-engine.js:112`):** Paragraphs with 3 to 6+ sentences cycle through the 5 transition phrases deterministically using `(i - 1) % connectors.length`.
 - **Null / empty state handling across narrative generators (`src/services/template-engine.js:215, 247, 280`):** `generateNilaiPlusNarrative`, `generateSaranNarrative`, and `generateKokurikulerNarrative` safely return empty string `''` when given `null`, `undefined`, or empty selection maps.
+
+## Test Suite Gaps (Task 03 Retrospective)
+
+### Task 03 test suite reported 104 passed while leaving core defect fixes unpinned
+
+**Observation:** The test suite in Task 03 reported 104 green tests, yet mutation testing revealed that core fixes could be reverted with zero test failures:
+1. **Defect B UI logic was untested:** `tests/template-engine.test.js` duplicated the selection group clearing logic inside the test body instead of executing `checklist.js`. Consequently, reverting `src/components/report/checklist.js` to the destructive `sel.subs = [subId]` bug or rendering all sub-indicators as radios left all 104 tests passing.
+2. **Religion isolation guard was unpinned:** The test verifying that non-religion indicators are unaffected used `kitab-suci` (`has_sub: false`), which never entered the sub-indicator filtering branch. Removing the `indikator.id === 'gerakan-ibadah'` guard entirely (applying religion filtering across all indicators) left the suite green.
+3. **Case-insensitive religion handling was unpinned:** No test passed uppercase or mixed-case religion strings (`"Kristen"`, `"ISLAM"`), allowing `.toLowerCase()` removal to survive undetected.
+**Remediation (Task 04):** Extracted selection logic into pure, testable function `toggleSubSelection` in `src/services/template-engine.js`, added JSDOM-driven component integration tests in `tests/checklist.test.js` dispatching real DOM events to `renderChecklist`, and added explicit tests for capitalized religions and `has_sub` non-religion indicators.

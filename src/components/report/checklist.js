@@ -6,7 +6,7 @@
  * Level 4: Sub-Indikator (nested checkbox/radio)
  */
 
-import { getChecklistStructure, countSelected, getKokurikulerData, countKokurikulerSelected, getNilaiPlusData, getSaranData } from '../../services/template-engine.js';
+import { getChecklistStructure, countSelected, getKokurikulerData, countKokurikulerSelected, getNilaiPlusData, getSaranData, toggleSubSelection } from '../../services/template-engine.js';
 
 /**
  * Render the checklist UI
@@ -386,28 +386,18 @@ function setupCheckboxes(container, selectedIndicators, onSelectionChange, struc
       const sel = selectedIndicators[parentId];
       if (!sel) return;
 
-      if (!Array.isArray(sel.subs)) {
-        sel.subs = [];
-      }
-
-      if (input.type === 'radio') {
-        const group = input.dataset.exclusiveGroup;
-        const groupInputs = container.querySelectorAll(
-          `input[type="radio"][data-parent="${parentId}"][data-exclusive-group="${group}"]`
-        );
-        const groupSubIds = Array.from(groupInputs).map((el) => el.dataset.subId);
-        sel.subs = sel.subs.filter((s) => !groupSubIds.includes(s));
-        if (input.checked) {
-          sel.subs.push(subId);
-        }
-      } else {
-        if (input.checked) {
-          if (!sel.subs.includes(subId)) sel.subs.push(subId);
-        } else {
-          sel.subs = sel.subs.filter((s) => s !== subId);
+      let subIndikator = [];
+      for (const elemen of structure || []) {
+        for (const subElemen of elemen.subElemen || []) {
+          const ind = subElemen.indikator?.find((i) => i.id === parentId);
+          if (ind) {
+            subIndikator = ind.subIndikator;
+            break;
+          }
         }
       }
 
+      sel.subs = toggleSubSelection(sel.subs, subIndikator, subId, input.checked);
       onSelectionChange({ ...selectedIndicators });
     });
   });
