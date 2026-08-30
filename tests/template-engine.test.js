@@ -308,6 +308,24 @@ describe('Template Engine', () => {
         expect(initialSubs).toEqual(['ang-1-10', 'ang-tulis']);
       });
 
+      // The exclusive-group branch returns the result of filter(), so it stays pure
+      // whether or not the input was copied first. Only the ungrouped branch appends
+      // via push(), so this is the single path where dropping the defensive copy
+      // would let the caller's own array be modified.
+      it('is pure on the ungrouped branch: appending leaves the caller array untouched', () => {
+        const callerSubs = ['ang-1-10'];
+        const result = toggleSubSelection(
+          callerSubs,
+          mengenalAngkaStructure.subIndikator,
+          'ang-tulis',
+          true
+        );
+
+        expect(result).toEqual(['ang-1-10', 'ang-tulis']);
+        expect(callerSubs).toEqual(['ang-1-10']);
+        expect(result).not.toBe(callerSubs);
+      });
+
       it('treats null or undefined currentSubs as an empty array', () => {
         expect(toggleSubSelection(null, mengenalAngkaStructure.subIndikator, 'ang-1-10', true)).toEqual(['ang-1-10']);
         expect(toggleSubSelection(undefined, mengenalAngkaStructure.subIndikator, 'ang-tulis', true)).toEqual(['ang-tulis']);
