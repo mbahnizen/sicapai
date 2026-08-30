@@ -3,7 +3,7 @@
 
   <br /><br />
 
-  [![Deploy ke Cloud Run](https://github.com/mbahnizen/sicapai/actions/workflows/deploy.yml/badge.svg)](https://github.com/mbahnizen/sicapai/actions/workflows/deploy.yml)
+  [![Demo](https://img.shields.io/badge/Demo-sicapai.vercel.app-black.svg)](https://sicapai.vercel.app)
   [![Lisensi: MIT](https://img.shields.io/badge/Lisensi-MIT-blue.svg)](LICENSE)
   [![Node.js 24](https://img.shields.io/badge/Node.js-24-green.svg)](https://nodejs.org)
 
@@ -48,8 +48,8 @@ Guru PAUD/TK di Indonesia menghabiskan berjam-jam menulis narasi rapor secara ma
 | Database | Firestore (Firebase Admin SDK) |
 | Auth | Firebase Authentication (Google OAuth) |
 | AI | Google Gemini 2.5 Flash |
-| Hosting | Google Cloud Run (Jakarta, `asia-southeast2`) |
-| CI/CD | GitHub Actions + Workload Identity Federation |
+| Hosting | Vercel (serverless functions + static) — [sicapai.vercel.app](https://sicapai.vercel.app) |
+| CI/CD | Vercel Git integration (auto-deploy dari `main`) |
 
 ---
 
@@ -96,7 +96,9 @@ Frontend berjalan di `http://localhost:5173`, backend di `http://localhost:3000`
 | `GEMINI_API_KEY` | API key Gemini dari Google AI Studio |
 | `FIREBASE_PROJECT_ID` | Project ID Firebase |
 | `GOOGLE_APPLICATION_CREDENTIALS` | Path ke `service-account.json` (dev lokal) |
-| `FIREBASE_SERVICE_ACCOUNT` | Isi JSON service account (Cloud Run, satu baris) |
+| `FIREBASE_SERVICE_ACCOUNT` | Isi JSON service account (produksi). **`project_id` harus `sicapai-paud`** — lihat catatan di bawah |
+| `FIREBASE_AUTH_HOSTNAME` | Host tujuan proxy `/__/auth/*`, default `sicapai-paud-a293b.firebaseapp.com` |
+| `VITE_FIREBASE_*` | Enam variabel frontend. Di-*bake* Vite **saat build** — mengubahnya wajib diikuti redeploy |
 | `PORT` | Port server, default `3000` |
 | `NODE_ENV` | `development` atau `production` |
 
@@ -117,15 +119,28 @@ Frontend berjalan di `http://localhost:5173`, backend di `http://localhost:3000`
 
 ## Deploy
 
-Deployment dijalankan otomatis oleh GitHub Actions setiap kali ada push ke branch `main`.
+Aplikasi berjalan di **Vercel**. Push ke `main` memicu deploy otomatis; deploy manual:
 
-Pipeline:
-1. GitHub Actions mengautentikasi ke GCP via **Workload Identity Federation** (tanpa JSON key)
-2. Docker image di-build langsung di runner GitHub Actions — variabel `VITE_FIREBASE_*` dipass sebagai `--build-arg` sehingga ter-bake ke dalam bundle Vite
-3. Image di-push ke **Artifact Registry** (`asia-southeast2`)
-4. **Cloud Run** diperbarui dengan revision baru
+```bash
+vercel --prod
+```
 
-Untuk setup awal, lihat [dokumentasi Cloud Run](https://cloud.google.com/run/docs) dan [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation).
+Vercel mem-build dengan `npm run build`, menyajikan `dist/` sebagai statis, dan menjalankan
+`api/index.js` (Express yang sama) sebagai serverless function. Routing ada di `vercel.json`.
+
+> ⚠️ **Dua hal yang paling sering menggagalkan deploy.**
+>
+> 1. **Enam `VITE_FIREBASE_*` di-*bake* saat build.** Menyimpan env var saja tidak cukup — tanpa
+>    build baru, bundel lama tetap berisi `undefined` dan aplikasi berhenti di layar loading
+>    dengan `auth/invalid-api-key`.
+> 2. **Ada dua project Firebase.** `sicapai-paud` adalah produksi; `sicapai-mbahnizen` sudah usang.
+>    Kalau `FIREBASE_SERVICE_ACCOUNT` diambil dari project yang salah, login Google tetap berhasil
+>    tetapi setiap request API gagal dengan `incorrect "aud" claim`. Penyesatnya: situs hosting
+>    `sicapai-paud.web.app` justru berada di dalam project `sicapai-mbahnizen`.
+
+Alur lama berbasis **Cloud Run + GitHub Actions** masih ada di `.github/workflows/deploy.yml`,
+tetapi workflow-nya sudah **disabled** dan billing GCP-nya mati. Berkasnya sengaja tidak dihapus
+supaya bisa diaktifkan lagi kalau perlu.
 
 ---
 

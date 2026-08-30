@@ -50,7 +50,22 @@ Isi di Vercel untuk environment **Production** (dan Preview kalau dipakai) **seb
 deploy pertama; kalau ditambahkan belakangan, wajib redeploy karena nilainya sudah
 ter-inline ke bundel.
 
-Ambil semuanya dari `.env` lokal:
+> ⚠️ **BACA DULU — ada dua project Firebase.**
+>
+> `sicapai-paud` adalah **produksi** (124 siswa, 50 rapor, data s/d 30 Jun 2026).
+> `sicapai-mbahnizen` sudah **usang** (11 siswa, berhenti 16 Mei 2026).
+>
+> `.env` lokal dan `server/service-account.json` menunjuk **`sicapai-mbahnizen`**, jadi
+> **jangan** menyalin `FIREBASE_SERVICE_ACCOUNT` dari sana. Ambil kunci baru dari Firebase Console
+> project `sicapai-paud` → Project settings → Service accounts → Generate new private key.
+>
+> Kalau salah project, gejalanya menipu: login Google **berhasil**, halaman termuat normal, tetapi
+> setiap request API gagal `incorrect "aud" claim`. Penyesat terbesarnya: situs hosting
+> `sicapai-paud.web.app` justru berada di dalam project `sicapai-mbahnizen` — nama situs tidak
+> sama dengan nama project.
+
+Enam `VITE_FIREBASE_*` diambil dari `firebase apps:sdkconfig WEB --project sicapai-paud`
+(bukan dari `.env` lokal, yang tidak memuatnya):
 
 | Variable | Catatan |
 | :--- | :--- |
