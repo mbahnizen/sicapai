@@ -195,12 +195,14 @@
               {
                 "id": "ang-1-10",
                 "label": "Mengenal angka 1 sampai 10",
-                "template": "seperti mengenal dan menyebut angka 1 sampai 10"
+                "template": "seperti mengenal dan menyebut angka 1 sampai 10",
+                "exclusive_group": "range-angka"
               },
               {
                 "id": "ang-1-20",
                 "label": "Mengenal angka 1 sampai 20",
-                "template": "seperti mengenal dan menyebut angka 1 sampai 20"
+                "template": "seperti mengenal dan menyebut angka 1 sampai 20",
+                "exclusive_group": "range-angka"
               },
               {
                 "id": "ang-tulis",

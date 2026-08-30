@@ -158,21 +158,21 @@ export function getChecklistStructure(religion = null) {
           }
         }
 
-        // Mutually exclusive sub-indicators (ang-1-10 / ang-1-20)
-        const isMutuallyExclusive =
-          ind.id === 'mengenal-angka' &&
-          subIndikator.some((s) => s.id === 'ang-1-10' || s.id === 'ang-1-20');
-
         return {
           id: ind.id,
           label: ind.label,
           hasSub: ind.has_sub,
-          isMutuallyExclusive,
           levelTemplates: ind.level_templates || {},
-          subIndikator: subIndikator.map((s) => ({
-            id: s.id,
-            label: s.label,
-          })),
+          subIndikator: subIndikator.map((s) => {
+            const item = {
+              id: s.id,
+              label: s.label,
+            };
+            if (s.exclusive_group) {
+              item.exclusiveGroup = s.exclusive_group;
+            }
+            return item;
+          }),
         };
       }),
     })),
