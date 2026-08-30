@@ -14,6 +14,15 @@ import saranData from '../data/saran.json';
 
 const kurikulumElements = [agamaData.elemen, jatiDiriData.elemen, literasiData.elemen];
 
+const RELIGION_GERAKAN_MAP = {
+  islam: 'gi-sholat',
+  kristen: 'gi-kebaktian',
+  katolik: 'gi-kebaktian',
+  hindu: 'gi-sembahyang-hindu',
+  buddha: 'gi-sembahyang-buddha',
+  konghucu: 'gi-sembahyang-konghucu',
+};
+
 /**
  * Get all curriculum elements
  * @returns {Array} array of elemen objects
@@ -52,9 +61,17 @@ export function generateTemplate(studentName, selectedIndicators, religion = nul
 
         // Sub-indicators only rendered for BSH or BSB
         if (indikator.has_sub && ['BSH', 'BSB'].includes(level) && selection.subs?.length > 0) {
-          const selectedSubs = indikator.sub_indikator.filter((sub) =>
+          let selectedSubs = indikator.sub_indikator.filter((sub) =>
             selection.subs.includes(sub.id)
           );
+
+          if (indikator.id === 'gerakan-ibadah' && religion && typeof religion === 'string') {
+            const matchId = RELIGION_GERAKAN_MAP[religion.toLowerCase()];
+            if (matchId) {
+              selectedSubs = selectedSubs.filter((sub) => sub.id === matchId);
+            }
+          }
+
           if (selectedSubs.length > 0) {
             const subParts = selectedSubs.map((sub) => sub.template);
             // Ensure first sub has a connector; JSON embeds "seperti/serta/dan" only on
@@ -134,16 +151,8 @@ export function getChecklistStructure(religion = null) {
         let subIndikator = ind.sub_indikator || [];
 
         // Filter religion-specific sub-indicators
-        if (ind.id === 'gerakan-ibadah' && religion) {
-          const religionMap = {
-            islam: 'gi-sholat',
-            kristen: 'gi-kebaktian',
-            katolik: 'gi-kebaktian',
-            hindu: 'gi-sembahyang-hindu',
-            buddha: 'gi-sembahyang-buddha',
-            konghucu: 'gi-sembahyang-konghucu',
-          };
-          const matchId = religionMap[religion.toLowerCase()];
+        if (ind.id === 'gerakan-ibadah' && religion && typeof religion === 'string') {
+          const matchId = RELIGION_GERAKAN_MAP[religion.toLowerCase()];
           if (matchId) {
             subIndikator = subIndikator.filter((s) => s.id === matchId);
           }

@@ -390,11 +390,66 @@ describe('Template Engine', () => {
         expect(result['literasi-steam']).toContain('mampu menyimak dengan seksama');
       });
 
-      it('accepts optional religion parameter without throwing or affecting template output', () => {
+      it('accepts optional religion parameter without throwing or affecting template output for non-religion indicators', () => {
         const sel = { 'kitab-suci': { level: 'BSH' } };
         const withRel = generateTemplate('Aisyah', sel, 'islam');
         const withoutRel = generateTemplate('Aisyah', sel);
         expect(withRel).toEqual(withoutRel);
+      });
+
+      it('filters out mismatched religion sub-indicators when religion is specified (e.g. Christian student with stale gi-sholat produces no sholat wording)', () => {
+        const staleSel = {
+          'gerakan-ibadah': { level: 'BSH', subs: ['gi-sholat'] },
+        };
+        const result = generateTemplate('Aisyah', staleSel, 'kristen');
+        expect(result['agama-budi-pekerti']).toBe(
+          'Ananda Aisyah mengenal dan mampu menirukan gerakan ibadah sesuai agamanya.'
+        );
+        expect(result['agama-budi-pekerti']).not.toContain('sholat');
+        expect(result['agama-budi-pekerti']).not.toContain('rukuk');
+      });
+
+      it('retains matching religion sub-indicator regardless of subs array order when multiple subs exist in selection', () => {
+        const multiSel1 = {
+          'gerakan-ibadah': { level: 'BSH', subs: ['gi-sholat', 'gi-kebaktian'] },
+        };
+        const result1 = generateTemplate('Aisyah', multiSel1, 'kristen');
+        expect(result1['agama-budi-pekerti']).toBe(
+          'Ananda Aisyah mengenal dan mampu menirukan gerakan ibadah sesuai agamanya, seperti sikap tangan saat berdoa dan menyanyikan pujian rohani.'
+        );
+        expect(result1['agama-budi-pekerti']).not.toContain('sholat');
+
+        const multiSel2 = {
+          'gerakan-ibadah': { level: 'BSH', subs: ['gi-kebaktian', 'gi-sholat'] },
+        };
+        const result2 = generateTemplate('Aisyah', multiSel2, 'kristen');
+        expect(result2['agama-budi-pekerti']).toBe(
+          'Ananda Aisyah mengenal dan mampu menirukan gerakan ibadah sesuai agamanya, seperti sikap tangan saat berdoa dan menyanyikan pujian rohani.'
+        );
+        expect(result2['agama-budi-pekerti']).not.toContain('sholat');
+      });
+
+      it('produces unchanged output with all provided subs when religion is omitted or null', () => {
+        const sel = {
+          'gerakan-ibadah': { level: 'BSH', subs: ['gi-sholat'] },
+        };
+        const withoutRel = generateTemplate('Aisyah', sel);
+        const withNull = generateTemplate('Aisyah', sel, null);
+        const expected =
+          'Ananda Aisyah mengenal dan mampu menirukan gerakan ibadah sesuai agamanya, seperti gerakan berdiri, rukuk, dan sujud dalam sholat.';
+
+        expect(withoutRel['agama-budi-pekerti']).toBe(expected);
+        expect(withNull['agama-budi-pekerti']).toBe(expected);
+      });
+
+      it('drops nothing and retains sub-indicators when religion is unrecognized or unmapped', () => {
+        const sel = {
+          'gerakan-ibadah': { level: 'BSH', subs: ['gi-sholat'] },
+        };
+        const result = generateTemplate('Aisyah', sel, 'shinto');
+        expect(result['agama-budi-pekerti']).toBe(
+          'Ananda Aisyah mengenal dan mampu menirukan gerakan ibadah sesuai agamanya, seperti gerakan berdiri, rukuk, dan sujud dalam sholat.'
+        );
       });
     });
   });
