@@ -253,6 +253,77 @@ describe('Template Engine', () => {
           'Ananda Aisyah sudah mampu melafalkan beberapa doa harian dengan baik, seperti doa sebelum tidur dan bangun tidur, serta doa untuk kedua orang tua.'
         );
       });
+
+      it('renders all four sub-indicators when ang-1-10 is selected with ang-tulis, ang-urutan, and ang-mundur', () => {
+        const result = generateTemplate('Aisyah', {
+          'mengenal-angka': {
+            level: 'BSH',
+            subs: ['ang-1-10', 'ang-tulis', 'ang-urutan', 'ang-mundur'],
+          },
+        });
+        expect(result['literasi-steam']).toBe(
+          'Ananda Aisyah sudah mengenal lambang bilangan dan konsep angka dengan baik, seperti mengenal dan menyebut angka 1 sampai 10, serta mampu menuliskan lambang angka tersebut dengan benar, serta mampu mengurutkan angka dari yang terkecil ke yang terbesar dengan tepat, serta mampu menghitung mundur dari 10 atau 20 dengan lancar.'
+        );
+      });
+
+      it('renders all four sub-indicators when ang-1-20 is selected with ang-tulis, ang-urutan, and ang-mundur', () => {
+        const result = generateTemplate('Aisyah', {
+          'mengenal-angka': {
+            level: 'BSH',
+            subs: ['ang-1-20', 'ang-tulis', 'ang-urutan', 'ang-mundur'],
+          },
+        });
+        expect(result['literasi-steam']).toBe(
+          'Ananda Aisyah sudah mengenal lambang bilangan dan konsep angka dengan baik, seperti mengenal dan menyebut angka 1 sampai 20, serta mampu menuliskan lambang angka tersebut dengan benar, serta mampu mengurutkan angka dari yang terkecil ke yang terbesar dengan tepat, serta mampu menghitung mundur dari 10 atau 20 dengan lancar.'
+        );
+      });
+
+      it('renders additive sub-indicators alone when range sub-indicators are not selected', () => {
+        const result = generateTemplate('Aisyah', {
+          'mengenal-angka': {
+            level: 'BSH',
+            subs: ['ang-tulis', 'ang-urutan'],
+          },
+        });
+        expect(result['literasi-steam']).toBe(
+          'Ananda Aisyah sudah mengenal lambang bilangan dan konsep angka dengan baik, serta mampu menuliskan lambang angka tersebut dengan benar, serta mampu mengurutkan angka dari yang terkecil ke yang terbesar dengan tepat.'
+        );
+      });
+    });
+
+    describe('Exclusive sub-indicator selection clearing logic', () => {
+      it('clears only ang-1-10 when selecting ang-1-20, leaving additive sub-indicators intact', () => {
+        const structure = getChecklistStructure();
+        const steam = structure.find((e) => e.id === 'literasi-steam');
+        const numerasi = steam.subElemen.find((s) => s.id === 'numerasi');
+        const mengenalAngka = numerasi.indikator.find((i) => i.id === 'mengenal-angka');
+
+        const selectedIndicators = {
+          'mengenal-angka': {
+            level: 'BSH',
+            subs: ['ang-1-10', 'ang-tulis', 'ang-urutan', 'ang-mundur'],
+          },
+        };
+
+        // Replicate the exclusive group clearing mechanism implemented in checklist.js:
+        const selectedRadioSub = mengenalAngka.subIndikator.find((s) => s.id === 'ang-1-20');
+        const group = selectedRadioSub.exclusiveGroup;
+        const groupSubIds = mengenalAngka.subIndikator
+          .filter((s) => s.exclusiveGroup === group)
+          .map((s) => s.id);
+
+        const sel = selectedIndicators['mengenal-angka'];
+        sel.subs = sel.subs.filter((s) => !groupSubIds.includes(s));
+        sel.subs.push('ang-1-20');
+
+        expect(sel.subs).toEqual(['ang-tulis', 'ang-urutan', 'ang-mundur', 'ang-1-20']);
+
+        // Verify narrative generation produces all 4 active sub-indicators
+        const narrative = generateTemplate('Citra', selectedIndicators);
+        expect(narrative['literasi-steam']).toBe(
+          'Ananda Citra sudah mengenal lambang bilangan dan konsep angka dengan baik, seperti mengenal dan menyebut angka 1 sampai 20, serta mampu menuliskan lambang angka tersebut dengan benar, serta mampu mengurutkan angka dari yang terkecil ke yang terbesar dengan tepat, serta mampu menghitung mundur dari 10 atau 20 dengan lancar.'
+        );
+      });
     });
 
     describe('Paragraph building and sentence transitions (buildParagraph)', () => {
@@ -477,7 +548,7 @@ describe('Template Engine', () => {
             expect(ind.id).toBeDefined();
             expect(ind.label).toBeDefined();
             expect(typeof ind.hasSub).toBe('boolean');
-            expect(typeof ind.isMutuallyExclusive).toBe('boolean');
+            expect(ind.isMutuallyExclusive).toBeUndefined();
             expect(ind.levelTemplates).toBeDefined();
             expect(Array.isArray(ind.subIndikator)).toBe(true);
 
@@ -551,27 +622,35 @@ describe('Template Engine', () => {
       });
     });
 
-    describe('Mutual exclusivity flag (and defect documentation)', () => {
-      it('sets isMutuallyExclusive: false on indicators without mutual exclusivity rules', () => {
+    describe('Sub-indicator mutual exclusivity (exclusiveGroup)', () => {
+      it('does not attach exclusiveGroup to sub-indicators without exclusivity rules', () => {
         const structure = getChecklistStructure();
         const agama = structure.find((e) => e.id === 'agama-budi-pekerti');
         const doaHarian = agama.subElemen[0].indikator.find((i) => i.id === 'doa-harian');
-        expect(doaHarian.isMutuallyExclusive).toBe(false);
+        expect(doaHarian.isMutuallyExclusive).toBeUndefined();
+        expect(doaHarian.subIndikator.every((s) => s.exclusiveGroup === undefined)).toBe(true);
       });
 
-      // BUG / DEFECT (see FINDINGS.md):
-      // getChecklistStructure flags the entire 'mengenal-angka' indicator as isMutuallyExclusive: true,
-      // rather than scoping exclusivity strictly between ang-1-10 and ang-1-20. As a result, all 5 sub-indicators
-      // (including additive skills ang-tulis, ang-urutan, ang-mundur) are treated as mutually exclusive radio buttons in UI.
-      // This test documents the current (faulty) behavior; fixing the bug will cause this test to fail.
-      it('flags mengenal-angka indicator with isMutuallyExclusive: true (documents current defect)', () => {
+      it('scopes exclusivity strictly to ang-1-10 and ang-1-20 via exclusiveGroup while leaving additive sub-indicators independent', () => {
         const structure = getChecklistStructure();
         const steam = structure.find((e) => e.id === 'literasi-steam');
         const numerasi = steam.subElemen.find((s) => s.id === 'numerasi');
         const mengenalAngka = numerasi.indikator.find((i) => i.id === 'mengenal-angka');
 
-        expect(mengenalAngka.isMutuallyExclusive).toBe(true);
+        expect(mengenalAngka.isMutuallyExclusive).toBeUndefined();
         expect(mengenalAngka.subIndikator).toHaveLength(5);
+
+        const ang1_10 = mengenalAngka.subIndikator.find((s) => s.id === 'ang-1-10');
+        const ang1_20 = mengenalAngka.subIndikator.find((s) => s.id === 'ang-1-20');
+        const angTulis = mengenalAngka.subIndikator.find((s) => s.id === 'ang-tulis');
+        const angUrutan = mengenalAngka.subIndikator.find((s) => s.id === 'ang-urutan');
+        const angMundur = mengenalAngka.subIndikator.find((s) => s.id === 'ang-mundur');
+
+        expect(ang1_10.exclusiveGroup).toBe('range-angka');
+        expect(ang1_20.exclusiveGroup).toBe('range-angka');
+        expect(angTulis.exclusiveGroup).toBeUndefined();
+        expect(angUrutan.exclusiveGroup).toBeUndefined();
+        expect(angMundur.exclusiveGroup).toBeUndefined();
       });
     });
   });

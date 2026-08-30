@@ -238,19 +238,25 @@ function renderIndicator(ind, selectedIndicators) {
     const showSubs = isSelected && ind.subIndikator.length > 0 &&
                      ['BSH', 'BSB'].includes(currentLevel);
 
-    const inputType = ind.isMutuallyExclusive ? 'radio' : 'checkbox';
     const subHTML = ind.subIndikator.length > 0 ? `
       <div class="check-sub-list" id="sub-list-${ind.id}" style="${showSubs ? '' : 'display:none'}">
-        ${ind.subIndikator.map((sub) => `
+        ${ind.subIndikator.map((sub) => {
+          const isRadio = Boolean(sub.exclusiveGroup);
+          const inputType = isRadio ? 'radio' : 'checkbox';
+          const nameAttr = isRadio ? `name="radio-${ind.id}-${sub.exclusiveGroup}"` : '';
+          const groupAttr = isRadio ? `data-exclusive-group="${sub.exclusiveGroup}"` : '';
+          return `
           <label class="check-item check-sub-item">
             <input type="${inputType}"
-                   name="${ind.isMutuallyExclusive ? 'radio-' + ind.id : ''}"
+                   ${nameAttr}
                    data-parent="${ind.id}"
                    data-sub-id="${sub.id}"
+                   ${groupAttr}
                    ${selectedSubs.includes(sub.id) ? 'checked' : ''} />
             <span class="check-label">${sub.label}</span>
           </label>
-        `).join('')}
+        `;
+        }).join('')}
       </div>
     ` : '';
 
@@ -380,8 +386,20 @@ function setupCheckboxes(container, selectedIndicators, onSelectionChange, struc
       const sel = selectedIndicators[parentId];
       if (!sel) return;
 
+      if (!Array.isArray(sel.subs)) {
+        sel.subs = [];
+      }
+
       if (input.type === 'radio') {
-        sel.subs = [subId];
+        const group = input.dataset.exclusiveGroup;
+        const groupInputs = container.querySelectorAll(
+          `input[type="radio"][data-parent="${parentId}"][data-exclusive-group="${group}"]`
+        );
+        const groupSubIds = Array.from(groupInputs).map((el) => el.dataset.subId);
+        sel.subs = sel.subs.filter((s) => !groupSubIds.includes(s));
+        if (input.checked) {
+          sel.subs.push(subId);
+        }
       } else {
         if (input.checked) {
           if (!sel.subs.includes(subId)) sel.subs.push(subId);
