@@ -3,6 +3,7 @@ import {
   getKurikulumData,
   generateTemplate,
   getChecklistStructure,
+  toggleSubSelection,
   countSelected,
   getNilaiPlusData,
   generateNilaiPlusNarrative,
@@ -291,38 +292,77 @@ describe('Template Engine', () => {
       });
     });
 
-    describe('Exclusive sub-indicator selection clearing logic', () => {
+    describe('toggleSubSelection', () => {
+      const mengenalAngkaStructure = getChecklistStructure()
+        .find((e) => e.id === 'literasi-steam')
+        .subElemen.find((s) => s.id === 'numerasi')
+        .indikator.find((i) => i.id === 'mengenal-angka');
+
+      it('is pure: does not mutate currentSubs or subIndikator and returns a new array', () => {
+        const initialSubs = Object.freeze(['ang-1-10', 'ang-tulis']);
+        const subIndikator = Object.freeze([...mengenalAngkaStructure.subIndikator]);
+        const result = toggleSubSelection(initialSubs, subIndikator, 'ang-1-20', true);
+
+        expect(result).not.toBe(initialSubs);
+        expect(result).toEqual(['ang-tulis', 'ang-1-20']);
+        expect(initialSubs).toEqual(['ang-1-10', 'ang-tulis']);
+      });
+
+      it('treats null or undefined currentSubs as an empty array', () => {
+        expect(toggleSubSelection(null, mengenalAngkaStructure.subIndikator, 'ang-1-10', true)).toEqual(['ang-1-10']);
+        expect(toggleSubSelection(undefined, mengenalAngkaStructure.subIndikator, 'ang-tulis', true)).toEqual(['ang-tulis']);
+        expect(toggleSubSelection(null, mengenalAngkaStructure.subIndikator, 'ang-1-10', false)).toEqual([]);
+      });
+
       it('clears only ang-1-10 when selecting ang-1-20, leaving additive sub-indicators intact', () => {
-        const structure = getChecklistStructure();
-        const steam = structure.find((e) => e.id === 'literasi-steam');
-        const numerasi = steam.subElemen.find((s) => s.id === 'numerasi');
-        const mengenalAngka = numerasi.indikator.find((i) => i.id === 'mengenal-angka');
+        const currentSubs = ['ang-1-10', 'ang-tulis', 'ang-urutan', 'ang-mundur'];
+        const updatedSubs = toggleSubSelection(currentSubs, mengenalAngkaStructure.subIndikator, 'ang-1-20', true);
 
-        const selectedIndicators = {
-          'mengenal-angka': {
-            level: 'BSH',
-            subs: ['ang-1-10', 'ang-tulis', 'ang-urutan', 'ang-mundur'],
-          },
-        };
-
-        // Replicate the exclusive group clearing mechanism implemented in checklist.js:
-        const selectedRadioSub = mengenalAngka.subIndikator.find((s) => s.id === 'ang-1-20');
-        const group = selectedRadioSub.exclusiveGroup;
-        const groupSubIds = mengenalAngka.subIndikator
-          .filter((s) => s.exclusiveGroup === group)
-          .map((s) => s.id);
-
-        const sel = selectedIndicators['mengenal-angka'];
-        sel.subs = sel.subs.filter((s) => !groupSubIds.includes(s));
-        sel.subs.push('ang-1-20');
-
-        expect(sel.subs).toEqual(['ang-tulis', 'ang-urutan', 'ang-mundur', 'ang-1-20']);
+        expect(updatedSubs).toEqual(['ang-tulis', 'ang-urutan', 'ang-mundur', 'ang-1-20']);
 
         // Verify narrative generation produces all 4 active sub-indicators
-        const narrative = generateTemplate('Citra', selectedIndicators);
+        const narrative = generateTemplate('Citra', {
+          'mengenal-angka': { level: 'BSH', subs: updatedSubs },
+        });
         expect(narrative['literasi-steam']).toBe(
           'Ananda Citra sudah mengenal lambang bilangan dan konsep angka dengan baik, seperti mengenal dan menyebut angka 1 sampai 20, serta mampu menuliskan lambang angka tersebut dengan benar, serta mampu mengurutkan angka dari yang terkecil ke yang terbesar dengan tepat, serta mampu menghitung mundur dari 10 atau 20 dengan lancar.'
         );
+      });
+
+      it('clears exclusive sub-indicator when checked is false', () => {
+        const currentSubs = ['ang-1-10', 'ang-tulis'];
+        const updatedSubs = toggleSubSelection(currentSubs, mengenalAngkaStructure.subIndikator, 'ang-1-10', false);
+        expect(updatedSubs).toEqual(['ang-tulis']);
+      });
+
+      it('performs plain toggle for sub-indicators without an exclusiveGroup', () => {
+        const currentSubs = ['ang-1-10'];
+        const withTulis = toggleSubSelection(currentSubs, mengenalAngkaStructure.subIndikator, 'ang-tulis', true);
+        expect(withTulis).toEqual(['ang-1-10', 'ang-tulis']);
+
+        const withoutTulis = toggleSubSelection(withTulis, mengenalAngkaStructure.subIndikator, 'ang-tulis', false);
+        expect(withoutTulis).toEqual(['ang-1-10']);
+      });
+
+      it('does not produce duplicates when adding an already present sub-indicator', () => {
+        const currentSubs = ['ang-1-10', 'ang-tulis'];
+        const result = toggleSubSelection(currentSubs, mengenalAngkaStructure.subIndikator, 'ang-tulis', true);
+        expect(result).toEqual(['ang-1-10', 'ang-tulis']);
+      });
+
+      it('preserves relative order of untouched sub-indicators and appends newly selected at the end', () => {
+        const currentSubs = ['ang-urutan', 'ang-1-10', 'ang-mundur', 'ang-tulis'];
+        const result = toggleSubSelection(currentSubs, mengenalAngkaStructure.subIndikator, 'ang-1-20', true);
+        expect(result).toEqual(['ang-urutan', 'ang-mundur', 'ang-tulis', 'ang-1-20']);
+      });
+
+      it('falls back to plain toggle when subId is not found in subIndikator array', () => {
+        const currentSubs = ['ang-1-10'];
+        const added = toggleSubSelection(currentSubs, mengenalAngkaStructure.subIndikator, 'nonexistent-sub', true);
+        expect(added).toEqual(['ang-1-10', 'nonexistent-sub']);
+
+        const removed = toggleSubSelection(added, mengenalAngkaStructure.subIndikator, 'nonexistent-sub', false);
+        expect(removed).toEqual(['ang-1-10']);
       });
     });
 
@@ -521,6 +561,44 @@ describe('Template Engine', () => {
         expect(result['agama-budi-pekerti']).toBe(
           'Ananda Aisyah mengenal dan mampu menirukan gerakan ibadah sesuai agamanya, seperti gerakan berdiri, rukuk, dan sujud dalam sholat.'
         );
+      });
+
+      it('handles capitalized or mixed-case religion strings consistently (e.g. "Kristen", "ISLAM")', () => {
+        const staleSel = {
+          'gerakan-ibadah': { level: 'BSH', subs: ['gi-sholat', 'gi-kebaktian'] },
+        };
+        const resKristen = generateTemplate('Aisyah', staleSel, 'Kristen');
+        expect(resKristen['agama-budi-pekerti']).toBe(
+          'Ananda Aisyah mengenal dan mampu menirukan gerakan ibadah sesuai agamanya, seperti sikap tangan saat berdoa dan menyanyikan pujian rohani.'
+        );
+        expect(resKristen['agama-budi-pekerti']).not.toContain('sholat');
+
+        const resIslam = generateTemplate('Aisyah', staleSel, 'ISLAM');
+        expect(resIslam['agama-budi-pekerti']).toBe(
+          'Ananda Aisyah mengenal dan mampu menirukan gerakan ibadah sesuai agamanya, seperti gerakan berdiri, rukuk, dan sujud dalam sholat.'
+        );
+        expect(resIslam['agama-budi-pekerti']).not.toContain('kebaktian');
+      });
+
+      it('produces byte-identical output for indicators with sub-indicators that are not gerakan-ibadah regardless of religion parameter', () => {
+        const sel = {
+          'mengenal-angka': {
+            level: 'BSH',
+            subs: ['ang-1-10', 'ang-tulis', 'ang-urutan'],
+          },
+          'doa-harian': {
+            level: 'BSH',
+            subs: ['doa-makan', 'doa-tidur'],
+          },
+        };
+        const resIslam = generateTemplate('Aisyah', sel, 'islam');
+        const resKristen = generateTemplate('Aisyah', sel, 'kristen');
+        const resNull = generateTemplate('Aisyah', sel, null);
+
+        expect(resIslam['literasi-steam']).toBe(resNull['literasi-steam']);
+        expect(resKristen['literasi-steam']).toBe(resNull['literasi-steam']);
+        expect(resIslam['agama-budi-pekerti']).toBe(resNull['agama-budi-pekerti']);
+        expect(resKristen['agama-budi-pekerti']).toBe(resNull['agama-budi-pekerti']);
       });
     });
   });

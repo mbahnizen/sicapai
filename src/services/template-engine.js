@@ -180,6 +180,42 @@ export function getChecklistStructure(religion = null) {
 }
 
 /**
+ * Toggle a sub-indicator selection while respecting exclusive groups
+ *
+ * @param {Array<string>|null|undefined} currentSubs - Array of currently selected sub-indicator IDs
+ * @param {Array<object>} subIndikator - Array of sub-indicator definitions from curriculum structure
+ * @param {string} subId - The sub-indicator ID being toggled
+ * @param {boolean} checked - Whether the sub-indicator is being checked or unchecked
+ * @returns {Array<string>} New array with updated selections
+ */
+export function toggleSubSelection(currentSubs, subIndikator, subId, checked) {
+  const subs = Array.isArray(currentSubs) ? [...currentSubs] : [];
+  const targetSub = Array.isArray(subIndikator)
+    ? subIndikator.find((s) => s.id === subId)
+    : null;
+
+  if (targetSub && targetSub.exclusiveGroup) {
+    const groupSubIds = subIndikator
+      .filter((s) => s.exclusiveGroup === targetSub.exclusiveGroup)
+      .map((s) => s.id);
+    const filtered = subs.filter((id) => !groupSubIds.includes(id));
+    if (checked && !filtered.includes(subId)) {
+      filtered.push(subId);
+    }
+    return filtered;
+  }
+
+  if (checked) {
+    if (!subs.includes(subId)) {
+      subs.push(subId);
+    }
+    return subs;
+  }
+
+  return subs.filter((id) => id !== subId);
+}
+
+/**
  * Count selected indicators
  * @param {object} selectedIndicators - The selection map (v2 format)
  * @returns {{ total: number, byElement: object }}
