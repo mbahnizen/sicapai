@@ -62,7 +62,9 @@ app.use(helmet({
         "https://accounts.google.com",
         "https://apis.google.com",
       ],
-      frameSrc: ["'self'", "https://accounts.google.com", "https://sicapai-paud-a293b.firebaseapp.com"],
+      // Derived from FIREBASE_AUTH_HOSTNAME so the CSP can never drift away from
+      // the project the auth proxy actually forwards to.
+      frameSrc: ["'self'", "https://accounts.google.com", `https://${FIREBASE_AUTH_HOSTNAME}`],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
     },
